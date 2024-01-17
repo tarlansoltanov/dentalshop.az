@@ -1,9 +1,5 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap";
 
-@charset "UTF-8" a {
-  color: #000
-}
-
 a {
   color: #000
 }
@@ -394,11 +390,11 @@ header#header {
   border-radius: 5px
 }
 
-#navigation .category-level-1>ul>li.active>a {
+#navigation .category-level-1>ul>li:hover>a {
   color: #d81b60 !important
 }
 
-#navigation .category-level-1>ul>li.active>.category-level-2 {
+#navigation .category-level-1>ul>li:hover>.category-level-2 {
   display: block
 }
 
@@ -820,7 +816,7 @@ header#header {
 .showcase .showcase-content .showcase-title a {
   overflow: hidden;
   display: block;
-  height: calc((var(--font-size-18) + 6px) *);
+  height: calc((var(--font-size-18) + 6px));
   overflow: hidden;
   line-height: calc(var(--font-size-18) + 6px);
   font-size: var(--font-size-18);
