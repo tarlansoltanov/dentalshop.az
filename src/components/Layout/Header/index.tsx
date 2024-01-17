@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 // Assets
 import { LogoPNG } from "@/assets/images";
 
+// Helpers
+import { toggleMobileNavigation } from "@/helpers";
+
 // Actions
 import { getCategories } from "@/store/actions";
 
@@ -16,8 +19,8 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    if (items == null) dispatch(getCategories());
+  }, [dispatch, items]);
 
   return (
     <React.Fragment>
@@ -28,6 +31,21 @@ const Header = () => {
               {/* Logo */}
               <div className="col col-xl-3 order-1">
                 <div className="header-mobile-left d-flex align-items-center">
+                  <div className="toggle-bar">
+                    <a href="#" onClick={toggleMobileNavigation}>
+                      <svg
+                        width="36"
+                        height="36"
+                        viewBox="0 0 36 36"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M10.584 26.001C10.4269 25.9946 10.2786 25.928 10.1697 25.8149C10.0608 25.7019 10 25.5512 10 25.3945C10 25.2378 10.0608 25.0871 10.1697 24.9741C10.2786 24.861 10.4269 24.7944 10.584 24.788H25.416C25.5731 24.7944 25.7214 24.861 25.8303 24.9741C25.9392 25.0871 26 25.2378 26 25.3945C26 25.5512 25.9392 25.7019 25.8303 25.8149C25.7214 25.928 25.5731 25.9946 25.416 26.001H10.584ZM10.584 18.601C10.4269 18.5946 10.2786 18.528 10.1697 18.4149C10.0608 18.3019 10 18.1512 10 17.9945C10 17.8378 10.0608 17.6871 10.1697 17.5741C10.2786 17.461 10.4269 17.3944 10.584 17.388H25.416C25.5731 17.3944 25.7214 17.461 25.8303 17.5741C25.9392 17.6871 26 17.8378 26 17.9945C26 18.1512 25.9392 18.3019 25.8303 18.4149C25.7214 18.528 25.5731 18.5946 25.416 18.601H10.584ZM10.584 11.213C10.4269 11.2066 10.2786 11.14 10.1697 11.0269C10.0608 10.9139 10 10.7632 10 10.6065C10 10.4498 10.0608 10.2991 10.1697 10.1861C10.2786 10.073 10.4269 10.0064 10.584 10H25.416C25.5731 10.0064 25.7214 10.073 25.8303 10.1861C25.9392 10.2991 26 10.4498 26 10.6065C26 10.7632 25.9392 10.9139 25.8303 11.0269C25.7214 11.14 25.5731 11.2066 25.416 11.213H10.584Z"
+                          fill="#110F21"></path>
+                      </svg>
+                    </a>
+                  </div>
+
                   <div className="logo">
                     <a href="#" aria-label="Logo">
                       <img src={LogoPNG} alt="Logo" />

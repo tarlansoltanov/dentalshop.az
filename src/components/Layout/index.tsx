@@ -2,6 +2,7 @@ import React from "react";
 
 // Layout components
 import Header from "./Header";
+import MobileNavigation from "./MobileNavigation";
 
 interface Props {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ const Layout = ({ children }: Props) => {
     <React.Fragment>
       <Header />
       {children}
+      <MobileNavigation />
     </React.Fragment>
   );
 };
