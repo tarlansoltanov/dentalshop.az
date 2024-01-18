@@ -13,6 +13,9 @@ import {
   NewsletterIconSVG,
 } from "@/assets/images";
 
+// Components
+import Copyright from "@/components/Copyright";
+
 const Footer = () => {
   return (
     <React.Fragment>
@@ -202,12 +205,7 @@ const Footer = () => {
         </div>
       </footer>
 
-      <div id="codeshift">
-        <a href="https://www.codeshift.az" target="_blank" title="CodeShift" rel="noopener">
-          CodeShift<sup>®</sup>
-        </a>{" "}
-        şirkəti tərəfindən hazırlanmışdır.
-      </div>
+      <Copyright />
     </React.Fragment>
   );
 };
