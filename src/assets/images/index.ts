@@ -9,6 +9,8 @@ import TwitterIconSVG from "./icons/twitter.svg";
 import WhatsappIconSVG from "./icons/whatsapp.svg";
 import YoutubeIconSVG from "./icons/youtube.svg";
 import NewsletterIconSVG from "./icons/newsletter.svg";
+import SearchIconSVG from "./icons/search.svg";
+import MenuIconSVG from "./icons/menu.svg";
 
 export {
   LogoPNG,
@@ -20,4 +22,6 @@ export {
   WhatsappIconSVG,
   YoutubeIconSVG,
   NewsletterIconSVG,
+  SearchIconSVG,
+  MenuIconSVG,
 };
