@@ -4,6 +4,7 @@ import React from "react";
 import Header from "./Header";
 import MobileNavigation from "./MobileNavigation";
 import Footer from "./Footer";
+import WhatsappOrder from "./WhatsappOrder";
 
 interface Props {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ const Layout = ({ children }: Props) => {
     <React.Fragment>
       <Header />
       {children}
+      <WhatsappOrder />
       <MobileNavigation />
       <Footer />
     </React.Fragment>
