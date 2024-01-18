@@ -5200,44 +5200,6 @@
   width: auto
 }
 
-@font-face {
-  font-family: "font awesome 5 brands";
-  font-style: normal;
-  font-weight: 400;
-  src: url(../font/fontawesome/fa-brands-400.eot);
-  src: url(../font/fontawesome/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(../font/fontawesome/fa-brands-400.woff2) format("woff2"), url(../font/fontawesome/fa-brands-400.woff) format("woff"), url(../font/fontawesome/fa-brands-400.ttf) format("truetype"), url(../font/fontawesome/fa-brands-400.svg#fontawesome) format("svg")
-}
-
-.fab {
-  font-family: "font awesome 5 brands"
-}
-
-@font-face {
-  font-family: "font awesome 5 free";
-  font-style: normal;
-  font-weight: 400;
-  src: url(../font/fontawesome/fa-regular-400.eot);
-  src: url(../font/fontawesome/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(../font/fontawesome/fa-regular-400.woff2) format("woff2"), url(../font/fontawesome/fa-regular-400.woff) format("woff"), url(../font/fontawesome/fa-regular-400.ttf) format("truetype"), url(../font/fontawesome/fa-regular-400.svg#fontawesome) format("svg")
-}
-
-.far {
-  font-family: "font awesome 5 free";
-  font-weight: 400
-}
-
-@font-face {
-  font-family: "font awesome 5 free";
-  font-style: normal;
-  font-weight: 900;
-  src: url(../font/fontawesome/fa-solid-900.eot);
-  src: url(../font/fontawesome/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(../font/fontawesome/fa-solid-900.woff2) format("woff2"), url(../font/fontawesome/fa-solid-900.woff) format("woff"), url(../font/fontawesome/fa-solid-900.ttf) format("truetype"), url(../font/fontawesome/fa-solid-900.svg#fontawesome) format("svg")
-}
-
-.fa,
-.fas {
-  font-family: "font awesome 5 free";
-  font-weight: 900
-}
 
 :root {
   --blue: #007bff;
