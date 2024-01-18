@@ -4,4 +4,7 @@ import Home from "./Home";
 // Login
 import Login from "./Login";
 
-export { Home, Login };
+// Register
+import Register from "./Register";
+
+export { Home, Login, Register };

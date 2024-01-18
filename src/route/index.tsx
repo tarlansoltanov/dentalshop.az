@@ -6,6 +6,9 @@ const publicRoutes = [
 
   // Login
   { path: "/auth/login", component: <Pages.Login /> },
+
+  // Register
+  { path: "/auth/register", component: <Pages.Register /> },
 ];
 
 export { publicRoutes };
