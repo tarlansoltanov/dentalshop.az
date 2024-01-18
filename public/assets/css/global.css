@@ -25766,16 +25766,16 @@ body.checkout-page-body.dark #checkout-footer .checkout-page-footer-links ul li 
   color: #fff
 }
 
-body.checkout-page-body.dark #ideasoft {
+body.checkout-page-body.dark #codeshift {
   color: #fff;
   background: #000
 }
 
-body.checkout-page-body.dark #ideasoft a:first-child {
+body.checkout-page-body.dark #codeshift a:first-child {
   color: #fff
 }
 
-body.checkout-page-body.dark #ideasoft a:last-child {
+body.checkout-page-body.dark #codeshift a:last-child {
   color: #fff
 }
 
@@ -27110,18 +27110,18 @@ h6,
   vertical-align: middle
 }
 
-#ideasoft {
+#codeshift {
   text-align: center;
   padding: .5rem 0;
   font-size: 1.2rem;
   color: #4b4b4b
 }
 
-#ideasoft a:first-child {
+#codeshift a:first-child {
   color: #060
 }
 
-#ideasoft a:last-child {
+#codeshift a:last-child {
   color: #036
 }
 
