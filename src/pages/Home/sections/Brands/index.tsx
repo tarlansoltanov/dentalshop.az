@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
 // Actions
-import { getMainBrands } from "@/store/actions";
+import { getBrands } from "@/store/actions";
 
 const Brands = () => {
-  const brands = useSelector((state: RootState) => state.brands.mainItems);
+  const brands = useSelector((state: RootState) => state.brands.items);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (brands === null) dispatch(getMainBrands());
-  }, [dispatch]);
+    if (brands === null) dispatch(getBrands({ is_main: true, limit: 6 }));
+  }, []);
 
   return (
     <section className="container">

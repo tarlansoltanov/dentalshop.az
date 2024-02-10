@@ -20,7 +20,7 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (items == null) dispatch(getCategories());
+    if (items == null) dispatch(getCategories({ limit: "all" }));
   }, [dispatch, items]);
 
   return (

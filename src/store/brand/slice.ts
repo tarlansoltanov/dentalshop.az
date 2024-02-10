@@ -7,7 +7,7 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { Brand } from "@/types";
 
 // Actions
-import { getBrands, getMainBrands } from "./actions";
+import { getBrands } from "./actions";
 
 interface StateProps {
   status: {
@@ -17,7 +17,6 @@ interface StateProps {
   };
   errors: any;
   items: Brand[] | null;
-  mainItems: Brand[] | null;
 }
 
 const initialState: StateProps = {
@@ -28,7 +27,6 @@ const initialState: StateProps = {
   },
   errors: null,
   items: null,
-  mainItems: null,
 };
 
 export const brandSlice = createSlice({
@@ -39,7 +37,6 @@ export const brandSlice = createSlice({
       state.status = { ...initialState.status };
       state.errors = initialState.errors;
       state.items = initialState.items;
-      state.mainItems = initialState.mainItems;
     },
   },
   extraReducers: (builder) => {
@@ -53,19 +50,6 @@ export const brandSlice = createSlice({
         state.items = payload;
       })
       .addCase(getBrands.rejected, (state, { payload }) => {
-        state.status = FAILURE;
-        state.errors = payload;
-      });
-    builder
-      .addCase(getMainBrands.pending, (state) => {
-        state.status = LOADING;
-        state.errors = null;
-      })
-      .addCase(getMainBrands.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
-        state.mainItems = payload;
-      })
-      .addCase(getMainBrands.rejected, (state, { payload }) => {
         state.status = FAILURE;
         state.errors = payload;
       });

@@ -16,7 +16,7 @@ const MobileNavigation = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (items == null) dispatch(getCategories());
+    if (items == null) dispatch(getCategories({ limit: "all" }));
   }, [dispatch, items]);
 
   const [selectedCategory, setSelectedCategory] = useState<number[]>([-1, -1]);
