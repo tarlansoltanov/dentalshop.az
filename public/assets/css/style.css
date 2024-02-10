@@ -1,3 +1,15 @@
+#navigation .category-level-1>ul>li:hover>a {
+  color: #d81b60 !important
+}
+
+#navigation .category-level-1>ul>li:hover>.category-level-2 {
+  display: block
+}
+
+.toggle-bar {
+  cursor: pointer;
+}
+
 #whatsapp-order {
   position: fixed;
   bottom: 10px;
