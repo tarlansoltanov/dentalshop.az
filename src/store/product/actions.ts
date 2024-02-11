@@ -29,3 +29,15 @@ export const getNewProducts = createAsyncThunk(
     }
   }
 );
+
+export const getDiscountedProducts = createAsyncThunk(
+  "product/get/discounted",
+  async (filters: ProductFilter, thunkAPI) => {
+    try {
+      const response = await API.getProducts({ ...filters, discount: true });
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);

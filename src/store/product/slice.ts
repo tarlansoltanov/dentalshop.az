@@ -7,7 +7,7 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { Product } from "@/types";
 
 // Actions
-import { getNewProducts, getProducts } from "./actions";
+import { getDiscountedProducts, getNewProducts, getProducts } from "./actions";
 
 interface StateProps {
   status: {
@@ -17,8 +17,9 @@ interface StateProps {
   };
   errors: any;
   items: Product[] | null;
-  newItems: Product[] | null;
   count: number;
+  newItems: Product[] | null;
+  discountedItems: Product[] | null;
 }
 
 const initialState: StateProps = {
@@ -29,8 +30,9 @@ const initialState: StateProps = {
   },
   errors: null,
   items: null,
-  newItems: null,
   count: 0,
+  newItems: null,
+  discountedItems: null,
 };
 
 export const productSlice = createSlice({
@@ -42,6 +44,7 @@ export const productSlice = createSlice({
       state.errors = initialState.errors;
       state.items = initialState.items;
       state.newItems = initialState.newItems;
+      state.discountedItems = initialState.discountedItems;
     },
   },
   extraReducers: (builder) => {
@@ -69,6 +72,19 @@ export const productSlice = createSlice({
         state.newItems = payload.data;
       })
       .addCase(getNewProducts.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder
+      .addCase(getDiscountedProducts.pending, (state) => {
+        state.status = LOADING;
+        state.errors = null;
+      })
+      .addCase(getDiscountedProducts.fulfilled, (state, { payload }) => {
+        state.status = SUCCESS;
+        state.discountedItems = payload.data;
+      })
+      .addCase(getDiscountedProducts.rejected, (state, { payload }) => {
         state.status = FAILURE;
         state.errors = payload;
       });
