@@ -20,7 +20,7 @@ const Discounted = () => {
   }, []);
 
   return (
-    <section className="default-products featured-products">
+    <section className="default-products featured-section">
       <div className="container">
         <Link to={"/products/discounted"}>
           <div className="products-header-outlet">Bütün Endirimli Məhsullar!</div>

@@ -116,6 +116,26 @@
   }
 }
 
+/* Home Product Sections */
+
+section.recommended-section {
+  padding-top: var(--spacer-10);
+  padding-bottom: var(--spacer-00);
+  margin-bottom: var(--spacer-00)
+}
+
+section.new-arrivals-section {
+  padding-top: var(--spacer-10);
+  padding-bottom: var(--spacer-00);
+  margin-bottom: var(--spacer-00)
+}
+
+section.featured-section {
+  padding-top: var(--spacer-10);
+  padding-bottom: var(--spacer-00);
+  margin-bottom: var(--spacer-00)
+}
+
 /* Product Card */
 .showcase-price {
   font-size: 1.6rem;

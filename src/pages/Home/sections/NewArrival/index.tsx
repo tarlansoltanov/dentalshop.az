@@ -20,7 +20,7 @@ const NewArrival = () => {
   }, []);
 
   return (
-    <section className="default-products home-products">
+    <section className="default-products new-arrivals-section">
       <div className="container">
         <Link to={"/products/new"}>
           <div className="products-header-outlet">Bütün Yeni Məhsullar!</div>

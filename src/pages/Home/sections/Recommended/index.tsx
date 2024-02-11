@@ -40,7 +40,7 @@ const Recommended = () => {
   };
 
   return (
-    <section className="default-products popular-products">
+    <section className="default-products recommended-section">
       <div className="container">
         <div className="products-header">
           <span>Tövsiyyə olunan Məhsullar</span>
