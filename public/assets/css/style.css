@@ -1,3 +1,4 @@
+/* Navbar */
 #navigation .category-level-1>ul>li:hover>a {
   color: #d81b60 !important
 }
@@ -10,6 +11,7 @@
   cursor: pointer;
 }
 
+/* Whatsapp Order Button */
 #whatsapp-order {
   position: fixed;
   bottom: 10px;
@@ -112,4 +114,18 @@
     gap: 5px;
     /* Reduce the gap between boxes on mobile */
   }
+}
+
+/* Product Card */
+.showcase-price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  height: auto !important;
+}
+
+.showcase-price.old-price {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #000000a9;
+  text-decoration: line-through;
 }
