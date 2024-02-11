@@ -41,3 +41,15 @@ export const getDiscountedProducts = createAsyncThunk(
     }
   }
 );
+
+export const getRecommendedProducts = createAsyncThunk(
+  "product/get/recommended",
+  async (filters: ProductFilter, thunkAPI) => {
+    try {
+      const response = await API.getProducts({ ...filters, is_recommended: true });
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);
