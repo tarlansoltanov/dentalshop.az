@@ -1,13 +1,16 @@
+// Brands
 import Brands from "./sections/Brands";
-import NewProducts from "./sections/NewProducts";
-import DiscountedProducts from "./sections/DiscountedProducts";
+
+// Product
+import NewArrival from "./sections/NewArrival";
+import Discounted from "./sections/Discounted";
 
 const Home = () => {
   return (
     <main id="main">
       <Brands />
-      <NewProducts />
-      <DiscountedProducts />
+      <NewArrival />
+      <Discounted />
     </main>
   );
 };

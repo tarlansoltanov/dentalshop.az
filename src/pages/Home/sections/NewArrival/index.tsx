@@ -9,25 +9,25 @@ import { AppDispatch, RootState } from "@/store";
 import ProductCard from "@/components/ProductCard";
 
 // Actions
-import { getDiscountedProducts } from "@/store/product/actions";
+import { getNewProducts } from "@/store/product/actions";
 
-const DiscountedProducts = () => {
+const NewArrival = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { discountedItems: products } = useSelector((state: RootState) => state.products);
+  const { newItems: products } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    dispatch(getDiscountedProducts({ limit: 12 }));
+    dispatch(getNewProducts({ limit: 12 }));
   }, []);
 
   return (
-    <section className="default-products home-products bg-white">
+    <section className="default-products home-products">
       <div className="container">
-        <Link to={"/products/discounted"}>
-          <div className="products-header-outlet">Bütün Endirimli Məhsullar!</div>
+        <Link to={"/products/new"}>
+          <div className="products-header-outlet">Bütün Yeni Məhsullar!</div>
         </Link>
 
         <div className="products-header">
-          <span>Endirimli Məhsullar</span>
+          <span>Yeni Məhsullar</span>
         </div>
 
         <div className="row">
@@ -42,4 +42,4 @@ const DiscountedProducts = () => {
   );
 };
 
-export default DiscountedProducts;
+export default NewArrival;
