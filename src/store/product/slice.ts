@@ -7,7 +7,7 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { Product } from "@/types";
 
 // Actions
-import { getProducts } from "./actions";
+import { getNewProducts, getProducts } from "./actions";
 
 interface StateProps {
   status: {
@@ -17,6 +17,7 @@ interface StateProps {
   };
   errors: any;
   items: Product[] | null;
+  newItems: Product[] | null;
   count: number;
 }
 
@@ -28,6 +29,7 @@ const initialState: StateProps = {
   },
   errors: null,
   items: null,
+  newItems: null,
   count: 0,
 };
 
@@ -39,6 +41,7 @@ export const productSlice = createSlice({
       state.status = { ...initialState.status };
       state.errors = initialState.errors;
       state.items = initialState.items;
+      state.newItems = initialState.newItems;
     },
   },
   extraReducers: (builder) => {
@@ -53,6 +56,19 @@ export const productSlice = createSlice({
         state.count = payload.count;
       })
       .addCase(getProducts.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder
+      .addCase(getNewProducts.pending, (state) => {
+        state.status = LOADING;
+        state.errors = null;
+      })
+      .addCase(getNewProducts.fulfilled, (state, { payload }) => {
+        state.status = SUCCESS;
+        state.newItems = payload.data;
+      })
+      .addCase(getNewProducts.rejected, (state, { payload }) => {
         state.status = FAILURE;
         state.errors = payload;
       });

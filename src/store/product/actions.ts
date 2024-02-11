@@ -17,3 +17,15 @@ export const getProducts = createAsyncThunk(
     }
   }
 );
+
+export const getNewProducts = createAsyncThunk(
+  "product/get/new",
+  async (filters: ProductFilter, thunkAPI) => {
+    try {
+      const response = await API.getProducts({ ...filters, is_new: true });
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);
