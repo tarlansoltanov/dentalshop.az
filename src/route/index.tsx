@@ -3,6 +3,9 @@ import * as Pages from "@/pages";
 const publicRoutes = [
   // Home
   { path: "/", exact: true, component: <Pages.Home /> },
+
+  // Brand
+  { path: "/brands/:slug", exact: true, component: <Pages.Brand /> },
 ];
 
 const authRoutes = [

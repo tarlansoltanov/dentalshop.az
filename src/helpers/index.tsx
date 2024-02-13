@@ -5,10 +5,17 @@ export const toggleMobileNavigation = () => {
 
 // Get URL with filter params
 export const getURLWithFilterParams = (url: string, filters: any) => {
-  let urlWithParams = url;
-  const params = new URLSearchParams(filters);
-  if (params.toString()) {
-    urlWithParams += `?${params.toString()}`;
-  }
-  return urlWithParams;
+  const params = convertToSearchParams(filters);
+
+  if (!params.toString()) return url;
+
+  return `${url}?${params.toString()}`;
+};
+
+// Convert object to URLSearchParams
+export const convertToSearchParams = (filters: any) => {
+  Object.keys(filters).forEach(
+    (key) => (filters[key] === null || filters[key] === "") && delete filters[key]
+  );
+  return new URLSearchParams(filters);
 };
