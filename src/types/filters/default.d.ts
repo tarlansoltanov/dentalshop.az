@@ -1,10 +1,10 @@
 export type Pagination = {
-  page?: number;
-  limit?: number | "all";
+  page?: number | null;
+  limit?: number | "all" | null;
 };
 
 export type Order = {
-  ordering?: string;
+  ordering?: string | null;
 };
 
 export type DefaultFilter = Pagination & Order;
