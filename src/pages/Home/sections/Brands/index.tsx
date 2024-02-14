@@ -1,27 +1,18 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store";
+// Types
+import { Brand } from "@/types";
 
-// Actions
-import { getBrands } from "@/store/actions";
+interface Props {
+  items: Brand[];
+}
 
-const Brands = () => {
-  const brands = useSelector((state: RootState) => state.brands.items);
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    if (brands === null) dispatch(getBrands({ is_main: true, limit: 6 }));
-  }, []);
-
+const Brands = ({ items }: Props) => {
   return (
     <section className="container">
       <div className="sliderc">
-        <div className="yorum-container">
-          {brands?.map((item, index) => (
+        <div className="brand-container">
+          {items.map((item, index) => (
             <Link key={index} to={`/brands/${item.slug}`} className="yorum-box">
               <div className="star-container">
                 <span className="star">★★★★★</span>

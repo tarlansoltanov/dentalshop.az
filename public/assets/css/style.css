@@ -40,7 +40,7 @@
   font-size: 2.2rem;
 }
 
-.yorum-container {
+.brand-container {
   max-width: 1560px;
   margin: 20px auto;
   /* Center the container and remove margin from left and right */
@@ -110,7 +110,7 @@
     /* Hide stars on mobile */
   }
 
-  .yorum-container {
+  .brand-container {
     gap: 5px;
     /* Reduce the gap between boxes on mobile */
   }
@@ -194,7 +194,7 @@ section.featured-section {
 
   50% {
     transform: scale(1.2);
-    background-color: #6793fb;
+    background-color: #0f697c;
     box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
   }
 
