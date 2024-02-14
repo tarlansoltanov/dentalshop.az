@@ -12,6 +12,7 @@ import {
   getNewProducts,
   getDiscountedProducts,
   getRecommendedProducts,
+  getProduct,
 } from "./actions";
 
 interface StateProps {
@@ -26,6 +27,7 @@ interface StateProps {
   newItems: Product[] | null;
   discountedItems: Product[] | null;
   recommendedItems: Product[] | null;
+  item: Product | null;
 }
 
 const initialState: StateProps = {
@@ -40,6 +42,7 @@ const initialState: StateProps = {
   newItems: null,
   discountedItems: null,
   recommendedItems: null,
+  item: null,
 };
 
 export const productSlice = createSlice({
@@ -106,6 +109,19 @@ export const productSlice = createSlice({
         state.recommendedItems = payload.data;
       })
       .addCase(getRecommendedProducts.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder
+      .addCase(getProduct.pending, (state) => {
+        state.status = LOADING;
+        state.errors = null;
+      })
+      .addCase(getProduct.fulfilled, (state, { payload }) => {
+        state.status = SUCCESS;
+        state.item = payload;
+      })
+      .addCase(getProduct.rejected, (state, { payload }) => {
         state.status = FAILURE;
         state.errors = payload;
       });

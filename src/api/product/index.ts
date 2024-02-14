@@ -16,3 +16,8 @@ export const getProducts = async (
   const { data } = await axios.get(getURLWithFilterParams(URL.PRODUCT_LIST_URL, filters));
   return { data: data.results, count: data.count };
 };
+
+export const getProduct = async (slug: string): Promise<Product> => {
+  const { data } = await axios.get(URL.PRODUCT_DETAIL_URL(slug));
+  return data;
+};
