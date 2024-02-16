@@ -5,7 +5,10 @@ const publicRoutes = [
   { path: "/", exact: true, component: <Pages.Home /> },
 
   // Brand
-  { path: "/brands/:slug", exact: true, component: <Pages.Brand /> },
+  { path: "/brands/:slug", component: <Pages.Brand /> },
+
+  // Product Details
+  { path: "/products/:slug", component: <Pages.Product /> },
 ];
 
 const authRoutes = [
