@@ -9,6 +9,7 @@ import { toggleMobileNavigation } from "@/helpers";
 
 // Actions
 import { getCategories } from "@/store/actions";
+import { Link } from "react-router-dom";
 
 const MobileNavigation = () => {
   const { items } = useSelector((state: RootState) => state.categories);
@@ -79,6 +80,14 @@ const MobileNavigation = () => {
                     </div>
 
                     <ul>
+                      <li>
+                        <Link to={`/categories/${e1.slug}`}>
+                          <div>
+                            <span>Hamısı</span>
+                          </div>
+                        </Link>
+                      </li>
+
                       {e1.children?.map((e2, i2) => (
                         <li
                           key={i2}
@@ -87,6 +96,7 @@ const MobileNavigation = () => {
                             <div>
                               <span>{e2.name}</span>
                             </div>
+
                             <i className="fas fa-chevron-right" aria-hidden="true"></i>
                           </a>
 
@@ -104,13 +114,21 @@ const MobileNavigation = () => {
                             </div>
 
                             <ul>
+                              <li>
+                                <Link to={`/categories/${e2.slug}`}>
+                                  <div>
+                                    <span>Hamısı</span>
+                                  </div>
+                                </Link>
+                              </li>
+
                               {e2.children?.map((e3, i3) => (
                                 <li key={i3}>
-                                  <a href="#">
+                                  <Link to={`/categories/${e3.slug}`}>
                                     <div>
                                       <span>{e3.name}</span>
                                     </div>
-                                  </a>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>

@@ -9,6 +9,9 @@ const publicRoutes = [
 
   // Product Details
   { path: "/products/:slug", component: <Pages.Product /> },
+
+  // Category
+  { path: "/categories/:slug", exact: true, component: <Pages.Category /> },
 ];
 
 const authRoutes = [

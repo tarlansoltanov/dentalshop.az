@@ -107,7 +107,7 @@ const Header = () => {
                       <ul>
                         {items?.map((e1, i) => (
                           <li key={i} className="has-sub-category">
-                            <Link to={`/category/${e1.slug}`} title={e1.name}>
+                            <Link to={`/categories/${e1.slug}`} title={e1.name}>
                               <span>{e1.name}</span>
                             </Link>
 
@@ -117,7 +117,7 @@ const Header = () => {
                                 <ul>
                                   {e1.children?.map((e2, i) => (
                                     <li key={i} className="has-sub-category">
-                                      <Link to={`/category/${e2.slug}`} title={e2.name}>
+                                      <Link to={`/categories/${e2.slug}`} title={e2.name}>
                                         <span>{e2.name}</span>
                                       </Link>
 
@@ -126,7 +126,7 @@ const Header = () => {
                                         <ul>
                                           {e2.children?.map((e3, i) => (
                                             <li key={i}>
-                                              <Link to={`/category/${e3.slug}`} title={e3.name}>
+                                              <Link to={`/categories/${e3.slug}`} title={e3.name}>
                                                 <span>{e3.name}</span>
                                               </Link>
                                             </li>
