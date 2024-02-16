@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
+import Loader from "@/components/Loader";
 import ProductCard from "@/components/ProductCard";
 
 // Helpers
@@ -24,7 +25,16 @@ const BrandProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { items: products, count: itemCount } = useSelector((state: RootState) => state.products);
+
+  // Category
+  const { status: statusCategory } = useSelector((state: RootState) => state.categories);
+
+  // Products
+  const {
+    items: products,
+    count: itemCount,
+    status,
+  } = useSelector((state: RootState) => state.products);
 
   // MaxPage
   const [maxPage, setMaxPage] = useState<number>(1);
@@ -45,6 +55,8 @@ const BrandProducts = () => {
   useEffect(() => {
     setMaxPage(Math.ceil(itemCount / (Number(filter.limit) || 12)));
   }, [itemCount, filter.limit]);
+
+  if (statusCategory.loading || status.loading) return <Loader />;
 
   return (
     <main id="main">
