@@ -123,7 +123,7 @@ const BrandProducts = () => {
 
               <div className="paginate-wrapper">
                 <div className="paginate">
-                  {filter.page && filter.page !== 1 && (
+                  {filter.page && filter.page > 1 && (
                     <div className="paginate-left paginate-active">
                       <a
                         href="#"
@@ -151,7 +151,7 @@ const BrandProducts = () => {
                     ))}
                   </div>
 
-                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage != 1)) && (
+                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
                     <div className="paginate-right paginate-active">
                       <a
                         href="#"
