@@ -12,6 +12,9 @@ const publicRoutes = [
 
   // Category
   { path: "/categories/:slug", exact: true, component: <Pages.Category /> },
+
+  // Search
+  { path: "/search", component: <Pages.Search /> },
 ];
 
 const authRoutes = [

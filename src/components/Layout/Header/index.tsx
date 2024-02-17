@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Redux
 import { AppDispatch, RootState } from "@/store";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogoPNG, MenuIconSVG, SearchIconSVG } from "@/assets/images";
 
 // Helpers
-import { toggleMobileNavigation } from "@/helpers";
+import { getURLWithFilterParams, toggleMobileNavigation } from "@/helpers";
 
 // Actions
 import { getCategories } from "@/store/actions";
@@ -18,6 +18,7 @@ const Header = () => {
   const { items } = useSelector((state: RootState) => state.categories);
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (items == null) dispatch(getCategories({ limit: "all" }));
@@ -47,9 +48,19 @@ const Header = () => {
               {/* Search */}
               <div className="col-xl-6 order-3 order-xl-2">
                 <div className="search">
-                  <form>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const form = e.target as any;
+                      const params = {
+                        name: form.name.value,
+                        category: form.category.value,
+                      };
+
+                      navigate(getURLWithFilterParams("/search", params));
+                    }}>
                     <select name="category" id="category">
-                      <option value="0">Kategoriyada axtar</option>
+                      <option value="">Kategoriyada axtar</option>
                       {items?.map((e, i) => (
                         <option key={i} value={e.slug}>
                           {e.name}
@@ -59,7 +70,7 @@ const Header = () => {
 
                     <input
                       type="text"
-                      name="search"
+                      name="name"
                       placeholder="Məhsul axtarışı"
                       className="auto-complete"
                     />

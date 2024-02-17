@@ -10,10 +10,13 @@ import Category from "./Category";
 // Product
 import Product from "./Product";
 
+// Search
+import Search from "./Search";
+
 // Login
 import Login from "./Login";
 
 // Register
 import Register from "./Register";
 
-export { Home, Brand, Category, Product, Login, Register };
+export { Home, Brand, Category, Product, Search, Login, Register };
