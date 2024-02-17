@@ -25,4 +25,22 @@ import Login from "./Login";
 // Register
 import Register from "./Register";
 
-export { Home, Brand, Category, Product, Search, NewArrivals, Discounted, Login, Register };
+// Not Found
+import NotFound from "./NotFound";
+
+// About
+import About from "./About";
+
+export {
+  Home,
+  Brand,
+  Category,
+  Product,
+  Search,
+  NewArrivals,
+  Discounted,
+  Login,
+  Register,
+  NotFound,
+  About,
+};

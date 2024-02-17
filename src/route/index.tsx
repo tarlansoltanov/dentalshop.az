@@ -21,6 +21,12 @@ const publicRoutes = [
 
   // Product Details
   { path: "/discounted", component: <Pages.Discounted /> },
+
+  // About
+  { path: "/about", component: <Pages.About /> },
+
+  // NotFound
+  { path: "*", component: <Pages.NotFound /> },
 ];
 
 const authRoutes = [
