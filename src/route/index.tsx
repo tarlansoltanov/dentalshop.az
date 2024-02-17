@@ -15,6 +15,12 @@ const publicRoutes = [
 
   // Search
   { path: "/search", component: <Pages.Search /> },
+
+  // New Arrivals
+  { path: "/new-arrivals", component: <Pages.NewArrivals /> },
+
+  // Product Details
+  { path: "/discounted", component: <Pages.Discounted /> },
 ];
 
 const authRoutes = [

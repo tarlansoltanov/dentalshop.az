@@ -13,10 +13,16 @@ import Product from "./Product";
 // Search
 import Search from "./Search";
 
+// New Arrivals
+import NewArrivals from "./NewArrivals";
+
+// Discounted
+import Discounted from "./Discounted";
+
 // Login
 import Login from "./Login";
 
 // Register
 import Register from "./Register";
 
-export { Home, Brand, Category, Product, Search, Login, Register };
+export { Home, Brand, Category, Product, Search, NewArrivals, Discounted, Login, Register };
