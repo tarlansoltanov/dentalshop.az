@@ -1,13 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 
 // Assets
 import { LogoPNG } from "@/assets/images";
 
-// Components
-import Copyright from "@/components/Copyright";
+// Actions
+import { login } from "@/store/auth/actions";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  // Dispatch
+  const dispatch = useDispatch<AppDispatch>();
+  const { status, isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Data
+  const [data, setData] = useState({
+    phone: "",
+    password: "",
+    remember: false,
+  });
+
+  // Submit
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(login(data));
+  };
+
+  useEffect(() => {
+    if (isAuth) navigate("/");
+  }, [isAuth, navigate]);
+
   return (
     <React.Fragment>
       <div className="user-login-page-wrapper">
@@ -23,38 +50,61 @@ const Login = () => {
               <span>Giriş</span>
             </div>
 
-            <form name="login-form">
+            {/* Error */}
+            {status.failure && (
+              <div className="alert alert-danger" role="alert">
+                Telefon nömrəsi və ya şifrə yanlışdır.
+              </div>
+            )}
+
+            {/* Form */}
+            <form name="login-form" onSubmit={handleSubmit}>
               {/* Phone */}
               <div className="user-login-page-row">
                 <input
-                  className="form-control"
                   type="text"
                   name="text"
+                  value={data.phone}
+                  className="form-control"
                   placeholder="Telefon nömrəsi"
+                  onChange={(e) => setData({ ...data, phone: e.target.value })}
+                  required
                 />
               </div>
 
               {/* Password */}
               <div className="user-login-page-row">
                 <input
-                  className="form-control"
                   type="password"
                   name="password"
+                  value={data.password}
+                  className="form-control"
                   placeholder="Şifrə"
+                  onChange={(e) => setData({ ...data, password: e.target.value })}
+                  required
                 />
               </div>
 
               <div className="user-login-page-row mb-0 d-flex align-items-center justify-content-between">
                 {/* Remember me */}
                 <div className="checkbox-custom">
-                  <input type="checkbox" name="remember" id="remember-me" value="1" />
-                  <label htmlFor="remember">Məni xatırla</label>
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    checked={data.remember}
+                    onChange={() => setData((prev) => ({ ...prev, remember: !prev.remember }))}
+                  />
+                  <label
+                    htmlFor="remember"
+                    onClick={() => setData((prev) => ({ ...prev, remember: !prev.remember }))}>
+                    Məni xatırla
+                  </label>
                 </div>
 
                 {/* Forgot Password */}
-                <div className="user-login-forgot-pass">
+                {/* <div className="user-login-forgot-pass">
                   <Link to="/auth/forgot-password">Şifrəmi Unuttum</Link>
-                </div>
+                </div> */}
               </div>
 
               <div className="user-login-page-row mb-0">
@@ -79,8 +129,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-      <Copyright />
     </React.Fragment>
   );
 };
