@@ -58,7 +58,7 @@ const MobileNavigation = () => {
             <ul>
               {items?.map((e1, i) => (
                 <li key={i} className={`has-sub-category ${i == selectedCategory[0] && "active"}`}>
-                  <a href="#" onClick={() => handleCategory(i, 0)}>
+                  <a role="button" onClick={() => handleCategory(i, 0)}>
                     <div>
                       <span>{e1.name}</span>
                     </div>
@@ -69,14 +69,14 @@ const MobileNavigation = () => {
                   {/* Level 2 */}
                   <div className="category-level-2">
                     <div className="mobile-navigation-back">
-                      <a href="#" onClick={() => handleCategory(i, 0)}>
+                      <a role="button" onClick={() => handleCategory(i, 0)}>
                         <i className="fas fa-chevron-left" aria-hidden="true"></i>
                         <span>Geri Dön</span>
                       </a>
                     </div>
 
                     <div className="mobile-navigation-parent">
-                      <a href="#">{e1.name}</a>
+                      <a role="button">{e1.name}</a>
                     </div>
 
                     <ul>
@@ -92,7 +92,7 @@ const MobileNavigation = () => {
                         <li
                           key={i2}
                           className={`has-sub-category ${i2 == selectedCategory[1] && "active"}`}>
-                          <a href="#" onClick={() => handleCategory(i2, 1)}>
+                          <a role="button" onClick={() => handleCategory(i2, 1)}>
                             <div>
                               <span>{e2.name}</span>
                             </div>
@@ -103,14 +103,14 @@ const MobileNavigation = () => {
                           {/* Level 3 */}
                           <div className="category-level-3">
                             <div className="mobile-navigation-back">
-                              <a href="#" onClick={() => handleCategory(i2, 1)}>
+                              <a role="button" onClick={() => handleCategory(i2, 1)}>
                                 <i className="fas fa-chevron-left" aria-hidden="true"></i>
                                 <span>Geri Dön</span>
                               </a>
                             </div>
 
                             <div className="mobile-navigation-parent">
-                              <a href="#">{e2.name}</a>
+                              <a role="button">{e2.name}</a>
                             </div>
 
                             <ul>

@@ -66,6 +66,10 @@ const SearchProducts = () => {
   useEffect(() => {
     document.body.classList.add("current-page-product-list-search");
     dispatch(getBrands({ limit: "all" }));
+
+    return () => {
+      document.body.classList.remove("current-page-product-list-search");
+    };
   }, []);
 
   if (statusCategory.loading || statusBrand.loading) return <Loader />;

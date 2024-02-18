@@ -17,8 +17,8 @@ import { getCategories } from "@/store/actions";
 const Header = () => {
   const { items } = useSelector((state: RootState) => state.categories);
 
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (items == null) dispatch(getCategories({ limit: "all" }));
@@ -52,6 +52,7 @@ const Header = () => {
                     onSubmit={(e) => {
                       e.preventDefault();
                       const form = e.target as any;
+
                       const params = {
                         name: form.name.value,
                         category: form.category.value,
@@ -59,7 +60,7 @@ const Header = () => {
 
                       navigate(getURLWithFilterParams("/search", params));
                     }}>
-                    <select name="category" id="category">
+                    <select name="category">
                       <option value="">Kategoriyada axtar</option>
                       {items?.map((e, i) => (
                         <option key={i} value={e.slug}>

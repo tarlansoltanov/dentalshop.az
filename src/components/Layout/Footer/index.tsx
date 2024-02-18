@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Assets
 import {
@@ -26,9 +27,9 @@ const Footer = () => {
               <div className="col-xl-5">
                 {/* Logo */}
                 <div className="footer-logo">
-                  <a href="#" aria-label="Logo">
+                  <Link to="/" aria-label="Logo">
                     <img src={LogoPNG} alt="Logo" />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Newsletter */}
@@ -64,11 +65,11 @@ const Footer = () => {
                         <div className="footer-menu-content">
                           <ul>
                             <li>
-                              <a href="#">Haqqımızda</a>
+                              <Link to="/about">Haqqımızda</Link>
                             </li>
 
                             <li>
-                              <a href="#">Əlaqə</a>
+                              <Link to="/contact">Əlaqə</Link>
                             </li>
                           </ul>
                         </div>
@@ -82,19 +83,10 @@ const Footer = () => {
                         <div className="footer-menu-content">
                           <ul>
                             <li>
-                              <a href="#">Mesafeli Satış Sözleşmesi</a>
+                              <Link to="/new-arrivals">Yeni Gələnlər</Link>
                             </li>
                             <li>
-                              <a href="#">Gizlilik ve Güvenlik</a>
-                            </li>
-                            <li>
-                              <a href="#">İptal İade Koşullari</a>
-                            </li>
-                            <li>
-                              <a href="#">Kişisel Veriler Politikası</a>
-                            </li>
-                            <li>
-                              <a href="#">Endirimlər</a>
+                              <Link to="/discounted">Endirimli Məhsullar</Link>
                             </li>
                           </ul>
                         </div>
@@ -108,16 +100,16 @@ const Footer = () => {
                         <div className="footer-menu-content">
                           <ul>
                             <li>
-                              <a href="#">Qeydiyyat</a>
+                              <Link to="/auth/login">Giriş</Link>
                             </li>
                             <li>
-                              <a href="#">Giriş</a>
+                              <Link to="/auth/register">Qeydiyyat</Link>
                             </li>
                             <li>
-                              <a href="#">Şifrəmi Unutdum</a>
+                              <Link to="/account">Mənim Hesabım</Link>
                             </li>
                             <li>
-                              <a href="#">Hesabımı Sil</a>
+                              <Link to="/account/delete">Hesabımı Sil</Link>
                             </li>
                           </ul>
                         </div>
@@ -138,43 +130,64 @@ const Footer = () => {
                 <div className="footer-social">
                   <div className="footer-social-content">
                     <div>
-                      <a className="footer-social-facebook" href="#" target="_blank">
+                      <a
+                        className="footer-social-facebook"
+                        href="https://facebook.com"
+                        target="_blank">
                         <img src={FacebookIconSVG} alt="Facebook Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-twitter" href="#" target="_blank">
+                      <a
+                        className="footer-social-twitter"
+                        href="https://twitter.com"
+                        target="_blank">
                         <img src={TwitterIconSVG} alt="Twitter Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-instagram" href="#" target="_blank">
+                      <a
+                        className="footer-social-instagram"
+                        href="https://instagram.com"
+                        target="_blank">
                         <img src={InstagramIconSVG} alt="Instagram Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-youtube" href="#" target="_blank">
+                      <a
+                        className="footer-social-youtube"
+                        href="https://youtube.com"
+                        target="_blank">
                         <img src={YoutubeIconSVG} alt="Youtube Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-pinterest" href="#" target="_blank">
+                      <a
+                        className="footer-social-pinterest"
+                        href="https://pinterest.com"
+                        target="_blank">
                         <img src={PinterestIconSVG} alt="Pinterest Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-linkedin" href="#" target="_blank">
+                      <a
+                        className="footer-social-linkedin"
+                        href="https://linkedin.com"
+                        target="_blank">
                         <img src={LinkedinIconSVG} alt="Linkedin Icon" />
                       </a>
                     </div>
 
                     <div>
-                      <a className="footer-social-whatsapp" href="#" target="_blank">
+                      <a
+                        className="footer-social-whatsapp"
+                        href="https://whatsapp.com"
+                        target="_blank">
                         <img src={WhatsappIconSVG} alt="Whatsapp Icon" />
                       </a>
                     </div>

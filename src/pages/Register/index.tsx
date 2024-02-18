@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 // Assets
 import { LogoPNG } from "@/assets/images";
 
-// Components
-import Copyright from "@/components/Copyright";
-
 const Register = () => {
   return (
     <React.Fragment>
@@ -48,6 +45,19 @@ const Register = () => {
                 </div>
               </div>
 
+              {/* Birth Date */}
+              <div className="form-group row">
+                <label className="col-12 col-lg-4 control-label">Doğum Tarixi</label>
+
+                <div className="col-12 col-lg-5">
+                  <div className="input-group input-group-right">
+                    <input type="date" className="form-control" name="birth_date" />
+                  </div>
+
+                  <span className="required">*</span>
+                </div>
+              </div>
+
               {/* Phone */}
               <div className="form-group row">
                 <label htmlFor="phone" className="col-12 col-lg-4 control-label">
@@ -61,11 +71,12 @@ const Register = () => {
                     placeholder="(5X) XXX XX XX"
                     name="phone"
                   />
+
                   <span className="required">*</span>
                 </div>
               </div>
 
-              {/* Şifrə */}
+              {/* Password */}
               <div className="form-group row">
                 <label htmlFor="password" className="col-12 col-lg-4 control-label">
                   Şifrə
@@ -75,19 +86,26 @@ const Register = () => {
                   <div className="toggle-password">
                     <i className="fa fa-eye"></i>
                   </div>
+
                   <input type="password" className="form-control" name="password" />
+
                   <span className="required">*</span>
                 </div>
               </div>
 
-              {/* Birth Date */}
+              {/* Password Confirm */}
               <div className="form-group row">
-                <label className="col-12 col-lg-4 control-label">Doğum Tarixi</label>
+                <label htmlFor="password_confirm" className="col-12 col-lg-4 control-label">
+                  Şifrə Təkrarı
+                </label>
 
                 <div className="col-12 col-lg-5">
-                  <div className="input-group input-group-right">
-                    <input type="date" className="form-control" name="birth_date" />
+                  <div className="toggle-password">
+                    <i className="fa fa-eye"></i>
                   </div>
+
+                  <input type="password" className="form-control" name="password_confirm" />
+
                   <span className="required">*</span>
                 </div>
               </div>
@@ -103,8 +121,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-
-      <Copyright />
     </React.Fragment>
   );
 };
