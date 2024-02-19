@@ -120,9 +120,12 @@ const Header = () => {
                       <div className="member-login-market">
                         <Link to="/account">
                           <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
-                          <span>
-                            {user?.first_name} {user?.last_name}
-                          </span>
+                          <span>{user ? `${user.first_name} ${user.last_name}` : "Hesabım"}</span>
+                        </Link>
+
+                        <Link to="/cart">
+                          <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;
+                          <span>Səbət</span>
                         </Link>
                       </div>
                     )}

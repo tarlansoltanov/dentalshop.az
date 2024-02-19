@@ -209,3 +209,18 @@ section.featured-section {
 .form-control.invalid {
   border-color: #dc3545;
 }
+
+.member-login-market .fa-cart-shopping {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.member-login-market {
+  display: flex;
+  column-gap: 15px;
+}
+
+[role="button"] {
+  cursor: pointer;
+}

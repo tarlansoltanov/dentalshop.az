@@ -5,6 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 
+// React Slick
+import Slider, { Settings } from "react-slick";
+
 // Components
 import NotFound from "@/pages/NotFound";
 import Loader from "@/components/Loader";
@@ -13,7 +16,6 @@ import ProductSlider from "@/components/ProductSlider";
 
 // Actions
 import { getProduct, getProducts } from "@/store/actions";
-import Slider, { Settings } from "react-slick";
 import { DistributorPNG, FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
 
 const ProductDetails = () => {
@@ -21,8 +23,12 @@ const ProductDetails = () => {
 
   const slug = location.pathname.split("/")[2];
 
-  // Data
   const dispatch = useDispatch<AppDispatch>();
+
+  // Auth
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Product Data
   const {
     item: product,
     items: recommendedItems,
@@ -225,29 +231,42 @@ const ProductDetails = () => {
             </div>
 
             <div className="user-bottom">
-              <div id="product-user-buttons">
-                <div className="product-favorite">
-                  <a
-                    href="#"
-                    className="add-my-favorites"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setFavorite(!favorite);
-                    }}>
-                    {favorite ? (
+              {isAuth && (
+                <div id="product-user-buttons">
+                  <div className="product-favorite">
+                    <a
+                      role="button"
+                      className="add-my-favorites"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFavorite(!favorite);
+                      }}>
+                      {favorite ? (
+                        <React.Fragment>
+                          <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
+                          <span>Favorilərdən Sil</span>
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
+                          <span>Favorilərə əlavə et</span>
+                        </React.Fragment>
+                      )}
+                    </a>
+                  </div>
+                  <div className="product-favorite">
+                    <a role="button" className="add-my-favorites">
                       <React.Fragment>
-                        <img src={FavoriteFilledSVG} alt="Favorilərə Əlavə Et" />
-                        <span>Favorilərdən Sil</span>
+                        <i
+                          className="fas fa-cart-plus"
+                          aria-hidden="true"
+                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                        <span>Səbətə əlavə et</span>
                       </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
-                        <span>Favorilərə əlavə et</span>
-                      </React.Fragment>
-                    )}
-                  </a>
+                    </a>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* New Arrivals */}
               <div className="entry-outlet-bottom1">
