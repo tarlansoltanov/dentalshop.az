@@ -126,7 +126,7 @@ const FreeZoneProducts = () => {
                       <div className="showcase">
                         <div className="showcase-image-container">
                           <div className="showcase-image">
-                            <Link to={`/products/${item.slug}`} title={item.title}>
+                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
                               <img className="lazyload" src={item.image} alt={item.title} />
                             </Link>
                           </div>
@@ -134,7 +134,7 @@ const FreeZoneProducts = () => {
 
                         <div className="showcase-content">
                           <div className="showcase-title">
-                            <Link to={`/products/${item.slug}`} title={item.title}>
+                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
                               {item.title}
                             </Link>
                           </div>

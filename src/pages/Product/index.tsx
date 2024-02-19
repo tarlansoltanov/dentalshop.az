@@ -218,6 +218,24 @@ const ProductDetails = () => {
                           <div className="product-list-content">{product.code}</div>
                         </div>
 
+                        {/* Price */}
+                        <div className="product-list-row">
+                          <div className="product-list-title">Qiymət</div>
+                          <div className="product-list-content">
+                            <span className="current-price">
+                              {Number(product.price) -
+                                (Number(product.price) * product.discount) / 100}
+                              <span>AZN</span>
+                            </span>
+
+                            {product.discount > 0 && (
+                              <del className="old-price">
+                                {product.price} <span>AZN</span>
+                              </del>
+                            )}
+                          </div>
+                        </div>
+
                         <div className="detay-info">
                           <ul>
                             {product?.notes.map((note, index) => (

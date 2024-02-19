@@ -22,6 +22,9 @@ import Discounted from "./Discounted";
 // FreeZone
 import FreeZone from "./FreeZone";
 
+// FreeZoneItem
+import FreeZoneItem from "./FreeZoneItem";
+
 // Login
 import Login from "./Login";
 
@@ -49,6 +52,7 @@ export {
   NewArrivals,
   Discounted,
   FreeZone,
+  FreeZoneItem,
   Login,
   Logout,
   Register,

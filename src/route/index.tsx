@@ -22,6 +22,9 @@ const publicRoutes = [
   // Free Zone
   { path: "/free-zone", component: <Pages.FreeZone /> },
 
+  // Free Zone Item
+  { path: "/free-zone/:slug", component: <Pages.FreeZoneItem /> },
+
   // Product Details
   { path: "/discounted", component: <Pages.Discounted /> },
 
