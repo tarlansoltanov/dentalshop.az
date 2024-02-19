@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { CartItem, User } from "@/types";
+import { CartItem, Order, User } from "@/types";
 
 // Actions
 import {
@@ -15,6 +15,7 @@ import {
   updateAccount,
   removeFromCart,
   checkDiscount,
+  getOrders,
 } from "./actions";
 
 interface StateProps {
@@ -28,6 +29,7 @@ interface StateProps {
   user: User | null;
   cartItems: CartItem[] | null;
   discount: number;
+  orders: Order[] | null;
 }
 
 const initialState: StateProps = {
@@ -41,6 +43,7 @@ const initialState: StateProps = {
   user: null,
   cartItems: null,
   discount: 0,
+  orders: null,
 };
 
 export const accountSlice = createSlice({
@@ -162,6 +165,19 @@ export const accountSlice = createSlice({
       })
       .addCase(checkDiscount.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: checkDiscount.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(getOrders.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getOrders.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getOrders.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getOrders.typePrefix };
+        state.orders = payload;
+      })
+      .addCase(getOrders.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getOrders.typePrefix };
         state.errors = payload;
       });
   },

@@ -40,6 +40,9 @@ import NotFound from "./NotFound";
 // About
 import About from "./About";
 
+// Orders
+import Orders from "./Orders";
+
 // Cart
 import Cart from "./Cart";
 
@@ -58,5 +61,6 @@ export {
   Register,
   NotFound,
   About,
+  Orders,
   Cart,
 };

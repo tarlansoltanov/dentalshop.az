@@ -111,6 +111,9 @@ const Footer = () => {
                             {isAuth ? (
                               <React.Fragment>
                                 <li>
+                                  <Link to="/orders">Mənim Sifarişlərim</Link>
+                                </li>
+                                <li>
                                   <Link to="/account">Mənim Hesabım</Link>
                                 </li>
                                 <li>

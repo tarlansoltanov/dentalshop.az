@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+// Helpers
+import { getFormData } from "@/helpers";
+
 // API
 import * as API from "@/api/account";
-import { getFormData } from "@/helpers";
 
 export const getAccount = createAsyncThunk("account/get", async (_, thunkAPI) => {
   try {
@@ -93,3 +95,12 @@ export const checkDiscount = createAsyncThunk(
     }
   }
 );
+
+export const getOrders = createAsyncThunk("account/orders/get", async (_, thunkAPI) => {
+  try {
+    const response = await API.getOrders();
+    return response;
+  } catch (error: any) {
+    throw thunkAPI.rejectWithValue(error.response.data);
+  }
+});

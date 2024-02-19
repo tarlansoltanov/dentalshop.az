@@ -35,3 +35,8 @@ export const checkDiscount = async (code: string) => {
   const { data } = await axios.get(`${URL.DISCOUNT_LIST_URL}?code=${code}`);
   return data;
 };
+
+export const getOrders = async () => {
+  const { data } = await axios.get(`${URL.ORDER_LIST_URL}?limit=all`);
+  return data;
+};
