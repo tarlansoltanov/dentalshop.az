@@ -1,3 +1,6 @@
+// Auth Actions
+export * from "./auth/actions";
+
 // Category actions
 export * from "./category/actions";
 

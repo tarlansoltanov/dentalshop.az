@@ -25,3 +25,18 @@ export const setAuthCookies = (
     expires: new Date(refreshDecoded.exp ? refreshDecoded.exp * 1000 : 1000),
   });
 };
+
+export const removeAuthCookies = () => {
+  Cookies.remove(ACCESS_TOKEN);
+  Cookies.remove(REFRESH_TOKEN);
+};
+
+export const getAccessToken = () => {
+  const token = Cookies.get(ACCESS_TOKEN);
+  return token ? token : "";
+};
+
+export const getRefreshToken = () => {
+  const token = Cookies.get(REFRESH_TOKEN);
+  return token ? token : "";
+};

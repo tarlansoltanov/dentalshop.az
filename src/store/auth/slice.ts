@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Actions
-import { login, register } from "./actions";
+import { login, register, refreshToken, logout } from "./actions";
 
 interface StateProps {
   status: {
@@ -60,6 +60,25 @@ export const authSlice = createSlice({
         state.status = FAILURE;
         state.errors = payload;
       });
+    builder
+      .addCase(refreshToken.pending, (state) => {
+        state.status = LOADING;
+        state.errors = null;
+        state.isAuth = false;
+      })
+      .addCase(refreshToken.fulfilled, (state) => {
+        state.status = SUCCESS;
+        state.isAuth = true;
+      })
+      .addCase(refreshToken.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder.addCase(logout.pending, (state) => {
+      state.status = SUCCESS;
+      state.errors = null;
+      state.isAuth = false;
+    });
   },
 });
 
