@@ -37,7 +37,7 @@ export const refreshToken = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async (refreshToken: string) => {
+export const logout = createAsyncThunk("auth/logout", async (refreshToken?: string) => {
   await API.postLogout(getFormData({ refresh: refreshToken })).catch((error) => console.log(error));
   removeAuthCookies();
 });

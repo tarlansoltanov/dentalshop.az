@@ -109,6 +109,9 @@ const Footer = () => {
                               <Link to="/account">Mənim Hesabım</Link>
                             </li>
                             <li>
+                              <Link to="/auth/logout">Hesabdan çıxış</Link>
+                            </li>
+                            <li>
                               <Link to="/account/delete">Hesabımı Sil</Link>
                             </li>
                           </ul>

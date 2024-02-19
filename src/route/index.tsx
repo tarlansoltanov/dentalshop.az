@@ -27,6 +27,9 @@ const publicRoutes = [
 
   // NotFound
   { path: "*", component: <Pages.NotFound /> },
+
+  // Login
+  { path: "/auth/logout", exact: true, component: <Pages.Logout /> },
 ];
 
 const authRoutes = [

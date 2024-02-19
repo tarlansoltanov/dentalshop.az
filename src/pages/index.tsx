@@ -22,6 +22,9 @@ import Discounted from "./Discounted";
 // Login
 import Login from "./Login";
 
+// Logout
+import Logout from "./Logout";
+
 // Register
 import Register from "./Register";
 
@@ -40,6 +43,7 @@ export {
   NewArrivals,
   Discounted,
   Login,
+  Logout,
   Register,
   NotFound,
   About,
