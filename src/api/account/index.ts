@@ -40,3 +40,8 @@ export const getOrders = async () => {
   const { data } = await axios.get(`${URL.ORDER_LIST_URL}?limit=all`);
   return data;
 };
+
+export const checkout = async (formData: FormData) => {
+  const { data } = await axios.post(URL.ORDER_LIST_URL, formData);
+  return data;
+};

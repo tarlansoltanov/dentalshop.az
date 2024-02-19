@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,13 @@ import { AppDispatch, RootState } from "@/store";
 // Assets
 import { MinusSVG, PlusSVG } from "@/assets/images";
 
+// Helpers
+import { getFormData } from "@/helpers";
+
 // Actions
 import {
   checkDiscount,
+  checkout,
   decrementCart,
   getCart,
   incrementCart,
@@ -20,6 +24,7 @@ import {
 const Cart = () => {
   const [discountCode, setDiscountCode] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
 
@@ -195,7 +200,14 @@ const Cart = () => {
                 </span>
               </div>
 
-              <button className="btn btn-outline-dark-2">Sifariş et</button>
+              <button
+                className="btn btn-outline-dark-2"
+                onClick={() => {
+                  dispatch(checkout(getFormData({ code: discountCode })));
+                  navigate("/orders");
+                }}>
+                Sifariş et
+              </button>
             </div>
           </section>
         </div>

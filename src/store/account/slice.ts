@@ -16,6 +16,7 @@ import {
   removeFromCart,
   checkDiscount,
   getOrders,
+  checkout,
 } from "./actions";
 
 interface StateProps {
@@ -178,6 +179,19 @@ export const accountSlice = createSlice({
       })
       .addCase(getOrders.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getOrders.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(checkout.pending, (state) => {
+        state.status = { ...LOADING, lastAction: checkout.typePrefix };
+        state.errors = null;
+      })
+      .addCase(checkout.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: checkout.typePrefix };
+        state.orders = [payload, ...(state.orders || [])];
+      })
+      .addCase(checkout.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: checkout.typePrefix };
         state.errors = payload;
       });
   },
