@@ -14,9 +14,11 @@ import Loader from "@/components/Loader";
 import ProductsSection from "@/components/ProductsSection";
 import ProductSlider from "@/components/ProductSlider";
 
-// Actions
-import { getProduct, getProducts } from "@/store/actions";
+// Assets
 import { DistributorPNG, FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
+
+// Actions
+import { addToCart, getProduct, getProducts } from "@/store/actions";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -255,14 +257,16 @@ const ProductDetails = () => {
                     </a>
                   </div>
                   <div className="product-favorite">
-                    <a role="button" className="add-my-favorites">
-                      <React.Fragment>
-                        <i
-                          className="fas fa-cart-plus"
-                          aria-hidden="true"
-                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                        <span>Səbətə əlavə et</span>
-                      </React.Fragment>
+                    <a
+                      role="button"
+                      className="add-cart"
+                      onClick={() => {
+                        dispatch(addToCart({ product: product.slug }));
+                      }}>
+                      <i
+                        className="fas fa-cart-plus"
+                        style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                      <span>Səbətə əlavə et</span>
                     </a>
                   </div>
                 </div>

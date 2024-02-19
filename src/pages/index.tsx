@@ -37,6 +37,9 @@ import NotFound from "./NotFound";
 // About
 import About from "./About";
 
+// Cart
+import Cart from "./Cart";
+
 export {
   Home,
   Brand,
@@ -51,4 +54,5 @@ export {
   Register,
   NotFound,
   About,
+  Cart,
 };

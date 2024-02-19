@@ -4,10 +4,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { User } from "@/types";
+import { CartItem, User } from "@/types";
 
 // Actions
-import { getAccount, updateAccount } from "./actions";
+import { getAccount, getCart, updateAccount } from "./actions";
 
 interface StateProps {
   status: {
@@ -18,6 +18,7 @@ interface StateProps {
   };
   errors: any;
   user: User | null;
+  cartItems: CartItem[] | null;
 }
 
 const initialState: StateProps = {
@@ -29,6 +30,7 @@ const initialState: StateProps = {
   },
   errors: null,
   user: null,
+  cartItems: null,
 };
 
 export const accountSlice = createSlice({
@@ -67,6 +69,19 @@ export const accountSlice = createSlice({
       })
       .addCase(updateAccount.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: updateAccount.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(getCart.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getCart.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getCart.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getCart.typePrefix };
+        state.cartItems = payload;
+      })
+      .addCase(getCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getCart.typePrefix };
         state.errors = payload;
       });
   },

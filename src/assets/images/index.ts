@@ -16,6 +16,8 @@ import SearchIconSVG from "./icons/search.svg";
 import MenuIconSVG from "./icons/menu.svg";
 import FavoriteEmptySVG from "./icons/favoriteEmpty.svg";
 import FavoriteFilledSVG from "./icons/favoriteFilled.svg";
+import PlusSVG from "./icons/plus.svg";
+import MinusSVG from "./icons/minus.svg";
 
 export {
   LogoPNG,
@@ -32,4 +34,6 @@ export {
   MenuIconSVG,
   FavoriteEmptySVG,
   FavoriteFilledSVG,
+  PlusSVG,
+  MinusSVG,
 };

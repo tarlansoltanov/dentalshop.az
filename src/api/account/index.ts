@@ -15,3 +15,18 @@ export const updateAccount = async (formData: FormData) => {
   const { data } = await axios.put(URL.ACCOUNT_URL, formData);
   return data as User;
 };
+
+export const getCart = async () => {
+  const { data } = await axios.get(`${URL.CART_LIST_URL}?limit=all`);
+  return data;
+};
+
+export const addToCart = async (formData: FormData) => {
+  const { data } = await axios.post(URL.CART_LIST_URL, formData);
+  return data;
+};
+
+export const removeFromCart = async (slug: string) => {
+  const { data } = await axios.delete(`${URL.CART_LIST_URL}/?product=${slug}`);
+  return data;
+};

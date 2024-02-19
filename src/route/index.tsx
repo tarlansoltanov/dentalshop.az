@@ -28,6 +28,9 @@ const publicRoutes = [
   // About
   { path: "/about", component: <Pages.About /> },
 
+  // About
+  { path: "/cart", component: <Pages.Cart /> },
+
   // NotFound
   { path: "*", component: <Pages.NotFound /> },
 ];
