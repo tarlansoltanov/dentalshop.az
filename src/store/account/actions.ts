@@ -45,3 +45,39 @@ export const addToCart = createAsyncThunk(
     }
   }
 );
+
+export const decrementCart = createAsyncThunk(
+  "account/cart/decrement",
+  async ({ product, quantity }: { product: string; quantity: number }, thunkAPI) => {
+    try {
+      const response = await API.addToCart(getFormData({ product, quantity: quantity - 1 }));
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const incrementCart = createAsyncThunk(
+  "account/cart/increment",
+  async ({ product, quantity }: { product: string; quantity: number }, thunkAPI) => {
+    try {
+      const response = await API.addToCart(getFormData({ product, quantity: quantity + 1 }));
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const removeFromCart = createAsyncThunk(
+  "account/cart/remove",
+  async (product: string, thunkAPI) => {
+    try {
+      const response = await API.removeFromCart(product);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

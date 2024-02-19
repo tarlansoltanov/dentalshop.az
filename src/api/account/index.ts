@@ -27,6 +27,6 @@ export const addToCart = async (formData: FormData) => {
 };
 
 export const removeFromCart = async (slug: string) => {
-  const { data } = await axios.delete(`${URL.CART_LIST_URL}/?product=${slug}`);
+  const { data } = await axios.delete(`${URL.CART_LIST_URL}?product=${slug}`);
   return data;
 };

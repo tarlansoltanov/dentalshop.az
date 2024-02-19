@@ -7,7 +7,14 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { CartItem, User } from "@/types";
 
 // Actions
-import { getAccount, getCart, updateAccount } from "./actions";
+import {
+  incrementCart,
+  decrementCart,
+  getAccount,
+  getCart,
+  updateAccount,
+  removeFromCart,
+} from "./actions";
 
 interface StateProps {
   status: {
@@ -82,6 +89,57 @@ export const accountSlice = createSlice({
       })
       .addCase(getCart.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getCart.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(decrementCart.pending, (state, payload) => {
+        state.status = { ...LOADING, lastAction: decrementCart.typePrefix };
+        state.errors = null;
+        state.cartItems =
+          state.cartItems?.map((item) => {
+            if (item.slug === payload.meta.arg.product) {
+              return { ...item, quantity: payload.meta.arg.quantity - 1 };
+            }
+            return item;
+          }) || null;
+      })
+      .addCase(decrementCart.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: decrementCart.typePrefix };
+      })
+      .addCase(decrementCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: decrementCart.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(incrementCart.pending, (state, payload) => {
+        state.status = { ...LOADING, lastAction: incrementCart.typePrefix };
+        state.errors = null;
+        state.cartItems =
+          state.cartItems?.map((item) => {
+            if (item.slug === payload.meta.arg.product) {
+              return { ...item, quantity: payload.meta.arg.quantity + 1 };
+            }
+            return item;
+          }) || null;
+      })
+      .addCase(incrementCart.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: incrementCart.typePrefix };
+      })
+      .addCase(incrementCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: incrementCart.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(removeFromCart.pending, (state, payload) => {
+        state.status = { ...LOADING, lastAction: removeFromCart.typePrefix };
+        state.errors = null;
+        state.cartItems = state.cartItems?.filter((item) => item.slug !== payload.meta.arg) || null;
+      })
+      .addCase(removeFromCart.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: removeFromCart.typePrefix };
+      })
+      .addCase(removeFromCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: removeFromCart.typePrefix };
         state.errors = payload;
       });
   },

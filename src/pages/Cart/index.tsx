@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
-// Actions
-import { getCart } from "@/store/actions";
+// Assets
 import { MinusSVG, PlusSVG } from "@/assets/images";
+
+// Actions
+import { decrementCart, getCart, incrementCart, removeFromCart } from "@/store/actions";
 
 const Cart = () => {
   const { cartItems } = useSelector((state: RootState) => state.account);
@@ -63,14 +65,30 @@ const Cart = () => {
 
                     <td className="quantity-col">
                       <div className="quantity">
-                        <button className="minus-btn" type="button" name="button">
-                          <img src={MinusSVG} alt="" />
+                        <button
+                          className="minus-btn"
+                          type="button"
+                          name="button"
+                          onClick={() => {
+                            dispatch(
+                              decrementCart({ product: item.slug, quantity: item.quantity })
+                            );
+                          }}>
+                          <img src={MinusSVG} alt="Minus Icon" />
                         </button>
 
-                        <input type="text" name="quantity" value="1" disabled />
+                        <input type="text" name="quantity" value={item.quantity} disabled />
 
-                        <button className="plus-btn" type="button" name="button">
-                          <img src={PlusSVG} alt="" />
+                        <button
+                          className="plus-btn"
+                          type="button"
+                          name="button"
+                          onClick={() => {
+                            dispatch(
+                              incrementCart({ product: item.slug, quantity: item.quantity })
+                            );
+                          }}>
+                          <img src={PlusSVG} alt="Plus Icon" />
                         </button>
                       </div>
                     </td>
@@ -78,7 +96,11 @@ const Cart = () => {
                     <td className="total-col">{item.price * item.quantity} AZN</td>
 
                     <td className="remove-col">
-                      <button className="btn-remove">
+                      <button
+                        className="btn-remove"
+                        onClick={() => {
+                          dispatch(removeFromCart(item.slug));
+                        }}>
                         <i className="fas fa-times"></i>
                       </button>
                     </td>
