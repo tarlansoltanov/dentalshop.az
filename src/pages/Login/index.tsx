@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "@/store";
 import { LogoPNG } from "@/assets/images";
 
 // Actions
-import { login } from "@/store/auth/actions";
+import { login } from "@/store/actions";
 
 const Login = () => {
   const navigate = useNavigate();

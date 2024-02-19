@@ -1,10 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 
 // Assets
 import { LogoPNG } from "@/assets/images";
 
+// Actions
+import { register } from "@/store/actions";
+
 const Register = () => {
+  const navigate = useNavigate();
+
+  // Redux
+  const dispatch = useDispatch<AppDispatch>();
+  const { errors, status, isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Data
+  const [data, setData] = useState({
+    first_name: "",
+    last_name: "",
+    birth_date: "",
+    phone: "",
+    password: "",
+    password_confirm: "",
+  });
+
+  // Handlers
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Submit
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(register(data));
+  };
+
+  useEffect(() => {
+    if (isAuth) navigate("/");
+  }, [isAuth, navigate]);
+
   return (
     <React.Fragment>
       <div className="signup-page-logo">
@@ -20,7 +61,7 @@ const Register = () => {
           </div>
 
           <div className="contentbox-body">
-            <form className="form-horizontal">
+            <form className="form-horizontal" onSubmit={handleSubmit}>
               {/* First Name */}
               <div className="form-group row">
                 <label htmlFor="first_name" className="col-12 col-lg-4 control-label">
@@ -28,8 +69,23 @@ const Register = () => {
                 </label>
 
                 <div className="col-12 col-lg-5">
-                  <input type="text" className="form-control" name="first_name" />
-                  <span className="required">*</span>
+                  <div>
+                    <input
+                      type="text"
+                      name="first_name"
+                      value={data.first_name}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.first_name ? "invalid" : ""}`}
+                      required
+                    />
+                    <span className="required">*</span>
+                  </div>
+
+                  {errors?.first_name && (
+                    <div>
+                      <span className="text-danger">{errors.first_name}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -40,8 +96,23 @@ const Register = () => {
                 </label>
 
                 <div className="col-12 col-lg-5">
-                  <input type="text" className="form-control" name="last_name" />
-                  <span className="required">*</span>
+                  <div>
+                    <input
+                      type="text"
+                      name="last_name"
+                      value={data.last_name}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.last_name ? "invalid" : ""}`}
+                      required
+                    />
+                    <span className="required">*</span>
+                  </div>
+
+                  {errors?.last_name && (
+                    <div>
+                      <span className="text-danger">{errors.last_name}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -50,11 +121,24 @@ const Register = () => {
                 <label className="col-12 col-lg-4 control-label">Doğum Tarixi</label>
 
                 <div className="col-12 col-lg-5">
-                  <div className="input-group input-group-right">
-                    <input type="date" className="form-control" name="birth_date" />
+                  <div>
+                    <input
+                      type="date"
+                      name="birth_date"
+                      value={data.birth_date}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.birth_date ? "invalid" : ""}`}
+                      required
+                    />
+
+                    <span className="required">*</span>
                   </div>
 
-                  <span className="required">*</span>
+                  {errors?.birth_date && (
+                    <div>
+                      <span className="text-danger">{errors.birth_date}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -65,14 +149,25 @@ const Register = () => {
                 </label>
 
                 <div className="col-12 col-lg-5">
-                  <input
-                    type="tel"
-                    className="form-control"
-                    placeholder="(5X) XXX XX XX"
-                    name="phone"
-                  />
+                  <div>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={data.phone}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.phone ? "invalid" : ""}`}
+                      placeholder="(5X) XXX XX XX"
+                      required
+                    />
 
-                  <span className="required">*</span>
+                    <span className="required">*</span>
+                  </div>
+
+                  {errors?.phone && (
+                    <div>
+                      <span className="text-danger">{errors.phone}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -83,13 +178,28 @@ const Register = () => {
                 </label>
 
                 <div className="col-12 col-lg-5">
-                  <div className="toggle-password">
-                    <i className="fa fa-eye"></i>
+                  <div>
+                    <div className="toggle-password">
+                      <i className="fa fa-eye"></i>
+                    </div>
+
+                    <input
+                      type="password"
+                      name="password"
+                      value={data.password}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.password ? "invalid" : ""}`}
+                      required
+                    />
+
+                    <span className="required">*</span>
                   </div>
 
-                  <input type="password" className="form-control" name="password" />
-
-                  <span className="required">*</span>
+                  {errors?.password && (
+                    <div>
+                      <span className="text-danger">{errors.password}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -100,20 +210,40 @@ const Register = () => {
                 </label>
 
                 <div className="col-12 col-lg-5">
-                  <div className="toggle-password">
-                    <i className="fa fa-eye"></i>
+                  <div>
+                    <div className="toggle-password">
+                      <i className="fa fa-eye"></i>
+                    </div>
+
+                    <input
+                      type="password"
+                      name="password_confirm"
+                      value={data.password_confirm}
+                      onChange={handleChange}
+                      className={`form-control ${errors?.password_confirm ? "invalid" : ""}`}
+                      required
+                    />
+
+                    <span className="required">*</span>
                   </div>
 
-                  <input type="password" className="form-control" name="password_confirm" />
-
-                  <span className="required">*</span>
+                  {errors?.password_confirm && (
+                    <div>
+                      <span className="text-danger">{errors.password_confirm}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className="form-group row">
                 <div className="col-12 col-lg-9 text-right">
-                  <button type="submit" className="btn btn-primary btn-block">
-                    Kaydet
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block"
+                    style={{ backgroundColor: "#0b8ccd" }}
+                    disabled={status.loading}>
+                    {/* Qeydiyyat */}
+                    Qeydiyyat
                   </button>
                 </div>
               </div>
