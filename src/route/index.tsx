@@ -11,7 +11,7 @@ const publicRoutes = [
   { path: "/products/:slug", component: <Pages.Product /> },
 
   // Category
-  { path: "/categories/:slug", exact: true, component: <Pages.Category /> },
+  { path: "/categories/:slug", component: <Pages.Category /> },
 
   // Search
   { path: "/search", component: <Pages.Search /> },
@@ -27,17 +27,17 @@ const publicRoutes = [
 
   // NotFound
   { path: "*", component: <Pages.NotFound /> },
-
-  // Login
-  { path: "/auth/logout", exact: true, component: <Pages.Logout /> },
 ];
 
 const authRoutes = [
   // Login
-  { path: "/auth/login", exact: true, component: <Pages.Login /> },
+  { path: "/auth/login", component: <Pages.Login /> },
+
+  // Logout
+  { path: "/auth/logout", component: <Pages.Logout /> },
 
   // Register
-  { path: "/auth/register", exact: true, component: <Pages.Register /> },
+  { path: "/auth/register", component: <Pages.Register /> },
 ];
 
 export { publicRoutes, authRoutes };

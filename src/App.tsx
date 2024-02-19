@@ -8,7 +8,7 @@ import AuthLayout from "@/components/AuthLayout";
 import Layout from "@/components/Layout";
 
 // Middlewares
-import { ScrollToTop } from "./route/middlewares";
+import { Authmiddleware, ScrollToTop } from "./route/middlewares";
 
 // Routes
 import { publicRoutes, authRoutes } from "@/route";
@@ -19,7 +19,15 @@ const App = () => {
       <ScrollToTop>
         <Routes>
           {publicRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={<Layout>{route.component}</Layout>} />
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                <Authmiddleware>
+                  <Layout>{route.component}</Layout>
+                </Authmiddleware>
+              }
+            />
           ))}
 
           {authRoutes.map((route, index) => (

@@ -12,13 +12,24 @@ import { LogoPNG, MenuIconSVG, SearchIconSVG } from "@/assets/images";
 import { getURLWithFilterParams, toggleMobileNavigation } from "@/helpers";
 
 // Actions
-import { getCategories } from "@/store/actions";
+import { getAccount, getCategories } from "@/store/actions";
 
 const Header = () => {
-  const { items } = useSelector((state: RootState) => state.categories);
-
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  // Auth
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Account
+  const { user } = useSelector((state: RootState) => state.account);
+
+  useEffect(() => {
+    if (isAuth && user == null) dispatch(getAccount());
+  }, [dispatch, isAuth, user]);
+
+  // Categories
+  const { items } = useSelector((state: RootState) => state.categories);
 
   useEffect(() => {
     if (items == null) dispatch(getCategories({ limit: "all" }));
@@ -87,21 +98,34 @@ const Header = () => {
               <div className="col-auto col-xl-3 order-2 order-xl-3">
                 <div className="header-top-right d-flex align-items-center justify-content-end">
                   <div className="user-menu">
-                    <div className="member-login-market">
-                      <Link to="/auth/login">
-                        <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
-                        <span>Daxil olun</span>
-                      </Link>
-                    </div>
+                    {!isAuth ? (
+                      <React.Fragment>
+                        <div className="member-login-market">
+                          <Link to="/auth/login">
+                            <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
+                            <span>Daxil olun</span>
+                          </Link>
+                        </div>
 
-                    <br />
+                        <br />
 
-                    <div className="member-uyeol">
-                      <Link to="/auth/register">
-                        <i className="fas fa-user-plus" aria-hidden="true"></i>&nbsp;
-                        <span>Qeydiyyat</span>
-                      </Link>
-                    </div>
+                        <div className="member-uyeol">
+                          <Link to="/auth/register">
+                            <i className="fas fa-user-plus" aria-hidden="true"></i>&nbsp;
+                            <span>Qeydiyyat</span>
+                          </Link>
+                        </div>
+                      </React.Fragment>
+                    ) : (
+                      <div className="member-login-market">
+                        <Link to="/account">
+                          <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
+                          <span>
+                            {user?.first_name} {user?.last_name}
+                          </span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

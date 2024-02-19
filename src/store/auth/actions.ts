@@ -16,6 +16,11 @@ export const login = createAsyncThunk("auth/login", async (credentials: any, thu
   }
 });
 
+export const logout = createAsyncThunk("auth/logout", async (refreshToken?: string) => {
+  await API.postLogout(getFormData({ refresh: refreshToken })).catch((error) => console.log(error));
+  removeAuthCookies();
+});
+
 export const register = createAsyncThunk("auth/register", async (data: any, thunkAPI) => {
   try {
     await API.postRegister(getFormData(data));
@@ -30,14 +35,20 @@ export const refreshToken = createAsyncThunk(
   async (refreshToken: string, thunkAPI) => {
     try {
       const response = await API.postRefreshToken(getFormData({ refresh: refreshToken }));
-      setAuthCookies(response);
+      setAuthCookies(response, true);
     } catch (error: any) {
       throw thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async (refreshToken?: string) => {
-  await API.postLogout(getFormData({ refresh: refreshToken })).catch((error) => console.log(error));
-  removeAuthCookies();
-});
+export const verifyToken = createAsyncThunk(
+  "auth/token/verify",
+  async (accessToken: string, thunkAPI) => {
+    try {
+      await API.postVerifyToken(getFormData({ token: accessToken }));
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

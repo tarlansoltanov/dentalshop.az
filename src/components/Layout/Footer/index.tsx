@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Redux
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+
 // Assets
 import {
   LogoPNG,
@@ -18,6 +22,8 @@ import {
 import Copyright from "@/components/Copyright";
 
 const Footer = () => {
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   return (
     <React.Fragment>
       <footer id="footer">
@@ -83,6 +89,9 @@ const Footer = () => {
                         <div className="footer-menu-content">
                           <ul>
                             <li>
+                              <Link to="/free-zone">Free Zone</Link>
+                            </li>
+                            <li>
                               <Link to="/new-arrivals">Yeni Gələnlər</Link>
                             </li>
                             <li>
@@ -99,21 +108,25 @@ const Footer = () => {
                         <div className="footer-menu-title">Hesab</div>
                         <div className="footer-menu-content">
                           <ul>
-                            <li>
-                              <Link to="/auth/login">Giriş</Link>
-                            </li>
-                            <li>
-                              <Link to="/auth/register">Qeydiyyat</Link>
-                            </li>
-                            <li>
-                              <Link to="/account">Mənim Hesabım</Link>
-                            </li>
-                            <li>
-                              <Link to="/auth/logout">Hesabdan çıxış</Link>
-                            </li>
-                            <li>
-                              <Link to="/account/delete">Hesabımı Sil</Link>
-                            </li>
+                            {isAuth ? (
+                              <React.Fragment>
+                                <li>
+                                  <Link to="/account">Mənim Hesabım</Link>
+                                </li>
+                                <li>
+                                  <Link to="/auth/logout">Hesabdan çıxış</Link>
+                                </li>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                <li>
+                                  <Link to="/auth/login">Giriş</Link>
+                                </li>
+                                <li>
+                                  <Link to="/auth/register">Qeydiyyat</Link>
+                                </li>
+                              </React.Fragment>
+                            )}
                           </ul>
                         </div>
                       </div>

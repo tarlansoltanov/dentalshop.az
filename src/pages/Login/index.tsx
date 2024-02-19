@@ -51,7 +51,7 @@ const Login = () => {
             </div>
 
             {/* Error */}
-            {status.failure && (
+            {status.failure && status.lastAction === login.typePrefix && (
               <div className="alert alert-danger" role="alert">
                 Telefon nömrəsi və ya şifrə yanlışdır.
               </div>
@@ -111,7 +111,8 @@ const Login = () => {
                 <button
                   type="submit"
                   className="btn btn-primary btn-block"
-                  style={{ backgroundColor: "#0b8ccd" }}>
+                  style={{ backgroundColor: "#0b8ccd" }}
+                  disabled={status.loading}>
                   Giriş
                 </button>
               </div>

@@ -13,3 +13,6 @@ export const postRegister = (data: FormData) =>
 
 export const postRefreshToken = (data: FormData) =>
   axios.post(URL.REFRESH_TOKEN_URL, data).then((response) => response.data);
+
+export const postVerifyToken = (data: FormData) =>
+  axios.post(URL.VERIFY_TOKEN_URL, data).then((response) => response.data);
