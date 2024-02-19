@@ -19,6 +19,9 @@ const publicRoutes = [
   // New Arrivals
   { path: "/new-arrivals", component: <Pages.NewArrivals /> },
 
+  // Free Zone
+  { path: "/free-zone", component: <Pages.FreeZone /> },
+
   // Product Details
   { path: "/discounted", component: <Pages.Discounted /> },
 

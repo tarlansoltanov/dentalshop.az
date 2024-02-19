@@ -19,6 +19,9 @@ import NewArrivals from "./NewArrivals";
 // Discounted
 import Discounted from "./Discounted";
 
+// FreeZone
+import FreeZone from "./FreeZone";
+
 // Login
 import Login from "./Login";
 
@@ -42,6 +45,7 @@ export {
   Search,
   NewArrivals,
   Discounted,
+  FreeZone,
   Login,
   Logout,
   Register,
