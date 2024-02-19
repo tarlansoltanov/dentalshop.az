@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux
@@ -9,16 +9,28 @@ import { AppDispatch, RootState } from "@/store";
 import { MinusSVG, PlusSVG } from "@/assets/images";
 
 // Actions
-import { decrementCart, getCart, incrementCart, removeFromCart } from "@/store/actions";
+import {
+  checkDiscount,
+  decrementCart,
+  getCart,
+  incrementCart,
+  removeFromCart,
+} from "@/store/actions";
 
 const Cart = () => {
-  const { cartItems } = useSelector((state: RootState) => state.account);
+  const [discountCode, setDiscountCode] = useState("");
 
   const dispatch = useDispatch<AppDispatch>();
+  const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
     dispatch(getCart());
   }, []);
+
+  const getPrice = (price: number, itemDiscount: number) => {
+    if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
+    return price - (price * discount) / 100;
+  };
 
   return (
     <main id="main">
@@ -53,10 +65,10 @@ const Cart = () => {
 
                     <td className="price-col">
                       <span className="current-price">
-                        {item.price - (item.price * item.discount) / 100} <span>AZN</span>
+                        {getPrice(item.price, item.discount)} <span>AZN</span>
                       </span>
 
-                      {item.discount > 0 && (
+                      {(item.discount > 0 || discount > 0) && (
                         <del className="old-price">
                           {item.price} <span>AZN</span>
                         </del>
@@ -93,7 +105,9 @@ const Cart = () => {
                       </div>
                     </td>
 
-                    <td className="total-col">{item.price * item.quantity} AZN</td>
+                    <td className="total-col">
+                      {getPrice(item.price, item.discount) * item.quantity} AZN
+                    </td>
 
                     <td className="remove-col">
                       <button
@@ -108,6 +122,81 @@ const Cart = () => {
                 ))}
               </tbody>
             </table>
+
+            <div className="cart-total">
+              <h3>Sifariş məlumatları</h3>
+
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Cəm: </span>
+                    </td>
+                    <td>
+                      <span>
+                        {cartItems?.reduce(
+                          (acc, item) => acc + getPrice(item.price, item.discount) * item.quantity,
+                          0
+                        )}{" "}
+                        AZN
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Ödəmə: </span>
+                    </td>
+
+                    <td>
+                      <select className="form-select">
+                        <option value="1">Qapıda ödəmə</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="cart-bottom">
+              <div className="cart-discount">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Kupon kodu"
+                    value={discountCode}
+                    onChange={(e) => setDiscountCode(e.target.value)}
+                    style={{
+                      borderColor:
+                        status.lastAction === checkDiscount.typePrefix && status.failure
+                          ? "red"
+                          : status.success && discount
+                          ? "green"
+                          : "initial",
+                    }}
+                  />
+
+                  <button
+                    className="btn btn-outline-primary-2"
+                    disabled={status?.loading && status?.lastAction === checkDiscount.typePrefix}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(checkDiscount(discountCode));
+                    }}>
+                    <i className="fas fa-check"></i>
+                  </button>
+                </div>
+                <span>
+                  {status.lastAction === checkDiscount.typePrefix && status.failure
+                    ? "Kupon kodu tapılmadı"
+                    : status.success && discount
+                    ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`
+                    : ""}
+                </span>
+              </div>
+
+              <button className="btn btn-outline-dark-2">Sifariş et</button>
+            </div>
           </section>
         </div>
       </div>

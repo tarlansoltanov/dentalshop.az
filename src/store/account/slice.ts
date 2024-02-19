@@ -14,6 +14,7 @@ import {
   getCart,
   updateAccount,
   removeFromCart,
+  checkDiscount,
 } from "./actions";
 
 interface StateProps {
@@ -26,6 +27,7 @@ interface StateProps {
   errors: any;
   user: User | null;
   cartItems: CartItem[] | null;
+  discount: number;
 }
 
 const initialState: StateProps = {
@@ -38,6 +40,7 @@ const initialState: StateProps = {
   errors: null,
   user: null,
   cartItems: null,
+  discount: 0,
 };
 
 export const accountSlice = createSlice({
@@ -95,13 +98,19 @@ export const accountSlice = createSlice({
       .addCase(decrementCart.pending, (state, payload) => {
         state.status = { ...LOADING, lastAction: decrementCart.typePrefix };
         state.errors = null;
-        state.cartItems =
-          state.cartItems?.map((item) => {
-            if (item.slug === payload.meta.arg.product) {
-              return { ...item, quantity: payload.meta.arg.quantity - 1 };
-            }
-            return item;
-          }) || null;
+        if (payload.meta.arg.quantity === 1) {
+          state.cartItems =
+            state.cartItems?.filter((item) => item.slug !== payload.meta.arg.product) || null;
+        } else {
+          state.cartItems =
+            state.cartItems?.map((item) => {
+              if (item.slug === payload.meta.arg.product) {
+                if (payload.meta.arg.quantity === 1) return null;
+                return { ...item, quantity: payload.meta.arg.quantity - 1 };
+              }
+              return item;
+            }) || null;
+        }
       })
       .addCase(decrementCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: decrementCart.typePrefix };
@@ -140,6 +149,19 @@ export const accountSlice = createSlice({
       })
       .addCase(removeFromCart.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: removeFromCart.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(checkDiscount.pending, (state) => {
+        state.status = { ...LOADING, lastAction: checkDiscount.typePrefix };
+        state.errors = null;
+      })
+      .addCase(checkDiscount.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: checkDiscount.typePrefix };
+        state.discount = payload;
+      })
+      .addCase(checkDiscount.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: checkDiscount.typePrefix };
         state.errors = payload;
       });
   },

@@ -81,3 +81,15 @@ export const removeFromCart = createAsyncThunk(
     }
   }
 );
+
+export const checkDiscount = createAsyncThunk(
+  "account/discount/check",
+  async (code: string, thunkAPI) => {
+    try {
+      const response = await API.checkDiscount(code);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

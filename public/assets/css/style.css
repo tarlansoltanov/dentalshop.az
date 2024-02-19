@@ -535,3 +535,25 @@ input:focus {
     margin: 6px 0;
   }
 }
+
+.cart-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px 0;
+}
+
+.cart-total span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #43484D;
+  margin-top: 10px;
+}
+
+.cart-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}

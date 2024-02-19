@@ -30,3 +30,8 @@ export const removeFromCart = async (slug: string) => {
   const { data } = await axios.delete(`${URL.CART_LIST_URL}?product=${slug}`);
   return data;
 };
+
+export const checkDiscount = async (code: string) => {
+  const { data } = await axios.get(`${URL.DISCOUNT_LIST_URL}?code=${code}`);
+  return data;
+};
