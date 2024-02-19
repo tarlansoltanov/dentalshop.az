@@ -254,6 +254,7 @@ const SearchProducts = () => {
                         <label htmlFor="sortingOption" className="mb-0 d-block">
                           <select
                             className="form-control"
+                            value={filter.ordering || ""}
                             onChange={(e) =>
                               setFilter((prev) => ({ ...prev, ordering: e.target.value }))
                             }>

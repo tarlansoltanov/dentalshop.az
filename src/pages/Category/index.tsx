@@ -56,7 +56,6 @@ const CategoryProducts = () => {
     setMaxPage(Math.ceil(itemCount / (Number(filter.limit) || 12)));
   }, [itemCount, filter.limit]);
 
-
   if (status.loading || statusCategory.loading) return <Loader />;
 
   return (
@@ -106,6 +105,7 @@ const CategoryProducts = () => {
                           <label htmlFor="sortingOption" className="mb-0 d-block">
                             <select
                               className="form-control"
+                              value={filter.ordering || ""}
                               onChange={(e) =>
                                 setFilter((prev) => ({ ...prev, ordering: e.target.value }))
                               }>
@@ -139,7 +139,7 @@ const CategoryProducts = () => {
                   {filter.page && filter.page > 1 && (
                     <div className="paginate-left paginate-active">
                       <a
-                        href="#"
+                        role="button"
                         onClick={() =>
                           setFilter((prev) => ({ ...prev, page: prev.page && prev.page - 1 }))
                         }>
@@ -151,8 +151,8 @@ const CategoryProducts = () => {
                   <div className="paginate-content">
                     {Array.from({ length: maxPage }).map((_, index) => (
                       <a
-                        href="#"
                         key={index}
+                        role="button"
                         className={
                           filter.page === index + 1 || (!filter.page && index === 0)
                             ? "paginate-element-active"
@@ -167,9 +167,9 @@ const CategoryProducts = () => {
                   {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
                     <div className="paginate-right paginate-active">
                       <a
-                        href="#"
+                        role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page + 1 }))
+                          setFilter((prev) => ({ ...prev, page: prev.page ? prev.page + 1 : 2 }))
                         }>
                         <i className="fas fa-chevron-right" aria-hidden="true"></i>
                       </a>
