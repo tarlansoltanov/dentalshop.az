@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // Redux
 import { AppDispatch, RootState } from "@/store";
@@ -8,17 +9,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMobileNavigation } from "@/helpers";
 
 // Actions
-import { getCategories } from "@/store/actions";
-import { Link } from "react-router-dom";
+import { getBrands, getCategories } from "@/store/actions";
 
 const MobileNavigation = () => {
-  const { items } = useSelector((state: RootState) => state.categories);
-
   const dispatch = useDispatch<AppDispatch>();
+
+  // Categories
+  const { items } = useSelector((state: RootState) => state.categories);
 
   useEffect(() => {
     if (items == null) dispatch(getCategories({ limit: "all" }));
   }, [dispatch, items]);
+
+  // Brands
+  const { items: brands } = useSelector((state: RootState) => state.brands);
+
+  useEffect(() => {
+    if (brands == null) dispatch(getBrands({ limit: "all" }));
+  }, [dispatch, brands]);
 
   const [selectedCategory, setSelectedCategory] = useState<number[]>([-1, -1]);
   const [navigationHeight, setNavigationHeight] = useState<string>("auto");
@@ -35,7 +43,10 @@ const MobileNavigation = () => {
       const elementHeight = 49.563;
 
       if (newSelectedCategory[0] === -1) return "auto";
-      else if (newSelectedCategory[1] === -1) {
+      else if (newSelectedCategory[0] === -10) {
+        const children = brands?.length;
+        return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
+      } else if (newSelectedCategory[1] === -1) {
         const children = items?.[newSelectedCategory[0]].children?.length;
         return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
       } else {
@@ -56,6 +67,41 @@ const MobileNavigation = () => {
           {/* Level 1 */}
           <div className="category-level-1">
             <ul>
+              <li className={`has-sub-category ${-10 == selectedCategory[0] && "active"}`}>
+                <a role="button" onClick={() => handleCategory(-10, 0)}>
+                  <div>
+                    <span>Markalar</span>
+                  </div>
+
+                  <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                </a>
+
+                {/* Level 2 */}
+                <div className="category-level-2">
+                  <div className="mobile-navigation-back">
+                    <a role="button" onClick={() => handleCategory(-1, 0)}>
+                      <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                      <span>Geri Dön</span>
+                    </a>
+                  </div>
+
+                  <div className="mobile-navigation-parent">
+                    <a role="button">Markalar</a>
+                  </div>
+
+                  <ul>
+                    {brands?.map((item, index) => (
+                      <li key={index}>
+                        <Link to={`/brands/${item.slug}`}>
+                          <div>
+                            <span>{item.name}</span>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
               {items?.map((e1, i) => (
                 <li key={i} className={`has-sub-category ${i == selectedCategory[0] && "active"}`}>
                   <a role="button" onClick={() => handleCategory(i, 0)}>

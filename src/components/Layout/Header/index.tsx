@@ -12,7 +12,7 @@ import { LogoPNG, MenuIconSVG, SearchIconSVG } from "@/assets/images";
 import { getURLWithFilterParams, toggleMobileNavigation } from "@/helpers";
 
 // Actions
-import { getAccount, getCategories } from "@/store/actions";
+import { getAccount, getBrands, getCategories } from "@/store/actions";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -34,6 +34,13 @@ const Header = () => {
   useEffect(() => {
     if (items == null) dispatch(getCategories({ limit: "all" }));
   }, [dispatch, items]);
+
+  // Brands
+  const { items: brands } = useSelector((state: RootState) => state.brands);
+
+  useEffect(() => {
+    if (brands == null) dispatch(getBrands({ limit: "all" }));
+  }, [dispatch, brands]);
 
   return (
     <React.Fragment>
@@ -144,6 +151,26 @@ const Header = () => {
                     {/* Level 1 */}
                     <div className="category-level-1">
                       <ul>
+                        {/* Brands */}
+                        <li className="has-sub-category">
+                          <a href="#" role="button">
+                            <span>Markalar</span>
+                          </a>
+
+                          <div className="sub-category category-level-2">
+                            <div className="container">
+                              <ul>
+                                {brands?.map((item, index) => (
+                                  <li key={index}>
+                                    <Link to={`/brands/${item.slug}`} title={item.name}>
+                                      <span>{item.name}</span>
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </li>
                         {items?.map((e1, i) => (
                           <li key={i} className="has-sub-category">
                             <Link to={`/categories/${e1.slug}`} title={e1.name}>

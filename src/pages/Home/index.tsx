@@ -12,8 +12,8 @@ import ProductsSection from "@/components/ProductsSection";
 
 // Actions
 import {
-  getBrands,
   getDiscountedProducts,
+  getMainBrands,
   getNewProducts,
   getRecommendedProducts,
 } from "@/store/actions";
@@ -28,7 +28,9 @@ const Home = () => {
   const { status: statusCategories } = useSelector((state: RootState) => state.categories);
 
   // Brands
-  const { items: brands, status: statusBrands } = useSelector((state: RootState) => state.brands);
+  const { mainItems: brands, status: statusBrands } = useSelector(
+    (state: RootState) => state.brands
+  );
 
   // Products
   const {
@@ -39,7 +41,7 @@ const Home = () => {
   } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    dispatch(getBrands({ is_main: true, limit: 6 }));
+    dispatch(getMainBrands({ limit: 6 }));
     dispatch(getRecommendedProducts({}));
     dispatch(getDiscountedProducts({ limit: 12 }));
     dispatch(getNewProducts({ limit: 12 }));
