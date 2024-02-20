@@ -43,6 +43,9 @@ import About from "./About";
 // Orders
 import Orders from "./Orders";
 
+// OrderDetails
+import OrderDetails from "./OrderDetails";
+
 // Cart
 import Cart from "./Cart";
 
@@ -62,5 +65,6 @@ export {
   NotFound,
   About,
   Orders,
+  OrderDetails,
   Cart,
 };

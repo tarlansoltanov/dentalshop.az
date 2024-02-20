@@ -41,6 +41,11 @@ export const getOrders = async () => {
   return data;
 };
 
+export const getOrder = async (id: number) => {
+  const { data } = await axios.get(URL.ORDER_DETAIL_URL(id));
+  return data;
+};
+
 export const checkout = async (formData: FormData) => {
   const { data } = await axios.post(URL.ORDER_LIST_URL, formData);
   return data;

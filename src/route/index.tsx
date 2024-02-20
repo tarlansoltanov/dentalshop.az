@@ -34,6 +34,9 @@ const publicRoutes = [
   // Order
   { path: "/orders", component: <Pages.Orders /> },
 
+  // Order Details
+  { path: "/orders/:id", component: <Pages.OrderDetails /> },
+
   // About
   { path: "/cart", component: <Pages.Cart /> },
 

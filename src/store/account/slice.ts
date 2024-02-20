@@ -17,6 +17,7 @@ import {
   checkDiscount,
   getOrders,
   checkout,
+  getOrder,
 } from "./actions";
 
 interface StateProps {
@@ -31,6 +32,7 @@ interface StateProps {
   cartItems: CartItem[] | null;
   discount: number;
   orders: Order[] | null;
+  order: Order | null;
 }
 
 const initialState: StateProps = {
@@ -45,6 +47,7 @@ const initialState: StateProps = {
   cartItems: null,
   discount: 0,
   orders: null,
+  order: null,
 };
 
 export const accountSlice = createSlice({
@@ -179,6 +182,19 @@ export const accountSlice = createSlice({
       })
       .addCase(getOrders.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getOrders.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(getOrder.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getOrder.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getOrder.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getOrder.typePrefix };
+        state.order = payload;
+      })
+      .addCase(getOrder.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getOrder.typePrefix };
         state.errors = payload;
       });
     builder
