@@ -67,6 +67,7 @@ const MobileNavigation = () => {
           {/* Level 1 */}
           <div className="category-level-1">
             <ul>
+              {/* Brands */}
               <li className={`has-sub-category ${-10 == selectedCategory[0] && "active"}`}>
                 <a role="button" onClick={() => handleCategory(-10, 0)}>
                   <div>
@@ -102,6 +103,16 @@ const MobileNavigation = () => {
                   </ul>
                 </div>
               </li>
+
+              {/* Free Zone */}
+              <li>
+                <Link to="/free-zone">
+                  <div>
+                    <span>Free Zone</span>
+                  </div>
+                </Link>
+              </li>
+
               {items?.map((e1, i) => (
                 <li key={i} className={`has-sub-category ${i == selectedCategory[0] && "active"}`}>
                   <a role="button" onClick={() => handleCategory(i, 0)}>

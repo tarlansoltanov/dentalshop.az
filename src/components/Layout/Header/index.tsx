@@ -153,7 +153,7 @@ const Header = () => {
                       <ul>
                         {/* Brands */}
                         <li className="has-sub-category">
-                          <a href="#" role="button">
+                          <a role="button">
                             <span>Markalar</span>
                           </a>
 
@@ -171,6 +171,14 @@ const Header = () => {
                             </div>
                           </div>
                         </li>
+
+                        {/* FreeZone */}
+                        <li className="has-sub-category">
+                          <Link to="/free-zone">
+                            <span>Free Zone</span>
+                          </Link>
+                        </li>
+
                         {items?.map((e1, i) => (
                           <li key={i} className="has-sub-category">
                             <Link to={`/categories/${e1.slug}`} title={e1.name}>
