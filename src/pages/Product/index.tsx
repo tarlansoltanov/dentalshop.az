@@ -330,9 +330,11 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <ProductsSection title="Oxşar məhsullar" className="recommended-section">
-            <ProductSlider items={recommendedItems || []} />
-          </ProductsSection>
+          {recommendedItems && recommendedItems.length > 0 && (
+            <ProductsSection title="Oxşar məhsullar" className="recommended-section">
+              <ProductSlider items={recommendedItems || []} />
+            </ProductsSection>
+          )}
         </div>
       </section>
     </main>

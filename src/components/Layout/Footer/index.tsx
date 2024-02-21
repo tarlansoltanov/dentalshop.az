@@ -67,7 +67,13 @@ const Footer = () => {
                     {/* Company */}
                     <div className="col-md-4">
                       <div className="footer-menu">
-                        <div className="footer-menu-title">Şirkət</div>
+                        <div
+                          className="footer-menu-title"
+                          onClick={(e) => {
+                            e.currentTarget.parentElement?.classList.toggle("active");
+                          }}>
+                          Şirkət
+                        </div>
                         <div className="footer-menu-content">
                           <ul>
                             <li>
@@ -85,7 +91,13 @@ const Footer = () => {
                     {/* Help */}
                     <div className="col-md-4">
                       <div className="footer-menu">
-                        <div className="footer-menu-title">Alış-veriş</div>
+                        <div
+                          className="footer-menu-title"
+                          onClick={(e) => {
+                            e.currentTarget.parentElement?.classList.toggle("active");
+                          }}>
+                          Alış-veriş
+                        </div>
                         <div className="footer-menu-content">
                           <ul>
                             <li>
@@ -105,7 +117,13 @@ const Footer = () => {
                     {/* Account */}
                     <div className="col-md-4">
                       <div className="footer-menu">
-                        <div className="footer-menu-title">Hesab</div>
+                        <div
+                          className="footer-menu-title"
+                          onClick={(e) => {
+                            e.currentTarget.parentElement?.classList.toggle("active");
+                          }}>
+                          Hesab
+                        </div>
                         <div className="footer-menu-content">
                           <ul>
                             {isAuth ? (
