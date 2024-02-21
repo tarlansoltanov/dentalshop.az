@@ -382,3 +382,10 @@ section.featured-section {
   align-items: center;
   padding: 20px 0;
 }
+
+/* Account */
+
+.account-box {
+  background-color: transparent;
+  border: none;
+}

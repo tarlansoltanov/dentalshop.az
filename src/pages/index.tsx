@@ -49,6 +49,9 @@ import OrderDetails from "./OrderDetails";
 // Cart
 import Cart from "./Cart";
 
+// Account
+import Account from "./Account";
+
 export {
   Home,
   Brand,
@@ -67,4 +70,5 @@ export {
   Orders,
   OrderDetails,
   Cart,
+  Account,
 };

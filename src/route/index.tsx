@@ -40,6 +40,9 @@ const publicRoutes = [
   // About
   { path: "/cart", component: <Pages.Cart /> },
 
+  // Profile
+  { path: "/account", component: <Pages.Account /> },
+
   // NotFound
   { path: "*", component: <Pages.NotFound /> },
 ];
