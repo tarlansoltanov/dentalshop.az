@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // Redux
@@ -11,14 +11,20 @@ import Slider, { Settings } from "react-slick";
 // Components
 import NotFound from "@/pages/NotFound";
 import Loader from "@/components/Loader";
-import ProductsSection from "@/components/ProductsSection";
 import ProductSlider from "@/components/ProductSlider";
+import ProductsSection from "@/components/ProductsSection";
 
 // Assets
 import { DistributorPNG, FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
 
 // Actions
-import { addToCart, getProduct, getProducts } from "@/store/actions";
+import {
+  addToCart,
+  getProduct,
+  getProducts,
+  favoriteProduct,
+  unfavoriteProduct,
+} from "@/store/actions";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -73,9 +79,6 @@ const ProductDetails = () => {
 
   // Selected Image
   const [selectedImage, setSelectedImage] = useState<number>(0);
-
-  // Favorite
-  const [favorite, setFavorite] = useState<boolean>(false);
 
   if (product === null) {
     if (status.loading) {
@@ -252,29 +255,31 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <div className="user-bottom">
-              {isAuth && (
+            {isAuth && (
+              <div className="user-bottom">
                 <div id="product-user-buttons">
                   <div className="product-favorite">
-                    <a
-                      role="button"
-                      className="add-my-favorites"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setFavorite(!favorite);
-                      }}>
-                      {favorite ? (
-                        <React.Fragment>
-                          <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
-                          <span>Favorilərdən Sil</span>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
-                          <span>Favorilərə əlavə et</span>
-                        </React.Fragment>
-                      )}
-                    </a>
+                    {product.is_favorite ? (
+                      <a
+                        role="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          dispatch(unfavoriteProduct(product.slug));
+                        }}>
+                        <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
+                        <span>Favorilərdən Sil</span>
+                      </a>
+                    ) : (
+                      <a
+                        role="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          dispatch(favoriteProduct(product.slug));
+                        }}>
+                        <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
+                        <span>Favorilərə əlavə et</span>
+                      </a>
+                    )}
                   </div>
                   <div className="product-favorite">
                     <a
@@ -290,17 +295,17 @@ const ProductDetails = () => {
                     </a>
                   </div>
                 </div>
-              )}
 
-              {/* New Arrivals */}
-              <div className="entry-outlet-bottom1">
-                <span>
-                  <Link to="/products?is_new=true">
-                    <div className="entry-outlet-bottom">Yeni Məhsullar</div>
-                  </Link>
-                </span>
+                {/* New Arrivals */}
+                <div className="entry-outlet-bottom1">
+                  <span>
+                    <Link to="/products?is_new=true">
+                      <div className="entry-outlet-bottom">Yeni Məhsullar</div>
+                    </Link>
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="product-area-bottom">
               <div className="product-detail-tab">

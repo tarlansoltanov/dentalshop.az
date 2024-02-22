@@ -13,6 +13,8 @@ import {
   getDiscountedProducts,
   getRecommendedProducts,
   getProduct,
+  favoriteProduct,
+  unfavoriteProduct,
 } from "./actions";
 
 interface StateProps {
@@ -122,6 +124,48 @@ export const productSlice = createSlice({
         state.item = payload;
       })
       .addCase(getProduct.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder
+      .addCase(favoriteProduct.pending, (state, payload) => {
+        state.status = LOADING;
+        state.errors = null;
+        state.items =
+          state.items?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: true };
+            }
+            return item;
+          }) || null;
+        state.item =
+          state.item?.slug === payload.meta.arg ? { ...state.item, is_favorite: true } : null;
+      })
+      .addCase(favoriteProduct.fulfilled, (state) => {
+        state.status = SUCCESS;
+      })
+      .addCase(favoriteProduct.rejected, (state, { payload }) => {
+        state.status = FAILURE;
+        state.errors = payload;
+      });
+    builder
+      .addCase(unfavoriteProduct.pending, (state, payload) => {
+        state.status = LOADING;
+        state.errors = null;
+        state.items =
+          state.items?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: false };
+            }
+            return item;
+          }) || null;
+        state.item =
+          state.item?.slug === payload.meta.arg ? { ...state.item, is_favorite: false } : null;
+      })
+      .addCase(unfavoriteProduct.fulfilled, (state) => {
+        state.status = SUCCESS;
+      })
+      .addCase(unfavoriteProduct.rejected, (state, { payload }) => {
         state.status = FAILURE;
         state.errors = payload;
       });

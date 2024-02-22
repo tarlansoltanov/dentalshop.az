@@ -11,6 +11,7 @@ export type Product = {
   discount: number;
   is_new: boolean;
   in_stock: boolean;
+  is_favorite?: boolean;
   is_distributer: boolean;
   is_recommended: boolean;
   notes: ProductNote[];
