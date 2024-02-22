@@ -389,3 +389,47 @@ section.featured-section {
   background-color: transparent;
   border: none;
 }
+
+/* Header Account Menu */
+
+.member-login-market .fa-angle-down {
+  font-size: 20px;
+  color: #fff;
+  margin-left: 10px;
+  position: relative;
+  top: 2px;
+}
+
+@media screen and (max-width: 991px) {
+  .member-login-market .fa-angle-down {
+    display: none;
+  }
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  position: relative;
+}
+
+
+.sub-menu {
+  display: none;
+}
+
+.sub-menu.active {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  right: 0;
+}
+
+.sub-menu.active li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sub-menu.active li a {
+  width: 100%;
+  padding: 10px 20px;
+  display: block;
+}

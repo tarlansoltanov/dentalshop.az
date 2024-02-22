@@ -125,10 +125,26 @@ const Header = () => {
                       </React.Fragment>
                     ) : (
                       <div className="member-login-market">
-                        <Link to="/account">
+                        <a
+                          role="button"
+                          onClick={(e) => e.currentTarget.children[2].classList.toggle("active")}
+                          className="dropdown-toggle">
                           <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
                           <span>{user ? `${user.first_name} ${user.last_name}` : "Hesabım"}</span>
-                        </Link>
+                          <ul className="sub-menu">
+                            <li>
+                              <Link to="/account">Hesabım</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/account/orders">Sifarişlərim</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/auth/logout">Çıxış</Link>
+                            </li>
+                          </ul>
+                        </a>
 
                         <Link to="/cart">
                           <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;

@@ -32,10 +32,10 @@ const publicRoutes = [
   { path: "/about", component: <Pages.About /> },
 
   // Order
-  { path: "/orders", component: <Pages.Orders /> },
+  { path: "/account/orders", component: <Pages.Orders /> },
 
   // Order Details
-  { path: "/orders/:id", component: <Pages.OrderDetails /> },
+  { path: "/account/orders/:id", component: <Pages.OrderDetails /> },
 
   // About
   { path: "/cart", component: <Pages.Cart /> },

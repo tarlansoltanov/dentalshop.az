@@ -43,7 +43,7 @@ const Orders = () => {
                     <td className="product-col">
                       <div className="product">
                         <h3 className="product-title">
-                          <Link to={`/orders/${item.id}`}>
+                          <Link to={`/account/orders/${item.id}`}>
                             #{item.id.toString().padStart(6, "0")}
                           </Link>
                         </h3>

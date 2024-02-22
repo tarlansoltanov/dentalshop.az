@@ -204,7 +204,7 @@ const Cart = () => {
                 className="btn btn-outline-dark-2"
                 onClick={() => {
                   dispatch(checkout(getFormData({ code: discountCode })));
-                  navigate("/orders");
+                  navigate("/account/orders");
                 }}>
                 Sifariş et
               </button>
