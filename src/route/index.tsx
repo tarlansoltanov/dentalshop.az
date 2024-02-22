@@ -4,44 +4,32 @@ const publicRoutes = [
   // Home
   { path: "/", exact: true, component: <Pages.Home /> },
 
-  // Brand
-  { path: "/brands/:slug", component: <Pages.Brand /> },
+  // Products
+  { path: "/products", component: <Pages.Products /> },
 
   // Product Details
   { path: "/products/:slug", component: <Pages.Product /> },
 
-  // Category
-  { path: "/categories/:slug", component: <Pages.Category /> },
-
-  // Search
-  { path: "/search", component: <Pages.Search /> },
-
-  // New Arrivals
-  { path: "/new-arrivals", component: <Pages.NewArrivals /> },
-
   // Free Zone
   { path: "/free-zone", component: <Pages.FreeZone /> },
 
-  // Free Zone Item
+  // Free Zone Details
   { path: "/free-zone/:slug", component: <Pages.FreeZoneItem /> },
 
-  // Product Details
-  { path: "/discounted", component: <Pages.Discounted /> },
+  // Account
+  { path: "/account", component: <Pages.Account /> },
 
-  // About
-  { path: "/about", component: <Pages.About /> },
-
-  // Order
+  // Orders
   { path: "/account/orders", component: <Pages.Orders /> },
 
   // Order Details
   { path: "/account/orders/:id", component: <Pages.OrderDetails /> },
 
-  // About
+  // Cart
   { path: "/cart", component: <Pages.Cart /> },
 
-  // Profile
-  { path: "/account", component: <Pages.Account /> },
+  // About
+  { path: "/about", component: <Pages.About /> },
 
   // NotFound
   { path: "*", component: <Pages.NotFound /> },

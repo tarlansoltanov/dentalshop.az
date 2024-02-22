@@ -61,7 +61,7 @@ const Home = () => {
 
       <ProductsSection
         title="Yeni Məhsullar"
-        showAll={{ title: "Bütün Yeni Məhsullar", link: "/new-arrivals" }}
+        showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
         className="new-arrivals-section">
         <div className="row">
           {newItems?.map((item, index) => (
@@ -74,7 +74,7 @@ const Home = () => {
 
       <ProductsSection
         title="Endirimli Məhsullar"
-        showAll={{ title: "Bütün Endirimli Məhsullar", link: "/discounted" }}
+        showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
         className="featured-section">
         <div className="row">
           {discountedItems?.map((item, index) => (

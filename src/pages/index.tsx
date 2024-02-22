@@ -1,23 +1,8 @@
 // Home
 import Home from "./Home";
 
-// Brand
-import Brand from "./Brand";
-
-// Category
-import Category from "./Category";
-
 // Product
 import Product from "./Product";
-
-// Search
-import Search from "./Search";
-
-// New Arrivals
-import NewArrivals from "./NewArrivals";
-
-// Discounted
-import Discounted from "./Discounted";
 
 // FreeZone
 import FreeZone from "./FreeZone";
@@ -52,14 +37,13 @@ import Cart from "./Cart";
 // Account
 import Account from "./Account";
 
+// Products
+import Products from "./Products";
+
 export {
   Home,
-  Brand,
-  Category,
+  Products,
   Product,
-  Search,
-  NewArrivals,
-  Discounted,
   FreeZone,
   FreeZoneItem,
   Login,

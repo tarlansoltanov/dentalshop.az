@@ -93,7 +93,7 @@ const MobileNavigation = () => {
                   <ul>
                     {brands?.map((item, index) => (
                       <li key={index}>
-                        <Link to={`/brands/${item.slug}`}>
+                        <Link to={`/products?brand=${item.slug}`}>
                           <div>
                             <span>{item.name}</span>
                           </div>
@@ -138,7 +138,7 @@ const MobileNavigation = () => {
 
                     <ul>
                       <li>
-                        <Link to={`/categories/${e1.slug}`}>
+                        <Link to={`/products?category=${e1.slug}`}>
                           <div>
                             <span>Hamısı</span>
                           </div>
@@ -172,7 +172,7 @@ const MobileNavigation = () => {
 
                             <ul>
                               <li>
-                                <Link to={`/categories/${e2.slug}`}>
+                                <Link to={`/products?category=${e2.slug}`}>
                                   <div>
                                     <span>Hamısı</span>
                                   </div>
@@ -181,7 +181,7 @@ const MobileNavigation = () => {
 
                               {e2.children?.map((e3, i3) => (
                                 <li key={i3}>
-                                  <Link to={`/categories/${e3.slug}`}>
+                                  <Link to={`/products?category=${e3.slug}`}>
                                     <div>
                                       <span>{e3.name}</span>
                                     </div>

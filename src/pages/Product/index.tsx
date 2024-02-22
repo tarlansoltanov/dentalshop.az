@@ -102,7 +102,7 @@ const ProductDetails = () => {
 
                 {product.category.parent?.parent && (
                   <li>
-                    <Link to={`/categories/${product.category.parent.parent.slug}`}>
+                    <Link to={`/products?category=${product.category.parent.parent.slug}`}>
                       <span>
                         <i></i>
                         <span>{product.category.parent.parent.name}</span>
@@ -113,7 +113,7 @@ const ProductDetails = () => {
 
                 {product.category.parent && (
                   <li>
-                    <Link to={`/categories/${product.category.parent.slug}`}>
+                    <Link to={`/products?category=${product.category.parent.slug}`}>
                       <span>
                         <i></i>
                         <span>{product.category.parent.name}</span>
@@ -124,7 +124,7 @@ const ProductDetails = () => {
 
                 {product.category && (
                   <li>
-                    <Link to={`/categories/${product.category.slug}`}>
+                    <Link to={`/products?category=${product.category.slug}`}>
                       <span>
                         <i></i>
                         <span>{product.category.name}</span>
@@ -206,7 +206,9 @@ const ProductDetails = () => {
                           <div className="product-list-title">Marka</div>
 
                           <div className="product-list-content">
-                            <Link to={`/brands/${product.brand.slug}`} title={product.brand.name}>
+                            <Link
+                              to={`/products?brand=${product.brand.slug}`}
+                              title={product.brand.name}>
                               {product.brand.name}
                             </Link>
                           </div>
@@ -293,7 +295,7 @@ const ProductDetails = () => {
               {/* New Arrivals */}
               <div className="entry-outlet-bottom1">
                 <span>
-                  <Link to={"/new-arrivals"}>
+                  <Link to="/products?is_new=true">
                     <div className="entry-outlet-bottom">Yeni Məhsullar</div>
                   </Link>
                 </span>

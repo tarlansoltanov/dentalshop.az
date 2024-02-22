@@ -98,16 +98,17 @@ const Footer = () => {
                           }}>
                           Alış-veriş
                         </div>
+
                         <div className="footer-menu-content">
                           <ul>
                             <li>
                               <Link to="/free-zone">Free Zone</Link>
                             </li>
                             <li>
-                              <Link to="/new-arrivals">Yeni Gələnlər</Link>
+                              <Link to="/products?is_new=true">Yeni Gələnlər</Link>
                             </li>
                             <li>
-                              <Link to="/discounted">Endirimli Məhsullar</Link>
+                              <Link to="/products?discount=true">Endirimli Məhsullar</Link>
                             </li>
                           </ul>
                         </div>

@@ -433,3 +433,17 @@ section.featured-section {
   padding: 10px 20px;
   display: block;
 }
+
+/* Filter Box */
+
+.filterbox {
+  display: none;
+  background: #fff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: solid 1px #bababa;
+}
+
+.filterbox.active {
+  display: block;
+}

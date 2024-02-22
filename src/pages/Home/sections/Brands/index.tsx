@@ -13,7 +13,7 @@ const Brands = ({ items }: Props) => {
       <div className="sliderc">
         <div className="brand-container">
           {items.map((item, index) => (
-            <Link key={index} to={`/brands/${item.slug}`} className="yorum-box">
+            <Link key={index} to={`/products?brand=${item.slug}`} className="yorum-box">
               <div className="star-container">
                 <span className="star">★★★★★</span>
               </div>
