@@ -22,6 +22,7 @@ interface StateProps {
     loading: boolean;
     success: boolean;
     failure: boolean;
+    lastAction: string | null;
   };
   errors: any;
   items: Product[] | null;
@@ -37,6 +38,7 @@ const initialState: StateProps = {
     loading: false,
     success: false,
     failure: false,
+    lastAction: null,
   },
   errors: null,
   items: null,
@@ -63,76 +65,97 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getProducts.typePrefix };
         state.errors = null;
       })
       .addCase(getProducts.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getProducts.typePrefix };
         state.items = payload.data;
         state.count = payload.count;
       })
       .addCase(getProducts.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getProducts.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(getNewProducts.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getProducts.typePrefix };
         state.errors = null;
       })
       .addCase(getNewProducts.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getProducts.typePrefix };
         state.newItems = payload.data;
       })
       .addCase(getNewProducts.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getProducts.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(getDiscountedProducts.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getProducts.typePrefix };
         state.errors = null;
       })
       .addCase(getDiscountedProducts.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getProducts.typePrefix };
         state.discountedItems = payload.data;
       })
       .addCase(getDiscountedProducts.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getProducts.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(getRecommendedProducts.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getProducts.typePrefix };
         state.errors = null;
       })
       .addCase(getRecommendedProducts.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getProducts.typePrefix };
         state.recommendedItems = payload.data;
       })
       .addCase(getRecommendedProducts.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getProducts.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(getProduct.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getProduct.typePrefix };
         state.errors = null;
       })
       .addCase(getProduct.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getProduct.typePrefix };
         state.item = payload;
       })
       .addCase(getProduct.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getProduct.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(favoriteProduct.pending, (state, payload) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: favoriteProduct.typePrefix };
         state.errors = null;
         state.items =
           state.items?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: true };
+            }
+            return item;
+          }) || null;
+        state.newItems =
+          state.newItems?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: true };
+            }
+            return item;
+          }) || null;
+        state.discountedItems =
+          state.discountedItems?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: true };
+            }
+            return item;
+          }) || null;
+        state.recommendedItems =
+          state.recommendedItems?.map((item) => {
             if (item.slug === payload.meta.arg) {
               return { ...item, is_favorite: true };
             }
@@ -142,18 +165,39 @@ export const productSlice = createSlice({
           state.item?.slug === payload.meta.arg ? { ...state.item, is_favorite: true } : null;
       })
       .addCase(favoriteProduct.fulfilled, (state) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: favoriteProduct.typePrefix };
       })
       .addCase(favoriteProduct.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: favoriteProduct.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(unfavoriteProduct.pending, (state, payload) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: unfavoriteProduct.typePrefix };
         state.errors = null;
         state.items =
           state.items?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: false };
+            }
+            return item;
+          }) || null;
+        state.newItems =
+          state.newItems?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: false };
+            }
+            return item;
+          }) || null;
+        state.discountedItems =
+          state.discountedItems?.map((item) => {
+            if (item.slug === payload.meta.arg) {
+              return { ...item, is_favorite: false };
+            }
+            return item;
+          }) || null;
+        state.recommendedItems =
+          state.recommendedItems?.map((item) => {
             if (item.slug === payload.meta.arg) {
               return { ...item, is_favorite: false };
             }
@@ -163,10 +207,10 @@ export const productSlice = createSlice({
           state.item?.slug === payload.meta.arg ? { ...state.item, is_favorite: false } : null;
       })
       .addCase(unfavoriteProduct.fulfilled, (state) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: unfavoriteProduct.typePrefix };
       })
       .addCase(unfavoriteProduct.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: unfavoriteProduct.typePrefix };
         state.errors = payload;
       });
   },

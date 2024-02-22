@@ -15,6 +15,7 @@ import {
   getDiscountedProducts,
   getMainBrands,
   getNewProducts,
+  getProducts,
   getRecommendedProducts,
 } from "@/store/actions";
 
@@ -47,7 +48,11 @@ const Home = () => {
     dispatch(getNewProducts({ limit: 12 }));
   }, []);
 
-  if (statusProducts.loading || statusBrands.loading || statusCategories.loading) {
+  if (
+    (statusProducts.loading && statusProducts.lastAction === getProducts.typePrefix) ||
+    statusBrands.loading ||
+    statusCategories.loading
+  ) {
     return <Loader />;
   }
 

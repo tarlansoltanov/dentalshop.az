@@ -125,7 +125,7 @@ const Header = () => {
                       </React.Fragment>
                     ) : (
                       <div className="member-login-market">
-                        <a
+                        <div
                           role="button"
                           onClick={(e) => e.currentTarget.children[2].classList.toggle("active")}
                           className="dropdown-toggle">
@@ -144,7 +144,7 @@ const Header = () => {
                               <Link to="/auth/logout">Çıxış</Link>
                             </li>
                           </ul>
-                        </a>
+                        </div>
 
                         <Link to="/cart">
                           <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;
