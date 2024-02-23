@@ -26,31 +26,30 @@ const Orders = () => {
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
-            <table className="table table-cart table-mobile">
+            <div className="contentbox-header">
+              <h4>Sifarişlərim</h4>
+            </div>
+
+            <table className="table table-orders table-mobile">
               <thead>
                 <tr>
                   <th>Sifariş kodu</th>
                   <th className="small-hide">Məbləğ</th>
                   <th className="small-hide">Ödəmə</th>
-                  <th className="small-hide">Status</th>
-                  <th className="small-hide">Tarix</th>
-                  <th className="small-hide"></th>
+                  <th>Status</th>
+                  <th>Tarix</th>
+                  <th className="small-hide">Ətraflı</th>
                 </tr>
               </thead>
+
               <tbody>
                 {orders?.map((item, index) => (
                   <tr key={index}>
-                    <td className="product-col">
-                      <div className="product">
-                        <h3 className="product-title">
-                          <Link to={`/account/orders/${item.id}`}>
-                            #{item.id.toString().padStart(6, "0")}
-                          </Link>
-                        </h3>
-                      </div>
+                    <td className="code-col">
+                      <Link to={`/account/orders/${item.id}`}>Sifariş nömrə: #{item.id}</Link>
                     </td>
 
-                    <td className="price-col">
+                    <td className="price-col small-hide">
                       <span className="current-price">
                         {item.products?.reduce(
                           (acc, product) =>
@@ -63,11 +62,22 @@ const Orders = () => {
                       </span>
                     </td>
 
-                    <td className="total-col">{item.payment_type}</td>
+                    <td className="type-col small-hide">{item.payment_type}</td>
 
-                    <td className="total-col">{item.status}</td>
+                    <td className="status-col">
+                      <span
+                        className={`badge ${item.status === "Hazırlanır" ? "info" : "success"}`}>
+                        {item.status}
+                      </span>
+                    </td>
 
-                    <td className="total-col">{item.date}</td>
+                    <td className="date-col">{item.date}</td>
+
+                    <td className="action-col small-hide">
+                      <Link to={`/account/orders/${item.id}`} className="btn btn-primary">
+                        Ətraflı
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>
