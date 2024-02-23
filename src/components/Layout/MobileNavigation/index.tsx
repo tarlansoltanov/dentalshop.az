@@ -1,32 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux
-import { AppDispatch, RootState } from "@/store";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 // Helpers
 import { toggleMobileNavigation } from "@/helpers";
 
-// Actions
-import { getBrands, getCategories } from "@/store/actions";
-
 const MobileNavigation = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
   // Categories
-  const { items } = useSelector((state: RootState) => state.categories);
-
-  useEffect(() => {
-    if (items == null) dispatch(getCategories({ limit: "all" }));
-  }, [dispatch, items]);
+  const { items: categories } = useSelector((state: RootState) => state.categories);
 
   // Brands
   const { items: brands } = useSelector((state: RootState) => state.brands);
-
-  useEffect(() => {
-    if (brands == null) dispatch(getBrands({ limit: "all" }));
-  }, [dispatch, brands]);
 
   const [selectedCategory, setSelectedCategory] = useState<number[]>([-1, -1]);
   const [navigationHeight, setNavigationHeight] = useState<string>("auto");
@@ -47,11 +34,11 @@ const MobileNavigation = () => {
         const children = brands?.length;
         return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
       } else if (newSelectedCategory[1] === -1) {
-        const children = items?.[newSelectedCategory[0]].children?.length;
+        const children = categories?.[newSelectedCategory[0]].children?.length;
         return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
       } else {
         const children =
-          items?.[newSelectedCategory[0]].children?.[newSelectedCategory[1]].children?.length;
+          categories?.[newSelectedCategory[0]].children?.[newSelectedCategory[1]].children?.length;
         return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
       }
     });
@@ -113,7 +100,7 @@ const MobileNavigation = () => {
                 </Link>
               </li>
 
-              {items?.map((e1, i) => (
+              {categories?.map((e1, i) => (
                 <li key={i} className={`has-sub-category ${i == selectedCategory[0] && "active"}`}>
                   <a role="button" onClick={() => handleCategory(i, 0)}>
                     <div>
@@ -196,20 +183,6 @@ const MobileNavigation = () => {
                   </div>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div className="mobile-navigation-menu-items">
-            <ul>
-              <li>
-                <a
-                  href="https://www.dentrealmarket.com/sayfa/dentrealmarket-hesap-silme"
-                  target="_blank">
-                  <div>
-                    <span>Hesap Silme İstegi</span>
-                  </div>
-                </a>
-              </li>
             </ul>
           </div>
         </div>

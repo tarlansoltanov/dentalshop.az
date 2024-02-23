@@ -2,6 +2,10 @@ import axios from "@/api";
 
 // Types
 import { User } from "@/types";
+import { Pagination } from "@/types/filters";
+
+// Helpers
+import { getURLWithFilterParams } from "@/helpers";
 
 // URLs
 import * as URL from "./urls";
@@ -28,6 +32,21 @@ export const addToCart = async (formData: FormData) => {
 
 export const removeFromCart = async (slug: string) => {
   const { data } = await axios.delete(`${URL.CART_LIST_URL}?product=${slug}`);
+  return data;
+};
+
+export const getFavorites = async (filters: Pagination) => {
+  const { data } = await axios.get(getURLWithFilterParams(URL.FAVORITE_LIST_URL, filters));
+  return { data: data.results, count: data.count };
+};
+
+export const addFavorite = async (formData: FormData) => {
+  const { data } = await axios.post(URL.FAVORITE_LIST_URL, formData);
+  return data;
+};
+
+export const removeFavorite = async (slug: string) => {
+  const { data } = await axios.delete(`${URL.FAVORITE_LIST_URL}?product=${slug}`);
   return data;
 };
 

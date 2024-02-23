@@ -25,6 +25,9 @@ const publicRoutes = [
   // Cart
   { path: "/cart", component: <Pages.Cart /> },
 
+  // Favorites
+  { path: "/account/favorites", component: <Pages.Favorites /> },
+
   // Orders
   { path: "/account/orders", component: <Pages.Orders /> },
 

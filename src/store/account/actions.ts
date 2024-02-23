@@ -3,6 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 // Helpers
 import { getFormData } from "@/helpers";
 
+// Types
+import { Pagination } from "@/types/filters";
+
 // API
 import * as API from "@/api/account";
 
@@ -27,6 +30,7 @@ export const updateAccount = createAsyncThunk(
   }
 );
 
+/* Cart */
 export const getCart = createAsyncThunk("account/cart/get", async (_, thunkAPI) => {
   try {
     const response = await API.getCart();
@@ -84,6 +88,20 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+/* Favorites */
+export const getFavorites = createAsyncThunk(
+  "account/favorites/get",
+  async (filters: Pagination, thunkAPI) => {
+    try {
+      const response = await API.getFavorites(filters);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+/* Discount */
 export const checkDiscount = createAsyncThunk(
   "account/discount/check",
   async (code: string, thunkAPI) => {
@@ -96,6 +114,7 @@ export const checkDiscount = createAsyncThunk(
   }
 );
 
+/* Orders */
 export const getOrders = createAsyncThunk("account/orders/get", async (_, thunkAPI) => {
   try {
     const response = await API.getOrders();

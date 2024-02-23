@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { CartItem, Order, User } from "@/types";
+import { CartItem, Order, Product, User } from "@/types";
 
 // Actions
 import {
@@ -18,6 +18,7 @@ import {
   getOrders,
   checkout,
   getOrder,
+  getFavorites,
 } from "./actions";
 
 interface StateProps {
@@ -33,6 +34,8 @@ interface StateProps {
   discount: number;
   orders: Order[] | null;
   order: Order | null;
+  favorites: Product[] | null;
+  favoritesCount: number;
 }
 
 const initialState: StateProps = {
@@ -48,6 +51,8 @@ const initialState: StateProps = {
   discount: 0,
   orders: null,
   order: null,
+  favorites: null,
+  favoritesCount: 0,
 };
 
 export const accountSlice = createSlice({
@@ -208,6 +213,20 @@ export const accountSlice = createSlice({
       })
       .addCase(checkout.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: checkout.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(getFavorites.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getFavorites.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getFavorites.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getFavorites.typePrefix };
+        state.favorites = payload.data;
+        state.favoritesCount = payload.count;
+      })
+      .addCase(getFavorites.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getFavorites.typePrefix };
         state.errors = payload;
       });
   },

@@ -1,6 +1,9 @@
 // Home
 import Home from "./Home";
 
+// Products
+import Products from "./Products";
+
 // Product
 import Product from "./Product";
 
@@ -22,11 +25,14 @@ import Logout from "./Logout";
 // Register
 import Register from "./Register";
 
-// Not Found
-import NotFound from "./NotFound";
+// Account
+import Account from "./Account";
 
-// About
-import About from "./About";
+// Cart
+import Cart from "./Cart";
+
+// Favorites
+import Favorites from "./Favorites";
 
 // Orders
 import Orders from "./Orders";
@@ -34,18 +40,14 @@ import Orders from "./Orders";
 // OrderDetails
 import OrderDetails from "./OrderDetails";
 
-// Cart
-import Cart from "./Cart";
+// About
+import About from "./About";
 
-// Account
-import Account from "./Account";
-
-// Products
-import Products from "./Products";
+// Not Found
+import NotFound from "./NotFound";
 
 export {
   Home,
-  About,
   // Products
   Products,
   Product,
@@ -61,8 +63,13 @@ export {
   Account,
   // Cart
   Cart,
+  // Favorites
+  Favorites,
   // Orders
   Orders,
   OrderDetails,
+  // About
+  About,
+  // NotFound
   NotFound,
 };

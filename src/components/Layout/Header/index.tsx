@@ -29,18 +29,18 @@ const Header = () => {
   }, [dispatch, isAuth, user]);
 
   // Categories
-  const { items } = useSelector((state: RootState) => state.categories);
+  const { items: categories } = useSelector((state: RootState) => state.categories);
 
   useEffect(() => {
-    if (items == null) dispatch(getCategories({ limit: "all" }));
-  }, [dispatch, items]);
+    if (categories == null) dispatch(getCategories({ limit: "all" }));
+  }, [categories]);
 
   // Brands
   const { items: brands } = useSelector((state: RootState) => state.brands);
 
   useEffect(() => {
     if (brands == null) dispatch(getBrands({ limit: "all" }));
-  }, [dispatch, brands]);
+  }, [brands]);
 
   return (
     <React.Fragment>
@@ -80,7 +80,7 @@ const Header = () => {
                     }}>
                     <select name="category">
                       <option value="">Kategoriyada axtar</option>
-                      {items?.map((e, i) => (
+                      {categories?.map((e, i) => (
                         <option key={i} value={e.slug}>
                           {e.name}
                         </option>
@@ -134,6 +134,14 @@ const Header = () => {
                           <ul className="sub-menu">
                             <li>
                               <Link to="/account">Hesabım</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/account/favorites">Favorilərim</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/account/freezone">Elanlarım</Link>
                             </li>
 
                             <li>
@@ -195,7 +203,7 @@ const Header = () => {
                           </Link>
                         </li>
 
-                        {items?.map((e1, i) => (
+                        {categories?.map((e1, i) => (
                           <li key={i} className="has-sub-category">
                             <Link to={`/products?category=${e1.slug}`} title={e1.name}>
                               <span>{e1.name}</span>

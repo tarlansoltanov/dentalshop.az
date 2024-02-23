@@ -377,7 +377,7 @@ const ProductsPage = () => {
               </div>
 
               {/* Loader */}
-              {status.loading && <Loader />}
+              {status.loading && status.lastAction === getProducts.typePrefix && <Loader />}
 
               {/* Products */}
               <div className="showcase-container">
