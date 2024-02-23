@@ -21,3 +21,10 @@ export const getFreezoneItem = async (slug: string): Promise<FreezoneItem> => {
   const { data } = await axios.get(URL.FREEZONE_DETAIL_URL(slug));
   return data;
 };
+
+export const createFreezoneItem = async (formData: FormData): Promise<FreezoneItem> => {
+  const response = await axios.post(URL.FREEZONE_LIST_URL, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};

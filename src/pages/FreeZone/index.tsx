@@ -22,9 +22,6 @@ const FreeZoneProducts = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // Category
-  const { status: statusCategory } = useSelector((state: RootState) => state.categories);
-
   // Items
   const {
     items: products,
@@ -43,16 +40,14 @@ const FreeZoneProducts = () => {
 
   useEffect(() => {
     dispatch(getFreezoneItems({ ...filter }));
-
-    const params = convertToSearchParams(filter);
-    setSearchParams(params);
+    setSearchParams(convertToSearchParams(filter));
   }, [filter]);
 
   useEffect(() => {
     setMaxPage(Math.ceil(itemCount / (Number(filter.limit) || 12)));
   }, [itemCount, filter.limit]);
 
-  if (statusCategory.loading || status.loading) return <Loader />;
+  if (status.loading) return <Loader />;
 
   return (
     <main id="main">
@@ -66,17 +61,18 @@ const FreeZoneProducts = () => {
                     <form className="form-horizontal">
                       <div className="row">
                         <div className="col-6 col-lg-auto">
+                          <Link to="/free-zone/create" className="btn btn-primary">
+                            <i className="fas fa-plus" aria-hidden="true"></i> Elan yerləşdir
+                          </Link>
+                        </div>
+
+                        <div className="col-6 col-lg-auto">
                           <div className="checkbox-custom mt-3 mb-3">
                             <input
                               type="checkbox"
                               name="by_user"
                               checked={filter.by_user || false}
-                              onChange={() =>
-                                setFilter((prev) => ({
-                                  ...prev,
-                                  by_user: prev.by_user ? null : true,
-                                }))
-                              }
+                              readOnly
                             />
                             <label
                               htmlFor="by_user"

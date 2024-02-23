@@ -7,13 +7,14 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { FreezoneItem } from "@/types";
 
 // Actions
-import { getFreezoneItem, getFreezoneItems } from "./actions";
+import { createFreezoneItem, getFreezoneItem, getFreezoneItems } from "./actions";
 
 interface StateProps {
   status: {
     loading: boolean;
     success: boolean;
     failure: boolean;
+    lastAction: string | null;
   };
   errors: any;
   items: FreezoneItem[] | null;
@@ -26,6 +27,7 @@ const initialState: StateProps = {
     loading: false,
     success: false,
     failure: false,
+    lastAction: null,
   },
   errors: null,
   items: null,
@@ -47,29 +49,41 @@ export const freezoneSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getFreezoneItems.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getFreezoneItems.typePrefix };
         state.errors = null;
       })
       .addCase(getFreezoneItems.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getFreezoneItems.typePrefix };
         state.items = payload.data;
         state.count = payload.count;
       })
       .addCase(getFreezoneItems.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getFreezoneItems.typePrefix };
         state.errors = payload;
       });
     builder
       .addCase(getFreezoneItem.pending, (state) => {
-        state.status = LOADING;
+        state.status = { ...LOADING, lastAction: getFreezoneItem.typePrefix };
         state.errors = null;
       })
       .addCase(getFreezoneItem.fulfilled, (state, { payload }) => {
-        state.status = SUCCESS;
+        state.status = { ...SUCCESS, lastAction: getFreezoneItem.typePrefix };
         state.item = payload;
       })
       .addCase(getFreezoneItem.rejected, (state, { payload }) => {
-        state.status = FAILURE;
+        state.status = { ...FAILURE, lastAction: getFreezoneItem.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(createFreezoneItem.pending, (state) => {
+        state.status = { ...LOADING, lastAction: createFreezoneItem.typePrefix };
+        state.errors = null;
+      })
+      .addCase(createFreezoneItem.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: createFreezoneItem.typePrefix };
+      })
+      .addCase(createFreezoneItem.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: createFreezoneItem.typePrefix };
         state.errors = payload;
       });
   },

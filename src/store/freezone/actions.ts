@@ -29,3 +29,15 @@ export const getFreezoneItem = createAsyncThunk(
     }
   }
 );
+
+export const createFreezoneItem = createAsyncThunk(
+  "freezone/create",
+  async (formData: FormData, thunkAPI) => {
+    try {
+      const response = await API.createFreezoneItem(formData);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);

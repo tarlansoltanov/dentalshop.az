@@ -13,20 +13,23 @@ const publicRoutes = [
   // Free Zone
   { path: "/free-zone", component: <Pages.FreeZone /> },
 
+  // Free Zone Create
+  { path: "/free-zone/create", component: <Pages.FreeZoneCreate /> },
+
   // Free Zone Details
-  { path: "/free-zone/:slug", component: <Pages.FreeZoneItem /> },
+  { path: "/free-zone/:slug", component: <Pages.FreeZoneDetails /> },
 
   // Account
   { path: "/account", component: <Pages.Account /> },
+
+  // Cart
+  { path: "/cart", component: <Pages.Cart /> },
 
   // Orders
   { path: "/account/orders", component: <Pages.Orders /> },
 
   // Order Details
   { path: "/account/orders/:id", component: <Pages.OrderDetails /> },
-
-  // Cart
-  { path: "/cart", component: <Pages.Cart /> },
 
   // About
   { path: "/about", component: <Pages.About /> },

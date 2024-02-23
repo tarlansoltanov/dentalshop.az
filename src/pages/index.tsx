@@ -8,7 +8,10 @@ import Product from "./Product";
 import FreeZone from "./FreeZone";
 
 // FreeZoneItem
-import FreeZoneItem from "./FreeZoneItem";
+import FreeZoneDetails from "./FreeZoneDetails";
+
+// FreeZoneCreate
+import FreeZoneCreate from "./FreeZoneCreate";
 
 // Login
 import Login from "./Login";
@@ -42,17 +45,24 @@ import Products from "./Products";
 
 export {
   Home,
+  About,
+  // Products
   Products,
   Product,
+  // FreeZone
   FreeZone,
-  FreeZoneItem,
+  FreeZoneDetails,
+  FreeZoneCreate,
+  // Auth
   Login,
   Logout,
   Register,
-  NotFound,
-  About,
+  // Account
+  Account,
+  // Cart
+  Cart,
+  // Orders
   Orders,
   OrderDetails,
-  Cart,
-  Account,
+  NotFound,
 };
