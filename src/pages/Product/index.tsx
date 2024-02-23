@@ -24,6 +24,7 @@ import {
   getProducts,
   favoriteProduct,
   unfavoriteProduct,
+  removeFromCart,
 } from "@/store/actions";
 
 const ProductDetails = () => {
@@ -79,6 +80,9 @@ const ProductDetails = () => {
 
   // Selected Image
   const [selectedImage, setSelectedImage] = useState<number>(0);
+
+  // Add to Cart
+  const [inCart, setInCart] = useState<boolean>(false);
 
   if (product === null) {
     if (status.loading) {
@@ -262,8 +266,7 @@ const ProductDetails = () => {
                     {product.is_favorite ? (
                       <a
                         role="button"
-                        onClick={(e) => {
-                          e.preventDefault();
+                        onClick={() => {
                           dispatch(unfavoriteProduct(product.slug));
                         }}>
                         <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
@@ -272,8 +275,7 @@ const ProductDetails = () => {
                     ) : (
                       <a
                         role="button"
-                        onClick={(e) => {
-                          e.preventDefault();
+                        onClick={() => {
                           dispatch(favoriteProduct(product.slug));
                         }}>
                         <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
@@ -282,17 +284,32 @@ const ProductDetails = () => {
                     )}
                   </div>
                   <div className="product-favorite">
-                    <a
-                      role="button"
-                      className="add-cart"
-                      onClick={() => {
-                        dispatch(addToCart({ product: product.slug }));
-                      }}>
-                      <i
-                        className="fas fa-cart-plus"
-                        style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                      <span>Səbətə əlavə et</span>
-                    </a>
+                    {inCart ? (
+                      <a
+                        role="button"
+                        onClick={() => {
+                          dispatch(removeFromCart(product.slug));
+                          setInCart(false);
+                        }}>
+                        <i
+                          className="fas fa-cart-arrow-down"
+                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                        <span>Səbətdən Sil</span>
+                      </a>
+                    ) : (
+                      <a
+                        role="button"
+                        className="add-cart"
+                        onClick={() => {
+                          dispatch(addToCart({ product: product.slug }));
+                          setInCart(true);
+                        }}>
+                        <i
+                          className="fas fa-cart-plus"
+                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                        <span>Səbətə əlavə et</span>
+                      </a>
+                    )}
                   </div>
                 </div>
 

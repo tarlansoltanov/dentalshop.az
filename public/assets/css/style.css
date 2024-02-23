@@ -249,11 +249,10 @@ section.featured-section {
 }
 
 .table-cart tbody td {
-  padding-top: 20px;
+  padding-top: 5px;
   font-size: 16px;
   font-weight: 400;
   color: #43484D;
-  margin-top: 10px;
 }
 
 .table-cart .product-col .product {
@@ -463,6 +462,11 @@ section.featured-section {
   display: block;
 }
 
+/* Footer Menu Content */
+.footer-menu-content>ul>li>a {
+  color: #fff !important;
+}
+
 /* Product Detail */
 
 .favorite-label {
@@ -473,6 +477,10 @@ section.featured-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.user-bottom {
+  display: block !important;
 }
 
 /* Orders Table */
