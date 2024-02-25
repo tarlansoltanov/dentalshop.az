@@ -7,7 +7,12 @@ import { LOADING, SUCCESS, FAILURE } from "@/constants";
 import { FreezoneItem } from "@/types";
 
 // Actions
-import { createFreezoneItem, getFreezoneItem, getFreezoneItems } from "./actions";
+import {
+  createFreezoneItem,
+  getFreezoneItem,
+  getFreezoneItems,
+  updateFreezoneItem,
+} from "./actions";
 
 interface StateProps {
   status: {
@@ -84,6 +89,18 @@ export const freezoneSlice = createSlice({
       })
       .addCase(createFreezoneItem.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: createFreezoneItem.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(updateFreezoneItem.pending, (state) => {
+        state.status = { ...LOADING, lastAction: updateFreezoneItem.typePrefix };
+        state.errors = null;
+      })
+      .addCase(updateFreezoneItem.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: updateFreezoneItem.typePrefix };
+      })
+      .addCase(updateFreezoneItem.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: updateFreezoneItem.typePrefix };
         state.errors = payload;
       });
   },

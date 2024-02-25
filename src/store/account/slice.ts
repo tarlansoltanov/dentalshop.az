@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { CartItem, Order, Product, User } from "@/types";
+import { CartItem, FreezoneItem, Order, Product, User } from "@/types";
 
 // Actions
 import {
@@ -19,6 +19,7 @@ import {
   checkout,
   getOrder,
   getFavorites,
+  getAccountFreezone,
 } from "./actions";
 
 interface StateProps {
@@ -36,6 +37,8 @@ interface StateProps {
   order: Order | null;
   favorites: Product[] | null;
   favoritesCount: number;
+  freezoneItems: FreezoneItem[] | null;
+  freezoneCount: number;
 }
 
 const initialState: StateProps = {
@@ -53,6 +56,8 @@ const initialState: StateProps = {
   order: null,
   favorites: null,
   favoritesCount: 0,
+  freezoneItems: null,
+  freezoneCount: 0,
 };
 
 export const accountSlice = createSlice({
@@ -93,6 +98,7 @@ export const accountSlice = createSlice({
         state.status = { ...FAILURE, lastAction: updateAccount.typePrefix };
         state.errors = payload;
       });
+    /* Cart */
     builder
       .addCase(getCart.pending, (state) => {
         state.status = { ...LOADING, lastAction: getCart.typePrefix };
@@ -177,6 +183,20 @@ export const accountSlice = createSlice({
         state.errors = payload;
       });
     builder
+      .addCase(checkout.pending, (state) => {
+        state.status = { ...LOADING, lastAction: checkout.typePrefix };
+        state.errors = null;
+      })
+      .addCase(checkout.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: checkout.typePrefix };
+        state.orders = [payload, ...(state.orders || [])];
+      })
+      .addCase(checkout.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: checkout.typePrefix };
+        state.errors = payload;
+      });
+    /* Orders */
+    builder
       .addCase(getOrders.pending, (state) => {
         state.status = { ...LOADING, lastAction: getOrders.typePrefix };
         state.errors = null;
@@ -202,19 +222,8 @@ export const accountSlice = createSlice({
         state.status = { ...FAILURE, lastAction: getOrder.typePrefix };
         state.errors = payload;
       });
-    builder
-      .addCase(checkout.pending, (state) => {
-        state.status = { ...LOADING, lastAction: checkout.typePrefix };
-        state.errors = null;
-      })
-      .addCase(checkout.fulfilled, (state, { payload }) => {
-        state.status = { ...SUCCESS, lastAction: checkout.typePrefix };
-        state.orders = [payload, ...(state.orders || [])];
-      })
-      .addCase(checkout.rejected, (state, { payload }) => {
-        state.status = { ...FAILURE, lastAction: checkout.typePrefix };
-        state.errors = payload;
-      });
+
+    /* Favorites */
     builder
       .addCase(getFavorites.pending, (state) => {
         state.status = { ...LOADING, lastAction: getFavorites.typePrefix };
@@ -227,6 +236,22 @@ export const accountSlice = createSlice({
       })
       .addCase(getFavorites.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getFavorites.typePrefix };
+        state.errors = payload;
+      });
+
+    /* Freezone */
+    builder
+      .addCase(getAccountFreezone.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getAccountFreezone.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getAccountFreezone.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getAccountFreezone.typePrefix };
+        state.freezoneItems = payload.data;
+        state.freezoneCount = payload.count;
+      })
+      .addCase(getAccountFreezone.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getAccountFreezone.typePrefix };
         state.errors = payload;
       });
   },

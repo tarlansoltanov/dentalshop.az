@@ -20,6 +20,7 @@ export const updateAccount = async (formData: FormData) => {
   return data as User;
 };
 
+/* Cart */
 export const getCart = async () => {
   const { data } = await axios.get(`${URL.CART_LIST_URL}?limit=all`);
   return data;
@@ -35,6 +36,17 @@ export const removeFromCart = async (slug: string) => {
   return data;
 };
 
+export const checkDiscount = async (code: string) => {
+  const { data } = await axios.get(`${URL.DISCOUNT_LIST_URL}?code=${code}`);
+  return data;
+};
+
+export const checkout = async (formData: FormData) => {
+  const { data } = await axios.post(URL.ORDER_LIST_URL, formData);
+  return data;
+};
+
+/* Favorites */
 export const getFavorites = async (filters: Pagination) => {
   const { data } = await axios.get(getURLWithFilterParams(URL.FAVORITE_LIST_URL, filters));
   return { data: data.results, count: data.count };
@@ -50,11 +62,7 @@ export const removeFavorite = async (slug: string) => {
   return data;
 };
 
-export const checkDiscount = async (code: string) => {
-  const { data } = await axios.get(`${URL.DISCOUNT_LIST_URL}?code=${code}`);
-  return data;
-};
-
+/* Orders */
 export const getOrders = async () => {
   const { data } = await axios.get(`${URL.ORDER_LIST_URL}?limit=all`);
   return data;
@@ -65,7 +73,8 @@ export const getOrder = async (id: number) => {
   return data;
 };
 
-export const checkout = async (formData: FormData) => {
-  const { data } = await axios.post(URL.ORDER_LIST_URL, formData);
-  return data;
+/* Free Zone */
+export const getFreeZone = async (filters: Pagination) => {
+  const { data } = await axios.get(getURLWithFilterParams(URL.FREEZONE_LIST_URL, filters));
+  return { data: data.results, count: data.count };
 };

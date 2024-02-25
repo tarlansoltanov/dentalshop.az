@@ -433,13 +433,6 @@ section.featured-section {
   right: 0;
 }
 
-.sub-menu.active::before {
-  border-color: rgba(230, 230, 230, 0);
-  border-bottom-color: #D9D9D9;
-  border-width: 9px;
-  margin-left: -9px;
-}
-
 .sub-menu.active li a {
   width: 100%;
   padding: 10px 20px;

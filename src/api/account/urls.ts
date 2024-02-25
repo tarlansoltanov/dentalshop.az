@@ -13,3 +13,6 @@ export const ORDER_DETAIL_URL = (id: number) => `/account/orders/${id}`;
 
 // FAVORITE
 export const FAVORITE_LIST_URL = "/account/favorites/";
+
+// FREEZONE
+export const FREEZONE_LIST_URL = "/account/freezone/";

@@ -147,3 +147,16 @@ export const checkout = createAsyncThunk(
     }
   }
 );
+
+/* Freezone */
+export const getAccountFreezone = createAsyncThunk(
+  "account/freezone/get",
+  async (filters: Pagination, thunkAPI) => {
+    try {
+      const response = await API.getFreeZone(filters);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

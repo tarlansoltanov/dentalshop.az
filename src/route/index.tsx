@@ -19,8 +19,14 @@ const publicRoutes = [
   // Free Zone Details
   { path: "/free-zone/:slug", component: <Pages.FreeZoneDetails /> },
 
+  // Free Zone Update
+  { path: "/free-zone/:slug/update", component: <Pages.FreeZoneUpdate /> },
+
   // Account
   { path: "/account", component: <Pages.Account /> },
+
+  // Account Free Zone
+  { path: "/account/free-zone", component: <Pages.AccountFreezone /> },
 
   // Cart
   { path: "/cart", component: <Pages.Cart /> },

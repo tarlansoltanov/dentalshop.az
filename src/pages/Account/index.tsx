@@ -30,14 +30,12 @@ const Account = () => {
     if (!user) dispatch(getAccount());
   }, []);
 
-  useEffect(() => {
-    if (!isAuth) navigate("/");
-  }, [isAuth]);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateAccount(getFormData(data)));
   };
+
+  if (!isAuth) navigate("/");
 
   return (
     <div className="signup-container account-box">

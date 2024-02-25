@@ -41,3 +41,15 @@ export const createFreezoneItem = createAsyncThunk(
     }
   }
 );
+
+export const updateFreezoneItem = createAsyncThunk(
+  "freezone/update",
+  async ({ slug, formData }: { slug: string; formData: FormData }, thunkAPI) => {
+    try {
+      const response = await API.updateFreezoneItem(slug, formData);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);

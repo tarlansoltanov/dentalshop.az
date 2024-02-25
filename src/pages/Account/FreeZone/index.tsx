@@ -15,7 +15,7 @@ import { convertToSearchParams } from "@/helpers";
 import { FreezoneFilter } from "@/types/filters";
 
 // Actions
-import { getFreezoneItems } from "@/store/actions";
+import { getAccountFreezone } from "@/store/actions";
 
 const FreeZoneProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +23,10 @@ const FreeZoneProducts = () => {
 
   // Items
   const {
-    items: products,
-    count: itemCount,
+    freezoneItems: products,
+    freezoneCount: itemCount,
     status,
-  } = useSelector((state: RootState) => state.freezone);
+  } = useSelector((state: RootState) => state.account);
 
   // MaxPage
   const [maxPage, setMaxPage] = useState<number>(1);
@@ -38,7 +38,7 @@ const FreeZoneProducts = () => {
   });
 
   useEffect(() => {
-    dispatch(getFreezoneItems({ ...filter }));
+    dispatch(getAccountFreezone({ ...filter }));
     setSearchParams(convertToSearchParams(filter));
   }, [filter]);
 
@@ -65,48 +65,10 @@ const FreeZoneProducts = () => {
                           </Link>
                         </div>
 
-                        <div className="col-6 col-lg-auto">
-                          <div className="checkbox-custom mt-3 mb-3">
-                            <input
-                              type="checkbox"
-                              name="by_user"
-                              checked={filter.by_user || false}
-                              readOnly
-                            />
-                            <label
-                              htmlFor="by_user"
-                              onClick={() =>
-                                setFilter((prev) => ({
-                                  ...prev,
-                                  by_user: prev.by_user ? null : true,
-                                }))
-                              }>
-                              Mənim elanlarım
-                            </label>
-                          </div>
-                        </div>
-
                         <div className="col-6 col-lg">
                           <div className="record-count text-right mt-3 mb-3">
                             Ümumi {itemCount} məhsul
                           </div>
-                        </div>
-
-                        <div className="col-6 col-lg-auto">
-                          <label htmlFor="sortingOption" className="mb-0 d-block">
-                            <select
-                              className="form-control"
-                              onChange={(e) =>
-                                setFilter((prev) => ({ ...prev, ordering: e.target.value }))
-                              }>
-                              <option>Standart</option>
-                              <option value="price"> Ən Aşağı Qiymət </option>
-                              <option value="-price"> Ən Yuxarı Qiymət </option>
-                              <option value="-discount"> Endirim miqdarı </option>
-                              <option value="name"> A'dan Z'yə </option>
-                              <option value="-name"> Z'dən A'ya </option>
-                            </select>
-                          </label>
                         </div>
                       </div>
                     </form>

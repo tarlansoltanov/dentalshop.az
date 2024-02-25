@@ -19,6 +19,12 @@ const FreeZoneDetails = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  // Auth
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Account
+  const { user } = useSelector((state: RootState) => state.account);
+
   // Product Data
   const { item, status } = useSelector((state: RootState) => state.freezone);
 
@@ -134,6 +140,38 @@ const FreeZoneDetails = () => {
                 </div>
               </div>
             </div>
+
+            {isAuth && item.user.phone === user?.phone && (
+              <div className="user-bottom">
+                <div id="product-user-buttons">
+                  <div className="product-favorite">
+                    <Link to={`/free-zone/${item.slug}/update`}>
+                      <i
+                        className="fas fa-pencil-alt"
+                        style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                      <span>Redaktə et</span>
+                    </Link>
+                  </div>
+                  <div className="product-favorite">
+                    <Link to={`/free-zone/${item.slug}/delete`}>
+                      <i
+                        className="fas fa-trash"
+                        style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                      <span>Sil</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* New Arrivals */}
+                <div className="entry-outlet-bottom1">
+                  <span>
+                    <Link to="/products?is_new=true">
+                      <div className="entry-outlet-bottom">Yeni Məhsullar</div>
+                    </Link>
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

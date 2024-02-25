@@ -141,7 +141,7 @@ const Header = () => {
                             </li>
 
                             <li>
-                              <Link to="/account/freezone">Elanlarım</Link>
+                              <Link to="/account/free-zone">Elanlarım</Link>
                             </li>
 
                             <li>

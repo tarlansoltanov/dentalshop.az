@@ -16,6 +16,9 @@ import FreeZoneDetails from "./FreeZoneDetails";
 // FreeZoneCreate
 import FreeZoneCreate from "./FreeZoneCreate";
 
+// FreeZoneUpdate
+import FreeZoneUpdate from "./FreeZoneUpdate";
+
 // Login
 import Login from "./Login";
 
@@ -27,6 +30,9 @@ import Register from "./Register";
 
 // Account
 import Account from "./Account";
+
+// Account Freezone
+import AccountFreezone from "./Account/FreeZone";
 
 // Cart
 import Cart from "./Cart";
@@ -55,12 +61,14 @@ export {
   FreeZone,
   FreeZoneDetails,
   FreeZoneCreate,
+  FreeZoneUpdate,
   // Auth
   Login,
   Logout,
   Register,
   // Account
   Account,
+  AccountFreezone,
   // Cart
   Cart,
   // Favorites

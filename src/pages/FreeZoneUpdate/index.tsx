@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
-import { createFreezoneItem } from "@/store/actions";
+
+// Helpers
 import { getFormData } from "@/helpers";
 
 // Actions
+import { getFreezoneItem, updateFreezoneItem } from "@/store/actions";
 
-const FreeZoneCreate = () => {
+// Actions
+
+const FreeZoneUpdate = () => {
+  const location = useLocation();
+  const slug = location.pathname.split("/")[2];
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -17,19 +24,32 @@ const FreeZoneCreate = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
 
   // Freezone
-  const { status, errors } = useSelector((state: RootState) => state.freezone);
+  const { item, status, errors } = useSelector((state: RootState) => state.freezone);
+
+  useEffect(() => {
+    dispatch(getFreezoneItem(slug));
+  }, [dispatch, slug]);
 
   // Data
   const [data, setData] = useState({
     title: "",
-    image: "",
     price: "",
     address: "",
     description: "",
   });
 
   useEffect(() => {
-    if (status.success && status.lastAction == createFreezoneItem.typePrefix) {
+    if (item === null) return;
+    setData({
+      title: item.title || "",
+      price: item.price || "",
+      address: item.address || "",
+      description: item.description || "",
+    });
+  }, [item]);
+
+  useEffect(() => {
+    if (status.success && status.lastAction == updateFreezoneItem.typePrefix) {
       navigate("/account/free-zone");
     }
   }, [status]);
@@ -38,11 +58,11 @@ const FreeZoneCreate = () => {
     e.preventDefault();
 
     const formData = getFormData(data);
-    formData.append("image", e.currentTarget.image.files[0]);
-    console.log(e.currentTarget.image.files[0]);
+
+    if (e.currentTarget.image.files[0]) formData.append("image", e.currentTarget.image.files[0]);
 
     // Dispatch
-    dispatch(createFreezoneItem(formData));
+    dispatch(updateFreezoneItem({ slug, formData }));
   };
 
   if (!isAuth) navigate("/free-zone");
@@ -50,7 +70,7 @@ const FreeZoneCreate = () => {
   return (
     <div className="signup-container account-box">
       <div className="contentbox-header">
-        <h4>Elan Yerləşdir</h4>
+        <h4>Elan Redaktə et</h4>
       </div>
 
       <div className="contentbox-body">
@@ -94,7 +114,6 @@ const FreeZoneCreate = () => {
                   type="file"
                   name="image"
                   className={`form-control ${errors?.data.image ? "invalid" : ""}`}
-                  required
                 />
                 <span className="required">*</span>
               </div>
@@ -104,6 +123,12 @@ const FreeZoneCreate = () => {
                   <span className="text-danger">{errors.data.image}</span>
                 </div>
               )}
+            </div>
+
+            <div className="col-12 col-lg-2">
+              <div>
+                <img src={item?.image} alt={data.title} style={{ width: "100px" }} />
+              </div>
             </div>
           </div>
 
@@ -187,8 +212,8 @@ const FreeZoneCreate = () => {
                 type="submit"
                 className="btn btn-primary btn-block"
                 style={{ backgroundColor: "#0b8ccd" }}
-                disabled={status.loading && status.lastAction == createFreezoneItem.typePrefix}>
-                Yerləşdir
+                disabled={status.loading && status.lastAction == updateFreezoneItem.typePrefix}>
+                Redaktə et
               </button>
             </div>
           </div>
@@ -198,4 +223,4 @@ const FreeZoneCreate = () => {
   );
 };
 
-export default FreeZoneCreate;
+export default FreeZoneUpdate;
