@@ -31,3 +31,8 @@ export const unfavoriteProduct = async (slug: string): Promise<string> => {
   await axios.delete(`${URL.FAVORITE_LIST_URL}?product=${slug}`);
   return slug;
 };
+
+export const getNotes = async () => {
+  const { data } = await axios.get(`${URL.NOTE_LIST_URL}?limit=all`);
+  return data;
+};

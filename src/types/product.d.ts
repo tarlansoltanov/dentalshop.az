@@ -14,7 +14,6 @@ export type Product = {
   is_favorite?: boolean;
   is_distributer: boolean;
   is_recommended: boolean;
-  notes: ProductNote[];
   main_note: string;
   description: string;
   updated_at: string;

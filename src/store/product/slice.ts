@@ -15,7 +15,9 @@ import {
   getProduct,
   favoriteProduct,
   unfavoriteProduct,
+  getNotes,
 } from "./actions";
+import { ProductNote } from "@/types/product";
 
 interface StateProps {
   status: {
@@ -31,6 +33,7 @@ interface StateProps {
   discountedItems: Product[] | null;
   recommendedItems: Product[] | null;
   item: Product | null;
+  notes: ProductNote[] | null;
 }
 
 const initialState: StateProps = {
@@ -47,6 +50,7 @@ const initialState: StateProps = {
   discountedItems: null,
   recommendedItems: null,
   item: null,
+  notes: null,
 };
 
 export const productSlice = createSlice({
@@ -211,6 +215,19 @@ export const productSlice = createSlice({
       })
       .addCase(unfavoriteProduct.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: unfavoriteProduct.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(getNotes.pending, (state) => {
+        state.status = { ...LOADING, lastAction: getNotes.typePrefix };
+        state.errors = null;
+      })
+      .addCase(getNotes.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: getNotes.typePrefix };
+        state.notes = payload;
+      })
+      .addCase(getNotes.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: getNotes.typePrefix };
         state.errors = payload;
       });
   },

@@ -25,6 +25,7 @@ import {
   favoriteProduct,
   unfavoriteProduct,
   removeFromCart,
+  getNotes,
 } from "@/store/actions";
 
 const ProductDetails = () => {
@@ -41,8 +42,13 @@ const ProductDetails = () => {
   const {
     item: product,
     items: recommendedItems,
+    notes,
     status,
   } = useSelector((state: RootState) => state.products);
+
+  useEffect(() => {
+    if (notes == null) dispatch(getNotes());
+  }, [notes]);
 
   useEffect(() => {
     dispatch(getProduct(slug));
@@ -247,7 +253,7 @@ const ProductDetails = () => {
 
                         <div className="detay-info">
                           <ul>
-                            {product?.notes.map((note, index) => (
+                            {notes?.map((note, index) => (
                               <li key={index}>{note.text}</li>
                             ))}
                           </ul>
@@ -338,14 +344,6 @@ const ProductDetails = () => {
                         </div>
 
                         <br />
-
-                        <div className="detay-info">
-                          <ul>
-                            {product.notes.map((item, index) => (
-                              <li key={index}>*** {item.text}</li>
-                            ))}
-                          </ul>
-                        </div>
                       </div>
                     </div>
                   </div>

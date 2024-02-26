@@ -87,3 +87,12 @@ export const unfavoriteProduct = createAsyncThunk(
     }
   }
 );
+
+export const getNotes = createAsyncThunk("product/notes", async (_, thunkAPI) => {
+  try {
+    const response = await API.getNotes();
+    return response;
+  } catch (error: any) {
+    throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+  }
+});

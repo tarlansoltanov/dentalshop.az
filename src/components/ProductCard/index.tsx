@@ -35,25 +35,26 @@ const ProductCard = ({ product }: Props) => {
           )}
 
           <div className="favorite-label">
-            {product.is_favorite ? (
-              <a
-                role="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(unfavoriteProduct(product.slug));
-                }}>
-                <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
-              </a>
-            ) : (
-              <a
-                role="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(favoriteProduct(product.slug));
-                }}>
-                <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
-              </a>
-            )}
+            {product.is_favorite !== undefined &&
+              (product.is_favorite ? (
+                <a
+                  role="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(unfavoriteProduct(product.slug));
+                  }}>
+                  <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
+                </a>
+              ) : (
+                <a
+                  role="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(favoriteProduct(product.slug));
+                  }}>
+                  <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
+                </a>
+              ))}
           </div>
         </div>
 
