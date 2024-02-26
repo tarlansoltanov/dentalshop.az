@@ -53,3 +53,15 @@ export const updateFreezoneItem = createAsyncThunk(
     }
   }
 );
+
+export const deleteFreezoneItem = createAsyncThunk(
+  "freezone/delete",
+  async (slug: string, thunkAPI) => {
+    try {
+      const response = await API.deleteFreezoneItem(slug);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue({ data: error.response.data, status: error.response.status });
+    }
+  }
+);

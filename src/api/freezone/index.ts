@@ -38,3 +38,7 @@ export const updateFreezoneItem = async (
   });
   return response.data;
 };
+
+export const deleteFreezoneItem = async (slug: string): Promise<void> => {
+  await axios.delete(URL.FREEZONE_DETAIL_URL(slug));
+};

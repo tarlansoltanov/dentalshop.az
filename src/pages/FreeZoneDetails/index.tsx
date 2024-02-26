@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { AppDispatch, RootState } from "@/store";
@@ -10,13 +10,14 @@ import NotFound from "@/pages/NotFound";
 import Loader from "@/components/Loader";
 
 // Actions
-import { getFreezoneItem } from "@/store/actions";
+import { deleteFreezoneItem, getFreezoneItem } from "@/store/actions";
 
 const FreeZoneDetails = () => {
   const location = useLocation();
 
   const slug = location.pathname.split("/")[2];
 
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   // Auth
@@ -116,6 +117,14 @@ const FreeZoneDetails = () => {
                           <div className="product-list-content">{item.address}</div>
                         </div>
 
+                        {/* Address */}
+                        <div className="product-list-row product-brands">
+                          <div className="product-list-title">Status</div>
+                          <div className="product-list-content">
+                            <span className="badge info">{item.status}</span>
+                          </div>
+                        </div>
+
                         {/* Price */}
                         <div className="product-list-row">
                           <div className="product-list-title">Qiymət</div>
@@ -153,12 +162,17 @@ const FreeZoneDetails = () => {
                     </Link>
                   </div>
                   <div className="product-favorite">
-                    <Link to={`/free-zone/${item.slug}/delete`}>
+                    <a
+                      role="button"
+                      onClick={() => {
+                        dispatch(deleteFreezoneItem(item.slug));
+                        navigate("/account/free-zone");
+                      }}>
                       <i
                         className="fas fa-trash"
                         style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
                       <span>Sil</span>
-                    </Link>
+                    </a>
                   </div>
                 </div>
 

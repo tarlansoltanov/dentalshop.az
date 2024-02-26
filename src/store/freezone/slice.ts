@@ -9,6 +9,7 @@ import { FreezoneItem } from "@/types";
 // Actions
 import {
   createFreezoneItem,
+  deleteFreezoneItem,
   getFreezoneItem,
   getFreezoneItems,
   updateFreezoneItem,
@@ -101,6 +102,19 @@ export const freezoneSlice = createSlice({
       })
       .addCase(updateFreezoneItem.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: updateFreezoneItem.typePrefix };
+        state.errors = payload;
+      });
+
+    builder
+      .addCase(deleteFreezoneItem.pending, (state) => {
+        state.status = { ...LOADING, lastAction: deleteFreezoneItem.typePrefix };
+        state.errors = null;
+      })
+      .addCase(deleteFreezoneItem.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: deleteFreezoneItem.typePrefix };
+      })
+      .addCase(deleteFreezoneItem.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: deleteFreezoneItem.typePrefix };
         state.errors = payload;
       });
   },

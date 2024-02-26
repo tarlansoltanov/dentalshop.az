@@ -21,6 +21,9 @@ const FreeZoneProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Auth
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   // Items
   const {
     items: products,
@@ -59,11 +62,13 @@ const FreeZoneProducts = () => {
                   <div id="sorting-options" className="sorting-options-content openbox-content">
                     <form className="form-horizontal">
                       <div className="row">
-                        <div className="col-6 col-lg-auto">
-                          <Link to="/free-zone/create" className="btn btn-primary">
-                            <i className="fas fa-plus" aria-hidden="true"></i> Elan yerləşdir
-                          </Link>
-                        </div>
+                        {isAuth && (
+                          <div className="col-6 col-lg-auto">
+                            <Link to="/free-zone/create" className="btn btn-primary">
+                              <i className="fas fa-plus" aria-hidden="true"></i> Elan yerləşdir
+                            </Link>
+                          </div>
+                        )}
 
                         <div className="col-6 col-lg-auto">
                           <div className="checkbox-custom mt-3 mb-3">

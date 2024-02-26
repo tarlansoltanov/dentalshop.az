@@ -7,6 +7,7 @@ export type FreezoneItem = {
   image: string;
   price: string;
   address: string;
+  status: string;
   description: string;
   updated_at: string;
   created_at: string;
