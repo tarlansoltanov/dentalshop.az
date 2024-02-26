@@ -33,6 +33,11 @@ const FreeZoneDetails = () => {
     dispatch(getFreezoneItem(slug));
   }, [dispatch, slug]);
 
+  useEffect(() => {
+    if (status.success && status.lastAction === deleteFreezoneItem.typePrefix)
+      navigate("/account/free-zone");
+  }, [status]);
+
   if (item === null) {
     if (status.loading) {
       return <Loader />;
@@ -166,7 +171,6 @@ const FreeZoneDetails = () => {
                       role="button"
                       onClick={() => {
                         dispatch(deleteFreezoneItem(item.slug));
-                        navigate("/account/free-zone");
                       }}>
                       <i
                         className="fas fa-trash"

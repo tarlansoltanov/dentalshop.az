@@ -70,27 +70,6 @@ const FreeZoneProducts = () => {
                           </div>
                         )}
 
-                        <div className="col-6 col-lg-auto">
-                          <div className="checkbox-custom mt-3 mb-3">
-                            <input
-                              type="checkbox"
-                              name="by_user"
-                              checked={filter.by_user || false}
-                              readOnly
-                            />
-                            <label
-                              htmlFor="by_user"
-                              onClick={() =>
-                                setFilter((prev) => ({
-                                  ...prev,
-                                  by_user: prev.by_user ? null : true,
-                                }))
-                              }>
-                              Mənim elanlarım
-                            </label>
-                          </div>
-                        </div>
-
                         <div className="col-6 col-lg">
                           <div className="record-count text-right mt-3 mb-3">
                             Ümumi {itemCount} məhsul

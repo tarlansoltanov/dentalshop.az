@@ -525,3 +525,19 @@ span.badge.info {
   border: 1px solid #bee5eb;
   border-radius: 5px;
 }
+
+/* Header */
+
+.header-top {
+  background: #f9f9f9 !important;
+}
+
+.header-top .fas {
+  color: #0f697c !important;
+}
+
+/* Footer */
+
+.footer-row-2 {
+  padding: 0 !important;
+}
