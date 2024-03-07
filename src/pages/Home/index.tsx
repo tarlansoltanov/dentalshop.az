@@ -60,35 +60,41 @@ const Home = () => {
     <main id="main">
       <Brands items={brands || []} />
 
-      <ProductsSection title="Tövsiyyə olunan Məhsullar" className="recommended-section">
-        <ProductSlider items={recommendedItems || []} />
-      </ProductsSection>
+      {recommendedItems && recommendedItems.length > 0 && (
+        <ProductsSection title="Tövsiyyə olunan Məhsullar" className="recommended-section">
+          <ProductSlider items={recommendedItems} />
+        </ProductsSection>
+      )}
 
-      <ProductsSection
-        title="Yeni Məhsullar"
-        showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
-        className="new-arrivals-section">
-        <div className="row">
-          {newItems?.map((item, index) => (
-            <div key={index} className="col-6 col-lg-4 col-xl-3">
-              <ProductCard product={item} />
-            </div>
-          ))}
-        </div>
-      </ProductsSection>
+      {newItems && newItems.length > 0 && (
+        <ProductsSection
+          title="Yeni Məhsullar"
+          showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
+          className="new-arrivals-section">
+          <div className="row">
+            {newItems.map((item, index) => (
+              <div key={index} className="col-6 col-lg-4 col-xl-3">
+                <ProductCard product={item} />
+              </div>
+            ))}
+          </div>
+        </ProductsSection>
+      )}
 
-      <ProductsSection
-        title="Endirimli Məhsullar"
-        showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
-        className="featured-section">
-        <div className="row">
-          {discountedItems?.map((item, index) => (
-            <div key={index} className="col-6 col-lg-4 col-xl-3">
-              <ProductCard product={item} />
-            </div>
-          ))}
-        </div>
-      </ProductsSection>
+      {discountedItems && discountedItems.length > 0 && (
+        <ProductsSection
+          title="Endirimli Məhsullar"
+          showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
+          className="featured-section">
+          <div className="row">
+            {discountedItems.map((item, index) => (
+              <div key={index} className="col-6 col-lg-4 col-xl-3">
+                <ProductCard product={item} />
+              </div>
+            ))}
+          </div>
+        </ProductsSection>
+      )}
     </main>
   );
 };
