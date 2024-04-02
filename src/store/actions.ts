@@ -7,6 +7,9 @@ export * from "./account/actions";
 // Brand actions
 export * from "./brand/actions";
 
+// Banner actions
+export * from "./banner/actions";
+
 // Category actions
 export * from "./category/actions";
 

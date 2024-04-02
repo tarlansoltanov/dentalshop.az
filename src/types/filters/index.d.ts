@@ -4,6 +4,9 @@ export type { Pagination, Order, DefaultFilter } from "./default";
 // Brand filter
 export type { BrandFilter } from "./brand";
 
+// Banner filter
+export type { BannerFilter } from "./banner";
+
 // Category filter
 export type { CategoryFilter } from "./category";
 
