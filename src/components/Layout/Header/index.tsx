@@ -154,7 +154,7 @@ const Header = () => {
                           </ul>
                         </div>
 
-                        <Link to="/cart">
+                        <Link to="/account/cart">
                           <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;
                           <span>Səbət</span>
                         </Link>

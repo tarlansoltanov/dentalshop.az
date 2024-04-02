@@ -541,3 +541,31 @@ span.badge.info {
 .footer-row-2 {
   padding: 0 !important;
 }
+
+#entry-slider {
+  display: block;
+}
+
+.theme-slider .slick-dots>li>button {
+  text-indent: -9999px;
+  background-color: #FFFFFF;
+}
+
+.theme-slider .slick-dots>li.slick-active>button {
+  background-color: #2B9B2F;
+}
+
+.theme-slider .slick-dots>li.slick-active>button::before {
+  border-color: #2B9B2F;
+}
+
+.theme-slider .slick-prev,
+.theme-slider .slick-next {
+  background-color: #2B9B2F;
+  display: block !important;
+}
+
+.theme-slider .slick-prev::before,
+.theme-slider .slick-next::before {
+  content: none;
+}

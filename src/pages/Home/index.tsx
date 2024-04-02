@@ -12,6 +12,7 @@ import ProductsSection from "@/components/ProductsSection";
 
 // Actions
 import {
+  getBanners,
   getDiscountedProducts,
   getMainBrands,
   getNewProducts,
@@ -21,6 +22,7 @@ import {
 
 // Related components
 import Brands from "./sections/Brands";
+import HomeSlider from "./sections/Slider";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,6 +35,11 @@ const Home = () => {
     (state: RootState) => state.brands
   );
 
+  // Banners
+  const { items: banners, status: statusBanners } = useSelector(
+    (state: RootState) => state.banners
+  );
+
   // Products
   const {
     recommendedItems,
@@ -43,6 +50,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getMainBrands({ limit: 6 }));
+    dispatch(getBanners({ limit: "all" }));
     dispatch(getRecommendedProducts({}));
     dispatch(getDiscountedProducts({ limit: 12 }));
     dispatch(getNewProducts({ limit: 12 }));
@@ -51,6 +59,7 @@ const Home = () => {
   if (
     (statusProducts.loading && statusProducts.lastAction === getProducts.typePrefix) ||
     statusBrands.loading ||
+    statusBanners.loading ||
     statusCategories.loading
   ) {
     return <Loader />;
@@ -58,6 +67,8 @@ const Home = () => {
 
   return (
     <main id="main">
+      {banners && banners.length > 0 && <HomeSlider items={banners} />}
+
       <Brands items={brands || []} />
 
       {recommendedItems && recommendedItems.length > 0 && (
