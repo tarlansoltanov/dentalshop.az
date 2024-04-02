@@ -21,7 +21,7 @@ import {
   removeFromCart,
 } from "@/store/actions";
 
-const Cart = () => {
+const AccountCart = () => {
   const [discountCode, setDiscountCode] = useState("");
 
   const navigate = useNavigate();
@@ -216,4 +216,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default AccountCart;

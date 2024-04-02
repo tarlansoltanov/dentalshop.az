@@ -16,7 +16,7 @@ import { Pagination } from "@/types/filters";
 import { getFavorites } from "@/store/actions";
 import { convertToSearchParams } from "@/helpers";
 
-const Favorites = () => {
+const AccountFavorites = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -124,4 +124,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default AccountFavorites;

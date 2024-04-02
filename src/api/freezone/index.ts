@@ -33,7 +33,7 @@ export const updateFreezoneItem = async (
   slug: string,
   formData: FormData
 ): Promise<FreezoneItem> => {
-  const response = await axios.put(URL.FREEZONE_DETAIL_URL(slug), formData, {
+  const response = await axios.patch(URL.FREEZONE_DETAIL_URL(slug), formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;

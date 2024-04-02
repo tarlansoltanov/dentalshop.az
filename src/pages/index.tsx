@@ -4,59 +4,60 @@ import Home from "./Home";
 // Products
 import Products from "./Products";
 
-// Product
-import Product from "./Product";
+// Product Details
+import ProductDetails from "./ProductDetails";
+
+// About
+import About from "./About";
+
+// Auth Login
+import Login from "./Auth/Login";
+
+// Auth Logout
+import Logout from "./Auth/Logout";
+
+// Auth Register
+import Register from "./Auth/Register";
 
 // FreeZone
 import FreeZone from "./FreeZone";
 
-// FreeZoneItem
-import FreeZoneDetails from "./FreeZoneDetails";
+// FreeZone Details
+import FreeZoneDetails from "./FreeZone/Details";
 
-// FreeZoneCreate
-import FreeZoneCreate from "./FreeZoneCreate";
+// FreeZone Create
+import FreeZoneCreate from "./FreeZone/Create";
 
-// FreeZoneUpdate
-import FreeZoneUpdate from "./FreeZoneUpdate";
-
-// Login
-import Login from "./Login";
-
-// Logout
-import Logout from "./Logout";
-
-// Register
-import Register from "./Register";
+// FreeZone Update
+import FreeZoneUpdate from "./FreeZone/Update";
 
 // Account
 import Account from "./Account";
 
+// Account Cart
+import AccountCart from "./Account/Cart";
+
 // Account Freezone
 import AccountFreezone from "./Account/FreeZone";
 
-// Cart
-import Cart from "./Cart";
+// Account Favorites
+import AccountFavorites from "./Account/Favorites";
 
-// Favorites
-import Favorites from "./Favorites";
-
-// Orders
+// Account Orders
 import Orders from "./Orders";
 
-// OrderDetails
+// Account Order Details
 import OrderDetails from "./OrderDetails";
-
-// About
-import About from "./About";
 
 // Not Found
 import NotFound from "./NotFound";
 
 export {
   Home,
+  About,
   // Products
   Products,
-  Product,
+  ProductDetails,
   // FreeZone
   FreeZone,
   FreeZoneDetails,
@@ -68,16 +69,12 @@ export {
   Register,
   // Account
   Account,
+  AccountCart,
   AccountFreezone,
-  // Cart
-  Cart,
-  // Favorites
-  Favorites,
+  AccountFavorites,
   // Orders
   Orders,
   OrderDetails,
-  // About
-  About,
   // NotFound
   NotFound,
 };

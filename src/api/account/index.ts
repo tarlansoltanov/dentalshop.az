@@ -16,7 +16,7 @@ export const getAccount = async () => {
 };
 
 export const updateAccount = async (formData: FormData) => {
-  const { data } = await axios.put(URL.ACCOUNT_URL, formData);
+  const { data } = await axios.patch(URL.ACCOUNT_URL, formData);
   return data as User;
 };
 

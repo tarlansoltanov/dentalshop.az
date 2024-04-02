@@ -4,11 +4,14 @@ const publicRoutes = [
   // Home
   { path: "/", exact: true, component: <Pages.Home /> },
 
+  // About
+  { path: "/about", component: <Pages.About /> },
+
   // Products
   { path: "/products", component: <Pages.Products /> },
 
   // Product Details
-  { path: "/products/:slug", component: <Pages.Product /> },
+  { path: "/products/:slug", component: <Pages.ProductDetails /> },
 
   // Free Zone
   { path: "/free-zone", component: <Pages.FreeZone /> },
@@ -28,20 +31,17 @@ const publicRoutes = [
   // Account Free Zone
   { path: "/account/free-zone", component: <Pages.AccountFreezone /> },
 
-  // Cart
-  { path: "/cart", component: <Pages.Cart /> },
+  // Account Cart
+  { path: "/account/cart", component: <Pages.AccountCart /> },
 
-  // Favorites
-  { path: "/account/favorites", component: <Pages.Favorites /> },
+  // Account Favorites
+  { path: "/account/favorites", component: <Pages.AccountFavorites /> },
 
   // Orders
   { path: "/account/orders", component: <Pages.Orders /> },
 
   // Order Details
   { path: "/account/orders/:id", component: <Pages.OrderDetails /> },
-
-  // About
-  { path: "/about", component: <Pages.About /> },
 
   // NotFound
   { path: "*", component: <Pages.NotFound /> },
