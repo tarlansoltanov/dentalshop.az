@@ -65,7 +65,7 @@ const FreeZoneDetails = () => {
                   <Link to="/free-zone">
                     <span>
                       <i></i>
-                      <span>Free Zone</span>
+                      <span>Azad Zona</span>
                     </span>
                   </Link>
                 </li>

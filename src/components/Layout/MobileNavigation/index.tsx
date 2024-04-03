@@ -58,7 +58,7 @@ const MobileNavigation = () => {
               <li className={`has-sub-category ${-10 == selectedCategory[0] && "active"}`}>
                 <a role="button" onClick={() => handleCategory(-10, 0)}>
                   <div>
-                    <span>Markalar</span>
+                    <span>Brendlər</span>
                   </div>
 
                   <i className="fas fa-chevron-right" aria-hidden="true"></i>
@@ -74,7 +74,7 @@ const MobileNavigation = () => {
                   </div>
 
                   <div className="mobile-navigation-parent">
-                    <a role="button">Markalar</a>
+                    <a role="button">Brendlər</a>
                   </div>
 
                   <ul>
@@ -95,7 +95,7 @@ const MobileNavigation = () => {
               <li>
                 <Link to="/free-zone">
                   <div>
-                    <span>Free Zone</span>
+                    <span>Azad Zona</span>
                   </div>
                 </Link>
               </li>

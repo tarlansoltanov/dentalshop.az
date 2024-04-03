@@ -167,7 +167,7 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Markalar</label>
+                          <label className="col-12 col-lg-4 control-label">Brendlər</label>
 
                           <div className="col-12 col-lg-8">
                             <div className="selectbox">

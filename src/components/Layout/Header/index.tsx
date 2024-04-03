@@ -178,7 +178,7 @@ const Header = () => {
                         {/* Brands */}
                         <li className="has-sub-category">
                           <a role="button">
-                            <span>Markalar</span>
+                            <span>Brendlər</span>
                           </a>
 
                           <div className="sub-category category-level-2">
@@ -199,7 +199,7 @@ const Header = () => {
                         {/* FreeZone */}
                         <li className="has-sub-category">
                           <Link to="/free-zone">
-                            <span>Free Zone</span>
+                            <span>Azad Zona</span>
                           </Link>
                         </li>
 

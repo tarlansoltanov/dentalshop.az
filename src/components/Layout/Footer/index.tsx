@@ -102,7 +102,7 @@ const Footer = () => {
                         <div className="footer-menu-content">
                           <ul>
                             <li>
-                              <Link to="/free-zone">Free Zone</Link>
+                              <Link to="/free-zone">Azad Zona</Link>
                             </li>
                             <li>
                               <Link to="/products?is_new=true">Yeni Gələnlər</Link>
