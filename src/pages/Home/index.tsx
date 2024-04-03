@@ -77,13 +77,13 @@ const Home = () => {
         </ProductsSection>
       )}
 
-      {newItems && newItems.length > 0 && (
+      {discountedItems && discountedItems.length > 0 && (
         <ProductsSection
-          title="Yeni Məhsullar"
-          showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
-          className="new-arrivals-section">
+          title="Endirimli Məhsullar"
+          showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
+          className="featured-section">
           <div className="row">
-            {newItems.map((item, index) => (
+            {discountedItems.map((item, index) => (
               <div key={index} className="col-6 col-lg-4 col-xl-3">
                 <ProductCard product={item} />
               </div>
@@ -92,13 +92,13 @@ const Home = () => {
         </ProductsSection>
       )}
 
-      {discountedItems && discountedItems.length > 0 && (
+      {newItems && newItems.length > 0 && (
         <ProductsSection
-          title="Endirimli Məhsullar"
-          showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
-          className="featured-section">
+          title="Yeni Məhsullar"
+          showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
+          className="new-arrivals-section">
           <div className="row">
-            {discountedItems.map((item, index) => (
+            {newItems.map((item, index) => (
               <div key={index} className="col-6 col-lg-4 col-xl-3">
                 <ProductCard product={item} />
               </div>

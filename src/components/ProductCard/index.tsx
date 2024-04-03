@@ -70,8 +70,8 @@ const ProductCard = ({ product }: Props) => {
       <div className="showcase-content">
         <div className="showcase-title">
           <Link to={`/products/${product.slug}`} title={product.name}>
-            <div className="showcase-brand">{product.brand.name}</div>
-            {product.name}
+            <div className="showcase-brand">{product.name}</div>
+            {product.brand.name}
           </Link>
         </div>
 

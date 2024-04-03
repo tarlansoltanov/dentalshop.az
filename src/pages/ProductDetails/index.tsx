@@ -238,14 +238,17 @@ const ProductDetails = () => {
                           <div className="product-list-title">Qiymət</div>
                           <div className="product-list-content">
                             <span className="current-price">
-                              {Number(product.price) -
-                                (Number(product.price) * product.discount) / 100}
-                              <span>AZN</span>
+                              {(
+                                Number(product.price) -
+                                (Number(product.price) * product.discount) / 100
+                              ).toFixed(2)}
+                              <span> AZN</span>
                             </span>
 
                             {product.discount > 0 && (
                               <del className="old-price">
-                                {product.price} <span>AZN</span>
+                                {product.price}
+                                <span> AZN</span>
                               </del>
                             )}
                           </div>
