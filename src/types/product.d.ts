@@ -13,7 +13,6 @@ export type Product = {
   in_stock: boolean;
   is_favorite?: boolean;
   is_distributer: boolean;
-  is_recommended: boolean;
   main_note: string;
   description: string;
   updated_at: string;

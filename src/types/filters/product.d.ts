@@ -12,5 +12,4 @@ export type ProductFilter = DefaultFilter & {
   in_stock?: boolean | null;
   only_stock?: boolean | null;
   is_distributer?: boolean | null;
-  is_recommended?: boolean | null;
 };

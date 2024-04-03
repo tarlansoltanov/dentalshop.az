@@ -11,7 +11,6 @@ import {
   getProducts,
   getNewProducts,
   getDiscountedProducts,
-  getRecommendedProducts,
   getProduct,
   favoriteProduct,
   unfavoriteProduct,
@@ -31,7 +30,6 @@ interface StateProps {
   count: number;
   newItems: Product[] | null;
   discountedItems: Product[] | null;
-  recommendedItems: Product[] | null;
   item: Product | null;
   notes: ProductNote[] | null;
 }
@@ -48,7 +46,6 @@ const initialState: StateProps = {
   count: 0,
   newItems: null,
   discountedItems: null,
-  recommendedItems: null,
   item: null,
   notes: null,
 };
@@ -63,7 +60,6 @@ export const productSlice = createSlice({
       state.items = initialState.items;
       state.newItems = initialState.newItems;
       state.discountedItems = initialState.discountedItems;
-      state.recommendedItems = initialState.recommendedItems;
     },
   },
   extraReducers: (builder) => {
@@ -108,19 +104,6 @@ export const productSlice = createSlice({
         state.errors = payload;
       });
     builder
-      .addCase(getRecommendedProducts.pending, (state) => {
-        state.status = { ...LOADING, lastAction: getProducts.typePrefix };
-        state.errors = null;
-      })
-      .addCase(getRecommendedProducts.fulfilled, (state, { payload }) => {
-        state.status = { ...SUCCESS, lastAction: getProducts.typePrefix };
-        state.recommendedItems = payload.data;
-      })
-      .addCase(getRecommendedProducts.rejected, (state, { payload }) => {
-        state.status = { ...FAILURE, lastAction: getProducts.typePrefix };
-        state.errors = payload;
-      });
-    builder
       .addCase(getProduct.pending, (state) => {
         state.status = { ...LOADING, lastAction: getProduct.typePrefix };
         state.errors = null;
@@ -158,13 +141,6 @@ export const productSlice = createSlice({
             }
             return item;
           }) || null;
-        state.recommendedItems =
-          state.recommendedItems?.map((item) => {
-            if (item.slug === payload.meta.arg) {
-              return { ...item, is_favorite: true };
-            }
-            return item;
-          }) || null;
         state.item =
           state.item?.slug === payload.meta.arg ? { ...state.item, is_favorite: true } : null;
       })
@@ -195,13 +171,6 @@ export const productSlice = createSlice({
           }) || null;
         state.discountedItems =
           state.discountedItems?.map((item) => {
-            if (item.slug === payload.meta.arg) {
-              return { ...item, is_favorite: false };
-            }
-            return item;
-          }) || null;
-        state.recommendedItems =
-          state.recommendedItems?.map((item) => {
             if (item.slug === payload.meta.arg) {
               return { ...item, is_favorite: false };
             }

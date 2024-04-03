@@ -7,17 +7,15 @@ import { AppDispatch, RootState } from "@/store";
 // Components
 import Loader from "@/components/Loader";
 import ProductCard from "@/components/ProductCard";
-import ProductSlider from "@/components/ProductSlider";
 import ProductsSection from "@/components/ProductsSection";
 
 // Actions
 import {
   getBanners,
-  getDiscountedProducts,
+  getProducts,
   getMainBrands,
   getNewProducts,
-  getProducts,
-  getRecommendedProducts,
+  getDiscountedProducts,
 } from "@/store/actions";
 
 // Related components
@@ -42,24 +40,26 @@ const Home = () => {
 
   // Products
   const {
-    recommendedItems,
-    discountedItems,
+    items,
     newItems,
+    discountedItems,
     status: statusProducts,
   } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    dispatch(getMainBrands({ limit: 6 }));
     dispatch(getBanners({ limit: "all" }));
-    dispatch(getRecommendedProducts({}));
-    dispatch(getDiscountedProducts({ limit: 12 }));
-    dispatch(getNewProducts({ limit: 12 }));
+    dispatch(getMainBrands({ limit: 6 }));
+    dispatch(getProducts({ limit: 8 }));
+    dispatch(getNewProducts({ limit: 8 }));
+    dispatch(getDiscountedProducts({ limit: 8 }));
   }, []);
 
   if (
-    (statusProducts.loading && statusProducts.lastAction === getProducts.typePrefix) ||
-    statusBrands.loading ||
     statusBanners.loading ||
+    statusBrands.loading ||
+    (statusProducts.loading && statusProducts.lastAction === getProducts.typePrefix) ||
+    (statusProducts.loading && statusProducts.lastAction === getNewProducts.typePrefix) ||
+    (statusProducts.loading && statusProducts.lastAction === getDiscountedProducts.typePrefix) ||
     statusCategories.loading
   ) {
     return <Loader />;
@@ -71,9 +71,18 @@ const Home = () => {
 
       <Brands items={brands || []} />
 
-      {recommendedItems && recommendedItems.length > 0 && (
-        <ProductsSection title="Tövsiyyə olunan Məhsullar" className="recommended-section">
-          <ProductSlider items={recommendedItems} />
+      {items && items.length > 0 && (
+        <ProductsSection
+          title="Məhsullar"
+          showAll={{ title: "Bütün Məhsullar", link: "/products" }}
+          className="featured-section">
+          <div className="row">
+            {items.map((item, index) => (
+              <div key={index} className="col-6 col-lg-4 col-xl-3">
+                <ProductCard product={item} />
+              </div>
+            ))}
+          </div>
         </ProductsSection>
       )}
 
