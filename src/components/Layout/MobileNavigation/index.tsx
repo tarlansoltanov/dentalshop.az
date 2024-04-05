@@ -35,11 +35,15 @@ const MobileNavigation = () => {
         return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
       } else if (newSelectedCategory[1] === -1) {
         const children = categories?.[newSelectedCategory[0]].children?.length;
-        return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
+        return children
+          ? startHeight + (children + 1) * elementHeight + "px"
+          : startHeight + elementHeight + "px";
       } else {
         const children =
           categories?.[newSelectedCategory[0]].children?.[newSelectedCategory[1]].children?.length;
-        return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
+        return children
+          ? startHeight + (children + 1) * elementHeight + "px"
+          : startHeight + elementHeight + "px";
       }
     });
   };
