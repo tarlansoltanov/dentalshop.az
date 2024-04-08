@@ -27,6 +27,7 @@ import {
   removeFromCart,
   getNotes,
 } from "@/store/actions";
+import Timer from "@/components/Timer";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -253,6 +254,15 @@ const ProductDetails = () => {
                             )}
                           </div>
                         </div>
+
+                        {product.discount > 0 && product.discount_end_date && (
+                          <div className="product-list-row">
+                            <div className="product-list-title">Endirim keçərlidir</div>
+                            <div className="product-list-content">
+                              <Timer end_date={product.discount_end_date} className="timer" />
+                            </div>
+                          </div>
+                        )}
 
                         <div className="detay-info">
                           <ul>

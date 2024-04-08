@@ -9,6 +9,7 @@ export type Product = {
   images: ProductImage[];
   price: string;
   discount: number;
+  discount_end_date?: string;
   is_new: boolean;
   in_stock: boolean;
   is_favorite?: boolean;
