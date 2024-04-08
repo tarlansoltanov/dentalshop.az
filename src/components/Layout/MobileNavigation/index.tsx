@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // Redux
 import { RootState } from "@/store";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { toggleMobileNavigation } from "@/helpers";
 
 const MobileNavigation = () => {
+  const location = useLocation();
+
   // Categories
   const { items: categories } = useSelector((state: RootState) => state.categories);
 
@@ -47,6 +49,10 @@ const MobileNavigation = () => {
       }
     });
   };
+
+  useEffect(() => {
+    document.body.classList.remove("navigation-active");
+  }, [location.pathname, location.search]);
 
   return (
     <React.Fragment>
