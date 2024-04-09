@@ -26,6 +26,14 @@ const ProductCard = ({ product }: Props) => {
 
   return (
     <div className="showcase">
+      {product.quantity === 0 && (
+        <Link to={`/products/${product.slug}`} title={product.name} className="soldOutBadge">
+          <i className="fab fa-servicestack" aria-hidden="true">
+            Stokta Yoxdur
+          </i>
+        </Link>
+      )}
+
       <div className="showcase-image-container">
         <div className="showcase-label-container">
           {product.is_new && (

@@ -118,12 +118,12 @@ export const accountSlice = createSlice({
         state.errors = null;
         if (payload.meta.arg.quantity === 1) {
           state.cartItems =
-            state.cartItems?.filter((item) => item.slug !== payload.meta.arg.product) || null;
+            state.cartItems?.filter((item) => item.product.slug !== payload.meta.arg.product) ||
+            null;
         } else {
           state.cartItems =
             state.cartItems?.map((item) => {
-              if (item.slug === payload.meta.arg.product) {
-                if (payload.meta.arg.quantity === 1) return null;
+              if (item.product.slug === payload.meta.arg.product) {
                 return { ...item, quantity: payload.meta.arg.quantity - 1 };
               }
               return item;
@@ -143,7 +143,7 @@ export const accountSlice = createSlice({
         state.errors = null;
         state.cartItems =
           state.cartItems?.map((item) => {
-            if (item.slug === payload.meta.arg.product) {
+            if (item.product.slug === payload.meta.arg.product) {
               return { ...item, quantity: payload.meta.arg.quantity + 1 };
             }
             return item;
@@ -160,7 +160,8 @@ export const accountSlice = createSlice({
       .addCase(removeFromCart.pending, (state, payload) => {
         state.status = { ...LOADING, lastAction: removeFromCart.typePrefix };
         state.errors = null;
-        state.cartItems = state.cartItems?.filter((item) => item.slug !== payload.meta.arg) || null;
+        state.cartItems =
+          state.cartItems?.filter((item) => item.product.slug !== payload.meta.arg) || null;
       })
       .addCase(removeFromCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: removeFromCart.typePrefix };

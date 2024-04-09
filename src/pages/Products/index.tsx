@@ -365,7 +365,6 @@ const ProductsPage = () => {
                             <option>Standart</option>
                             <option value="price"> Ən Aşağı Qiymət </option>
                             <option value="-price"> Ən Yuxarı Qiymət </option>
-                            <option value="-discount"> Endirim miqdarı </option>
                             <option value="name"> A'dan Z'yə </option>
                             <option value="-name"> Z'dən A'ya </option>
                           </select>

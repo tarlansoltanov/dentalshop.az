@@ -234,6 +234,12 @@ const ProductDetails = () => {
                           <div className="product-list-content">{product.code}</div>
                         </div>
 
+                        {/* Code */}
+                        <div className="product-list-row">
+                          <div className="product-list-title">Stok sayı</div>
+                          <div className="product-list-content">{product.quantity}</div>
+                        </div>
+
                         {/* Price */}
                         <div className="product-list-row">
                           <div className="product-list-title">Qiymət</div>
@@ -302,34 +308,37 @@ const ProductDetails = () => {
                       </a>
                     )}
                   </div>
-                  <div className="product-favorite">
-                    {inCart ? (
-                      <a
-                        role="button"
-                        onClick={() => {
-                          dispatch(removeFromCart(product.slug));
-                          setInCart(false);
-                        }}>
-                        <i
-                          className="fas fa-cart-arrow-down"
-                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                        <span>Səbətdən Sil</span>
-                      </a>
-                    ) : (
-                      <a
-                        role="button"
-                        className="add-cart"
-                        onClick={() => {
-                          dispatch(addToCart({ product: product.slug }));
-                          setInCart(true);
-                        }}>
-                        <i
-                          className="fas fa-cart-plus"
-                          style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                        <span>Səbətə əlavə et</span>
-                      </a>
-                    )}
-                  </div>
+
+                  {product.quantity !== 0 && (
+                    <div className="product-favorite">
+                      {inCart ? (
+                        <a
+                          role="button"
+                          onClick={() => {
+                            dispatch(removeFromCart(product.slug));
+                            setInCart(false);
+                          }}>
+                          <i
+                            className="fas fa-cart-arrow-down"
+                            style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                          <span>Səbətdən Sil</span>
+                        </a>
+                      ) : (
+                        <a
+                          role="button"
+                          className="add-cart"
+                          onClick={() => {
+                            dispatch(addToCart({ product: product.slug }));
+                            setInCart(true);
+                          }}>
+                          <i
+                            className="fas fa-cart-plus"
+                            style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                          <span>Səbətə əlavə et</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* New Arrivals */}

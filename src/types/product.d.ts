@@ -10,8 +10,8 @@ export type Product = {
   price: string;
   discount: number;
   discount_end_date?: string;
+  quantity: number;
   is_new: boolean;
-  in_stock: boolean;
   is_favorite?: boolean;
   is_distributer: boolean;
   main_note: string;

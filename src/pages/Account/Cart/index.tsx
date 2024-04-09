@@ -15,9 +15,9 @@ import { getFormData } from "@/helpers";
 import {
   checkDiscount,
   checkout,
-  decrementCart,
   getCart,
   incrementCart,
+  decrementCart,
   removeFromCart,
 } from "@/store/actions";
 
@@ -26,22 +26,32 @@ const AccountCart = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
+  const { cartItems, discount, status, errors } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
     dispatch(getCart());
   }, []);
 
-  const getPrice = (price: number, itemDiscount: number) => {
+  const getPrice = (price: number | string, itemDiscount: number) => {
+    price = Number(price);
     if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
     return price - (price * discount) / 100;
   };
+
+  useEffect(() => {
+    if (status.success && status.lastAction === checkout.typePrefix) navigate("/account/orders");
+  }, [status]);
 
   return (
     <main id="main">
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
+            {errors && (
+              <div className="alert alert-danger" role="alert">
+                {errors.non_field_errors}
+              </div>
+            )}
             <table className="table table-cart table-mobile">
               <thead>
                 <tr>
@@ -58,67 +68,81 @@ const AccountCart = () => {
                     <td className="product-col">
                       <div className="product">
                         <figure className="product-media">
-                          <Link to={`/products/${item.slug}`}>
-                            <img src={item.images[0].image} alt={item.name} />
+                          <Link to={`/products/${item.product.slug}`}>
+                            <img src={item.product.images[0].image} alt={item.product.name} />
                           </Link>
                         </figure>
                         <h3 className="product-title">
-                          <Link to={`/products/${item.slug}`}>{item.name}</Link>
+                          <Link to={`/products/${item.product.slug}`}>{item.product.name}</Link>
                         </h3>
                       </div>
                     </td>
 
                     <td className="price-col">
                       <span className="current-price">
-                        {getPrice(item.price, item.discount)} <span>AZN</span>
+                        {getPrice(item.product.price, item.product.discount).toFixed(2)}{" "}
+                        <span>AZN</span>
                       </span>
 
-                      {(item.discount > 0 || discount > 0) && (
+                      {(item.product.discount > 0 || discount > 0) && (
                         <del className="old-price">
-                          {item.price} <span>AZN</span>
+                          {Number(item.product.price).toFixed(2)} <span>AZN</span>
                         </del>
                       )}
                     </td>
 
                     <td className="quantity-col">
                       <div className="quantity">
-                        <button
-                          className="minus-btn"
-                          type="button"
-                          name="button"
-                          onClick={() => {
-                            dispatch(
-                              decrementCart({ product: item.slug, quantity: item.quantity })
-                            );
-                          }}>
-                          <img src={MinusSVG} alt="Minus Icon" />
-                        </button>
+                        {item.quantity > 1 && (
+                          <button
+                            className="minus-btn"
+                            type="button"
+                            name="button"
+                            onClick={() => {
+                              dispatch(
+                                decrementCart({
+                                  product: item.product.slug,
+                                  quantity: item.quantity,
+                                })
+                              );
+                            }}>
+                            <img src={MinusSVG} alt="Minus Icon" />
+                          </button>
+                        )}
 
                         <input type="text" name="quantity" value={item.quantity} disabled />
 
-                        <button
-                          className="plus-btn"
-                          type="button"
-                          name="button"
-                          onClick={() => {
-                            dispatch(
-                              incrementCart({ product: item.slug, quantity: item.quantity })
-                            );
-                          }}>
-                          <img src={PlusSVG} alt="Plus Icon" />
-                        </button>
+                        {item.quantity < item.product.quantity && (
+                          <button
+                            className="plus-btn"
+                            type="button"
+                            name="button"
+                            onClick={() => {
+                              dispatch(
+                                incrementCart({
+                                  product: item.product.slug,
+                                  quantity: item.quantity,
+                                })
+                              );
+                            }}>
+                            <img src={PlusSVG} alt="Plus Icon" />
+                          </button>
+                        )}
                       </div>
                     </td>
 
                     <td className="total-col">
-                      {getPrice(item.price, item.discount) * item.quantity} AZN
+                      {(
+                        getPrice(item.product.price, item.product.discount) * item.quantity
+                      ).toFixed(2)}{" "}
+                      AZN
                     </td>
 
                     <td className="remove-col">
                       <button
                         className="btn-remove"
                         onClick={() => {
-                          dispatch(removeFromCart(item.slug));
+                          dispatch(removeFromCart(item.product.slug));
                         }}>
                         <i className="fas fa-times"></i>
                       </button>
@@ -139,10 +163,14 @@ const AccountCart = () => {
                     </td>
                     <td>
                       <span>
-                        {cartItems?.reduce(
-                          (acc, item) => acc + getPrice(item.price, item.discount) * item.quantity,
-                          0
-                        )}{" "}
+                        {cartItems
+                          ?.reduce(
+                            (acc, item) =>
+                              acc +
+                              getPrice(item.product.price, item.product.discount) * item.quantity,
+                            0
+                          )
+                          .toFixed(2)}{" "}
                         AZN
                       </span>
                     </td>
@@ -204,7 +232,6 @@ const AccountCart = () => {
                 className="btn btn-outline-dark-2"
                 onClick={() => {
                   dispatch(checkout(getFormData({ code: discountCode })));
-                  navigate("/account/orders");
                 }}>
                 Sifariş et
               </button>
