@@ -17,6 +17,7 @@ import { ProductFilter } from "@/types/filters";
 
 // Actions
 import { getBrands, getCategories, getProducts } from "@/store/actions";
+import Pagination from "@/components/Pagination";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -390,49 +391,11 @@ const ProductsPage = () => {
               </div>
 
               {/* Pagination */}
-              <div className="paginate-wrapper">
-                <div className="paginate">
-                  {filter.page && filter.page > 1 && (
-                    <div className="paginate-left paginate-active">
-                      <a
-                        role="button"
-                        onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page - 1 }))
-                        }>
-                        <i className="fas fa-chevron-left" aria-hidden="true"></i>
-                      </a>
-                    </div>
-                  )}
-
-                  <div className="paginate-content">
-                    {Array.from({ length: maxPage }).map((_, index) => (
-                      <a
-                        key={index}
-                        role="button"
-                        className={
-                          filter.page === index + 1 || (!filter.page && index === 0)
-                            ? "paginate-element-active"
-                            : ""
-                        }
-                        onClick={() => setFilter((prev) => ({ ...prev, page: index + 1 }))}>
-                        {index + 1}
-                      </a>
-                    ))}
-                  </div>
-
-                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
-                    <div className="paginate-right paginate-active">
-                      <a
-                        role="button"
-                        onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page ? prev.page + 1 : 2 }))
-                        }>
-                        <i className="fas fa-chevron-right" aria-hidden="true"></i>
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <Pagination
+                currentPage={filter.page}
+                pageCount={maxPage}
+                changePage={(num: number) => setFilter((prev) => ({ ...prev, page: num }))}
+              />
             </div>
           </section>
         </div>
