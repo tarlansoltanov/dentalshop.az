@@ -5,6 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// React Number Format
+import { PatternFormat } from "react-number-format";
+
+// Libphonenumber-js
+import { parsePhoneNumber } from "libphonenumber-js";
+
 // Assets
 import { LogoPNG } from "@/assets/images";
 
@@ -28,7 +34,8 @@ const Login = () => {
   // Submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login(data));
+    const phoneNumber = parsePhoneNumber(data.phone, "AZ").number.slice(4);
+    dispatch(login({ phone: phoneNumber, password: data.password, remember: data.remember }));
   };
 
   useEffect(() => {
@@ -61,14 +68,16 @@ const Login = () => {
             <form name="login-form" onSubmit={handleSubmit}>
               {/* Phone */}
               <div className="user-login-page-row">
-                <input
-                  type="text"
-                  name="text"
+                <PatternFormat
+                  type="tel"
+                  name="phone"
+                  format="+994 (##) ###-##-##"
+                  allowEmptyFormatting
+                  required
+                  mask="_"
                   value={data.phone}
                   className="form-control"
-                  placeholder="Telefon nömrəsi"
                   onChange={(e) => setData({ ...data, phone: e.target.value })}
-                  required
                 />
               </div>
 
