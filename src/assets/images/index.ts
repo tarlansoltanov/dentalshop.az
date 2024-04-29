@@ -18,6 +18,10 @@ import FavoriteEmptySVG from "./icons/favoriteEmpty.svg";
 import FavoriteFilledSVG from "./icons/favoriteFilled.svg";
 import PlusSVG from "./icons/plus.svg";
 import MinusSVG from "./icons/minus.svg";
+import CashSVG from "./icons/cash.svg";
+import VisaSVG from "./icons/visa.svg";
+import MasterCardSVG from "./icons/mastercard.svg";
+import SecureSVG from "./icons/secure.svg";
 
 export {
   LogoPNG,
@@ -36,4 +40,8 @@ export {
   FavoriteFilledSVG,
   PlusSVG,
   MinusSVG,
+  CashSVG,
+  VisaSVG,
+  MasterCardSVG,
+  SecureSVG
 };

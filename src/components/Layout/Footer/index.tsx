@@ -11,11 +11,13 @@ import {
   FacebookIconSVG,
   InstagramIconSVG,
   LinkedinIconSVG,
-  PinterestIconSVG,
-  TwitterIconSVG,
   WhatsappIconSVG,
   YoutubeIconSVG,
   NewsletterIconSVG,
+  CashSVG,
+  VisaSVG,
+  MasterCardSVG,
+  SecureSVG
 } from "@/assets/images";
 
 // Components
@@ -178,15 +180,6 @@ const Footer = () => {
 
                     <div>
                       <a
-                        className="footer-social-twitter"
-                        href="https://twitter.com"
-                        target="_blank">
-                        <img src={TwitterIconSVG} alt="Twitter Icon" />
-                      </a>
-                    </div>
-
-                    <div>
-                      <a
                         className="footer-social-instagram"
                         href="https://instagram.com"
                         target="_blank">
@@ -200,15 +193,6 @@ const Footer = () => {
                         href="https://youtube.com"
                         target="_blank">
                         <img src={YoutubeIconSVG} alt="Youtube Icon" />
-                      </a>
-                    </div>
-
-                    <div>
-                      <a
-                        className="footer-social-pinterest"
-                        href="https://pinterest.com"
-                        target="_blank">
-                        <img src={PinterestIconSVG} alt="Pinterest Icon" />
                       </a>
                     </div>
 
@@ -243,11 +227,11 @@ const Footer = () => {
               {/* Card Payment */}
               <div className="col-lg-4">
                 <div className="footer-ssl">
-                  <div className="secure text-center text-md-left">
-                    <i className="fab fa-cc-mastercard" aria-hidden="true"></i>
-                    <i className="fab fa-cc-visa" aria-hidden="true"></i>
-                    <i className="fab fa-cc-amex" aria-hidden="true"></i>
-                    <i className="fas fa-lock" aria-hidden="true"></i>
+                  <div className="secure text-center text-lg-left">
+                    <img width={50} src={VisaSVG} alt="" />
+                    <img width={50} src={MasterCardSVG} alt="" />
+                    <img width={50} src={CashSVG} alt="" />
+                    <img width={50} src={SecureSVG} alt="" />
                   </div>
                 </div>
               </div>
