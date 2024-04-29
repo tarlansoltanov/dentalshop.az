@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import { LogoPNG } from "@/assets/images";
 
 // Actions
-import { verifyOTPCode } from "@/store/actions";
+import { sendOTPCode, verifyOTPCode } from "@/store/actions";
 
 const VerifyOTP = () => {
   const navigate = useNavigate();
@@ -31,6 +31,22 @@ const VerifyOTP = () => {
     e.preventDefault();
     dispatch(verifyOTPCode(data));
   };
+
+  // Resend OTP
+  const handleResendOTP = () => {
+    dispatch(sendOTPCode(data.phone));
+    setTimer(60);
+  };
+
+  const [timer, setTimer] = useState(60);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer > 0) setTimer(timer - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
 
   useEffect(() => {
     if (isAuth) navigate("/");
@@ -86,8 +102,19 @@ const VerifyOTP = () => {
 
               <div className="user-login-page-row mb-0 d-flex align-items-center justify-content-between">
                 {/* Resend */}
-                <div className="user-login-forgot-pass">
-                  <Link to="/auth/forgot-password">Yenidən göndər</Link>
+                <div className="user-login-forgot-pass d-flex align-items-center">
+                  <a
+                    role="button"
+                    className={`mr-3 ${timer > 0 ? "text-muted" : "text-primary"}`}
+                    aria-disabled={timer > 0}
+                    onClick={timer > 0 ? undefined : handleResendOTP}>
+                    OTP Kodunu yenidən göndər
+                  </a>
+
+                  {/* Timer for resend */}
+                  {timer > 0 && (
+                    <span className="text-danger">00:{timer < 10 ? `0${timer}` : timer}</span>
+                  )}
                 </div>
               </div>
 
