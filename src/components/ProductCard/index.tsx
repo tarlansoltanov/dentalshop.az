@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 
 // Assets
 import { FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
@@ -11,13 +12,7 @@ import { FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
 import { Product } from "@/types";
 
 // Actions
-import { favoriteProduct, unfavoriteProduct } from "@/store/actions";
-import { useState } from "react";
-
-import {
-  addToCart,
-  removeFromCart,
-} from "@/store/actions";
+import { addToCart, removeFromCart, favoriteProduct, unfavoriteProduct } from "@/store/actions";
 
 interface Props {
   product: Product;
@@ -25,6 +20,7 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
 
   const getDiscountedPrice = (price: number, discount: number) => {
     return price - (price * discount) / 100;
@@ -100,9 +96,8 @@ const ProductCard = ({ product }: Props) => {
 
           {product.discount > 0 && <p className="showcase-price old-price">{product.price} ₼</p>}
         </div>
-
       </div>
-      {product.quantity !== 0 && (
+      {product.quantity !== 0 && isAuth && (
         <div className="product-favorite text-center">
           {inCart ? (
             <a
@@ -113,8 +108,8 @@ const ProductCard = ({ product }: Props) => {
               }}>
               <i
                 className="fas fa-cart-arrow-down"
-                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-              <span style={{ fontSize: '15px' }}>Səbətdən Sil</span>
+                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: "10px" }}></i>
+              <span style={{ fontSize: "15px" }}>Səbətdən Sil</span>
             </a>
           ) : (
             <a
@@ -126,8 +121,8 @@ const ProductCard = ({ product }: Props) => {
               }}>
               <i
                 className="fas fa-cart-plus"
-                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-              <span style={{ fontSize: '15px' }}>Səbətə əlavə et</span>
+                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: "10px" }}></i>
+              <span style={{ fontSize: "15px" }}>Səbətə əlavə et</span>
             </a>
           )}
         </div>
