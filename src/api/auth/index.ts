@@ -16,3 +16,9 @@ export const postRefreshToken = (data: FormData) =>
 
 export const postVerifyToken = (data: FormData) =>
   axios.post(URL.VERIFY_TOKEN_URL, data).then((response) => response.data);
+
+export const sendOTPCode = (data: FormData) =>
+  axios.post(URL.SEND_OTP_URL, data).then((response) => response.data);
+
+export const verifyOTPCode = (data: FormData) =>
+  axios.post(URL.VERIFY_OTP_URL, data).then((response) => response.data);

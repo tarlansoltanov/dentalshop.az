@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // Helpers
 import { getFormData } from "@/helpers";
-import { removeAuthCookies, setAuthCookies } from "@/helpers/token";
+import { removeAuthCookies, setAuthCookies, setCookie } from "@/helpers/token";
 
 // API
 import * as API from "@/api/auth";
@@ -49,6 +49,27 @@ export const verifyToken = createAsyncThunk(
       await API.postVerifyToken(getFormData({ token: accessToken }));
     } catch (error: any) {
       throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const sendOTPCode = createAsyncThunk("auth/otp/send", async (phone: string, thunkAPI) => {
+  try {
+    await API.sendOTPCode(getFormData({ phone }));
+    setCookie("phone", phone, 1000);
+  } catch (error: any) {
+    throw thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+export const verifyOTPCode = createAsyncThunk(
+  "auth/otp/verify",
+  async (data: { phone: string; otp_code: string }, thunkAPI) => {
+    try {
+      const response = await API.verifyOTPCode(getFormData(data));
+      setAuthCookies(response, true);
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error);
     }
   }
 );
