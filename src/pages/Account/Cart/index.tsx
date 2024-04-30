@@ -38,6 +38,8 @@ const AccountCart = () => {
     return price - (price * discount) / 100;
   };
 
+  const [note, setNote] = useState("");
+
   useEffect(() => {
     if (status.success && status.lastAction === checkout.typePrefix) navigate("/account/orders");
   }, [status]);
@@ -190,6 +192,8 @@ const AccountCart = () => {
                           name="note"
                           className="form-control"
                           placeholder="Qeyd"
+                          value={note}
+                          onChange={(e) => setNote(e.target.value)}
                           style={{ height: "100px" }}></textarea>
                       </td>
                     </tr>
@@ -236,12 +240,13 @@ const AccountCart = () => {
                   </span>
                 </div>
               </div>
+
               <div className="cart-bottom">
                 <button
                   className="btn btn-outline-dark-2"
                   disabled={cartItems?.length === 0}
                   onClick={() => {
-                    dispatch(checkout(getFormData({ code: discountCode })));
+                    dispatch(checkout(getFormData({ code: discountCode, note: note })));
                   }}>
                   Sifariş et
                 </button>
