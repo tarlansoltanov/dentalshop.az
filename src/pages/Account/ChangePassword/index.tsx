@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Redux
@@ -34,6 +34,14 @@ const ChangePassword = () => {
 
   if (!isAuth) navigate("/");
 
+  useEffect(() => {
+    if (status.success && status.lastAction === changePassword.typePrefix) {
+      setInterval(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [status, navigate]);
+
   return (
     <div className="signup-container account-box">
       <div className="contentbox-header">
@@ -41,7 +49,7 @@ const ChangePassword = () => {
       </div>
 
       {status.success && status.lastAction === changePassword.typePrefix && (
-        <div className="alert alert-success">Şifrəniz yeniləndi!</div>
+        <div className="alert alert-success">Şifrəniz yeniləndi! Yönləndirilirsiniz...</div>
       )}
 
       <div className="contentbox-body">
