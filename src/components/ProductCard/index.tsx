@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 // Redux
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 
 // Assets
 import { FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
@@ -24,6 +24,9 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
+
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const getDiscountedPrice = (price: number, discount: number) => {
@@ -102,34 +105,40 @@ const ProductCard = ({ product }: Props) => {
         </div>
 
       </div>
-      {product.quantity !== 0 && (
-        <div className="product-favorite text-center">
-          {inCart ? (
-            <a
-              role="button"
-              onClick={() => {
-                dispatch(removeFromCart(product.slug));
-                setInCart(false);
-              }}>
-              <i
-                className="fas fa-cart-arrow-down"
-                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-              <span style={{ fontSize: '15px' }}>Səbətdən Sil</span>
-            </a>
-          ) : (
-            <a
-              role="button"
-              className="add-cart"
-              onClick={() => {
-                dispatch(addToCart({ product: product.slug }));
-                setInCart(true);
-              }}>
-              <i
-                className="fas fa-cart-plus"
-                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-              <span style={{ fontSize: '15px' }}>Səbətə əlavə et</span>
-            </a>
-          )}
+      {isAuth && (
+        <div>
+          {
+            product.quantity !== 0 && (
+              <div className="product-favorite text-center">
+                {inCart ? (
+                  <a
+                    role="button"
+                    onClick={() => {
+                      dispatch(removeFromCart(product.slug));
+                      setInCart(false);
+                    }}>
+                    <i
+                      className="fas fa-cart-arrow-down"
+                      style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
+                    <span style={{ fontSize: '15px' }}>Səbətdən Sil</span>
+                  </a>
+                ) : (
+                  <a
+                    role="button"
+                    className="add-cart"
+                    onClick={() => {
+                      dispatch(addToCart({ product: product.slug }));
+                      setInCart(true);
+                    }}>
+                    <i
+                      className="fas fa-cart-plus"
+                      style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
+                    <span style={{ fontSize: '15px' }}>Səbətə əlavə et</span>
+                  </a>
+                )}
+              </div>
+            )
+          }
         </div>
       )}
     </div>

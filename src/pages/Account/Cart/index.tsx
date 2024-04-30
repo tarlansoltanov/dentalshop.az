@@ -26,7 +26,7 @@ const AccountCart = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { cartItems, discount, status, errors } = useSelector((state: RootState) => state.account);
+  const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
     dispatch(getCart());
@@ -47,24 +47,19 @@ const AccountCart = () => {
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
-            {errors && (
-              <div className="alert alert-danger" role="alert">
-                {errors.non_field_errors}
-              </div>
-            )}
             <table className="table table-cart table-mobile">
               <thead>
                 <tr>
                   <th>Məhsul</th>
                   <th className="small-hide">Qiymət</th>
-                  <th className="small-hide">Say</th>
-                  <th className="small-hide">Toplam</th>
+                  <th style={{ width: '22%' }} className="small-hide">Say</th>
+                  <th style={{ width: '15%' }} className="small-hide">Toplam</th>
                   <th className="small-hide"></th>
                 </tr>
               </thead>
               <tbody>
                 {cartItems?.map((item, index) => (
-                  <tr key={index}>
+                  <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
                     <td className="product-col">
                       <div className="product">
                         <figure className="product-media">
@@ -83,7 +78,6 @@ const AccountCart = () => {
                         {getPrice(item.product.price, item.product.discount).toFixed(2)}{" "}
                         <span>AZN</span>
                       </span>
-
                       {(item.product.discount > 0 || discount > 0) && (
                         <del className="old-price">
                           {Number(item.product.price).toFixed(2)} <span>AZN</span>
@@ -93,41 +87,39 @@ const AccountCart = () => {
 
                     <td className="quantity-col">
                       <div className="quantity">
-                        {item.quantity > 1 && (
-                          <button
-                            className="minus-btn"
-                            type="button"
-                            name="button"
-                            onClick={() => {
-                              dispatch(
-                                decrementCart({
-                                  product: item.product.slug,
-                                  quantity: item.quantity,
-                                })
-                              );
-                            }}>
-                            <img src={MinusSVG} alt="Minus Icon" />
-                          </button>
-                        )}
-
+                        <button
+                          className="minus-btn"
+                          type="button"
+                          name="button"
+                          onClick={() => {
+                            dispatch(
+                              decrementCart({
+                                product: item.product.slug,
+                                quantity: item.quantity,
+                              })
+                            );
+                          }}
+                          disabled={item.quantity <= 1}
+                        >
+                          <img src={MinusSVG} alt="Minus Icon" />
+                        </button>
                         <input type="text" name="quantity" value={item.quantity} disabled />
-
-                        {item.quantity < item.product.quantity && (
-                          <button
-                            className="plus-btn"
-                            type="button"
-                            name="button"
-                            onClick={() => {
-                              dispatch(
-                                incrementCart({
-                                  product: item.product.slug,
-                                  quantity: item.quantity,
-                                })
-                              );
-                            }}>
-                            <img src={PlusSVG} alt="Plus Icon" />
-                          </button>
-                        )}
+                        <button
+                          className="plus-btn"
+                          type="button"
+                          name="button"
+                          onClick={() => {
+                            dispatch(
+                              incrementCart({
+                                product: item.product.slug,
+                                quantity: item.quantity,
+                              })
+                            );
+                          }}
+                          disabled={item.quantity >= item.product.quantity}
+                        >
+                          <img src={PlusSVG} alt="Plus Icon" />
+                        </button>
                       </div>
                     </td>
 
@@ -143,7 +135,8 @@ const AccountCart = () => {
                         className="btn-remove"
                         onClick={() => {
                           dispatch(removeFromCart(item.product.slug));
-                        }}>
+                        }}
+                      >
                         <i className="fas fa-times"></i>
                       </button>
                     </td>
@@ -151,90 +144,89 @@ const AccountCart = () => {
                 ))}
               </tbody>
             </table>
+            <div className="cart-total-main">
+              <h3 className="cart-total-h3">Sifariş məlumatları</h3>
+              <div className="cart-total">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span>Cəm: </span>
+                      </td>
+                      <td>
+                        <span>
+                          {cartItems
+                            ?.reduce(
+                              (acc, item) =>
+                                acc +
+                                getPrice(item.product.price, item.product.discount) * item.quantity,
+                              0
+                            )
+                            .toFixed(2)}{" "}
+                          AZN
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span>Ödəmə: </span>
+                      </td>
 
-            <div className="cart-total">
-              <h3>Sifariş məlumatları</h3>
+                      <td>
+                        <select className="form-select">
+                          <option value="1">Qapıda ödəmə</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="cart-discount">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Kupon kodu"
+                      value={discountCode}
+                      onChange={(e) => setDiscountCode(e.target.value)}
+                      style={{
+                        borderColor:
+                          status.lastAction === checkDiscount.typePrefix && status.failure
+                            ? "red"
+                            : status.success && discount
+                              ? "green"
+                              : "initial",
+                      }}
+                    />
 
-              <table>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span>Cəm: </span>
-                    </td>
-                    <td>
-                      <span>
-                        {cartItems
-                          ?.reduce(
-                            (acc, item) =>
-                              acc +
-                              getPrice(item.product.price, item.product.discount) * item.quantity,
-                            0
-                          )
-                          .toFixed(2)}{" "}
-                        AZN
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>Ödəmə: </span>
-                    </td>
-
-                    <td>
-                      <select className="form-select">
-                        <option value="1">Qapıda ödəmə</option>
-                      </select>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="cart-bottom">
-              <div className="cart-discount">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Kupon kodu"
-                    value={discountCode}
-                    onChange={(e) => setDiscountCode(e.target.value)}
-                    style={{
-                      borderColor:
-                        status.lastAction === checkDiscount.typePrefix && status.failure
-                          ? "red"
-                          : status.success && discount
-                          ? "green"
-                          : "initial",
-                    }}
-                  />
-
-                  <button
-                    className="btn btn-outline-primary-2"
-                    disabled={status?.loading && status?.lastAction === checkDiscount.typePrefix}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      dispatch(checkDiscount(discountCode));
-                    }}>
-                    <i className="fas fa-check"></i>
-                  </button>
+                    <button
+                      className="btn btn-outline-primary-2"
+                      disabled={cartItems?.length === 0 || !discountCode || status?.loading && status?.lastAction === checkDiscount.typePrefix}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(checkDiscount(discountCode));
+                      }}>
+                      <i className="fas fa-check"></i>
+                    </button>
+                  </div>
+                  <span>
+                    {status.lastAction === checkDiscount.typePrefix && status.failure
+                      ? "Kupon kodu tapılmadı"
+                      : status.success && discount
+                        ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`
+                        : ""}
+                  </span>
                 </div>
-                <span>
-                  {status.lastAction === checkDiscount.typePrefix && status.failure
-                    ? "Kupon kodu tapılmadı"
-                    : status.success && discount
-                    ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`
-                    : ""}
-                </span>
               </div>
-
-              <button
-                className="btn btn-outline-dark-2"
-                onClick={() => {
-                  dispatch(checkout(getFormData({ code: discountCode })));
-                }}>
-                Sifariş et
-              </button>
+              <div className="cart-bottom">
+                <button
+                  className="btn btn-outline-dark-2"
+                  disabled={cartItems?.length === 0}
+                  onClick={() => {
+                    dispatch(checkout(getFormData({ code: discountCode })));
+                  }}>
+                  Sifariş et
+                </button>
+              </div>
             </div>
           </section>
         </div>
