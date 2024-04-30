@@ -5,6 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// React Number Format
+import { PatternFormat } from "react-number-format";
+
+// Libphonenumber-js
+import { parsePhoneNumber } from "libphonenumber-js";
+
 // Assets
 import { LogoPNG } from "@/assets/images";
 
@@ -39,7 +45,7 @@ const Register = () => {
   // Submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(register(data));
+    dispatch(register({ ...data, phone: parsePhoneNumber(data.phone, "AZ").number.slice(4) }));
   };
 
   useEffect(() => {
@@ -150,14 +156,16 @@ const Register = () => {
 
                 <div className="col-12 col-lg-5">
                   <div>
-                    <input
+                    <PatternFormat
                       type="tel"
                       name="phone"
+                      format="+994 (##) ###-##-##"
+                      allowEmptyFormatting
+                      mask="_"
+                      className={`form-control ${errors?.phone ? "invalid" : ""}`}
+                      placeholder="Telefon nömrəsi daxil edin"
                       value={data.phone}
                       onChange={handleChange}
-                      className={`form-control ${errors?.phone ? "invalid" : ""}`}
-                      placeholder="(5X) XXX XX XX"
-                      required
                     />
 
                     <span className="required">*</span>

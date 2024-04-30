@@ -20,6 +20,11 @@ export const updateAccount = async (formData: FormData) => {
   return data as User;
 };
 
+export const changePassword = async (formData: FormData) => {
+  const { data } = await axios.post(URL.CHANGE_PASSWORD_URL, formData);
+  return data;
+};
+
 /* Cart */
 export const getCart = async () => {
   const { data } = await axios.get(`${URL.CART_LIST_URL}?limit=all`);

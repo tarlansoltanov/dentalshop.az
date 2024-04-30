@@ -28,6 +28,9 @@ const publicRoutes = [
   // Account
   { path: "/account", component: <Pages.Account /> },
 
+  // ChangePassword
+  { path: "/account/change-password", component: <Pages.ChangePassword /> },
+
   // Account Free Zone
   { path: "/account/free-zone", component: <Pages.AccountFreezone /> },
 
@@ -50,6 +53,12 @@ const publicRoutes = [
 const authRoutes = [
   // Login
   { path: "/auth/login", component: <Pages.Login /> },
+
+  // Forgot Password
+  { path: "/auth/forgot-password", component: <Pages.ForgotPassword /> },
+
+  // Verify OTP
+  { path: "/auth/verify-otp", component: <Pages.VerifyOTP /> },
 
   // Logout
   { path: "/auth/logout", component: <Pages.Logout /> },

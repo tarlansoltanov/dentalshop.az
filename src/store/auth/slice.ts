@@ -4,7 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Actions
-import { login, logout, register, refreshToken, verifyToken } from "./actions";
+import {
+  login,
+  logout,
+  register,
+  refreshToken,
+  verifyToken,
+  sendOTPCode,
+  verifyOTPCode,
+} from "./actions";
 
 interface StateProps {
   status: {
@@ -15,6 +23,7 @@ interface StateProps {
   };
   errors: any;
   isAuth: boolean;
+  phone: string | null;
 }
 
 const initialState: StateProps = {
@@ -26,6 +35,7 @@ const initialState: StateProps = {
   },
   errors: null,
   isAuth: false,
+  phone: null,
 };
 
 export const authSlice = createSlice({
@@ -93,6 +103,31 @@ export const authSlice = createSlice({
       })
       .addCase(verifyToken.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: verifyToken.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(sendOTPCode.pending, (state) => {
+        state.status = { ...LOADING, lastAction: sendOTPCode.typePrefix };
+        state.errors = null;
+      })
+      .addCase(sendOTPCode.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: sendOTPCode.typePrefix };
+      })
+      .addCase(sendOTPCode.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: sendOTPCode.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(verifyOTPCode.pending, (state) => {
+        state.status = { ...LOADING, lastAction: verifyOTPCode.typePrefix };
+        state.errors = null;
+      })
+      .addCase(verifyOTPCode.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: verifyOTPCode.typePrefix };
+        state.isAuth = true;
+      })
+      .addCase(verifyOTPCode.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: verifyOTPCode.typePrefix };
         state.errors = payload;
       });
   },

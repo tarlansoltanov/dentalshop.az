@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux
@@ -11,23 +12,15 @@ import { FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
 import { Product } from "@/types";
 
 // Actions
-import { favoriteProduct, unfavoriteProduct } from "@/store/actions";
-import { useState } from "react";
-
-import {
-  addToCart,
-  removeFromCart,
-} from "@/store/actions";
+import { addToCart, removeFromCart, favoriteProduct, unfavoriteProduct } from "@/store/actions";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
-
-  const { isAuth } = useSelector((state: RootState) => state.auth);
-
   const dispatch = useDispatch<AppDispatch>();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
 
   const getDiscountedPrice = (price: number, discount: number) => {
     return price - (price * discount) / 100;
@@ -103,42 +96,35 @@ const ProductCard = ({ product }: Props) => {
 
           {product.discount > 0 && <p className="showcase-price old-price">{product.price} ₼</p>}
         </div>
-
       </div>
-      {isAuth && (
-        <div>
-          {
-            product.quantity !== 0 && (
-              <div className="product-favorite text-center">
-                {inCart ? (
-                  <a
-                    role="button"
-                    onClick={() => {
-                      dispatch(removeFromCart(product.slug));
-                      setInCart(false);
-                    }}>
-                    <i
-                      className="fas fa-cart-arrow-down"
-                      style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-                    <span style={{ fontSize: '15px' }}>Səbətdən Sil</span>
-                  </a>
-                ) : (
-                  <a
-                    role="button"
-                    className="add-cart"
-                    onClick={() => {
-                      dispatch(addToCart({ product: product.slug }));
-                      setInCart(true);
-                    }}>
-                    <i
-                      className="fas fa-cart-plus"
-                      style={{ color: "#2b9b2f", fontSize: "20px", marginRight: '10px' }}></i>
-                    <span style={{ fontSize: '15px' }}>Səbətə əlavə et</span>
-                  </a>
-                )}
-              </div>
-            )
-          }
+      {product.quantity !== 0 && isAuth && (
+        <div className="product-favorite text-center">
+          {inCart ? (
+            <a
+              role="button"
+              onClick={() => {
+                dispatch(removeFromCart(product.slug));
+                setInCart(false);
+              }}>
+              <i
+                className="fas fa-cart-arrow-down"
+                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: "10px" }}></i>
+              <span style={{ fontSize: "15px" }}>Səbətdən Sil</span>
+            </a>
+          ) : (
+            <a
+              role="button"
+              className="add-cart"
+              onClick={() => {
+                dispatch(addToCart({ product: product.slug }));
+                setInCart(true);
+              }}>
+              <i
+                className="fas fa-cart-plus"
+                style={{ color: "#2b9b2f", fontSize: "20px", marginRight: "10px" }}></i>
+              <span style={{ fontSize: "15px" }}>Səbətə əlavə et</span>
+            </a>
+          )}
         </div>
       )}
     </div>

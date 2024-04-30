@@ -19,6 +19,12 @@ import Logout from "./Auth/Logout";
 // Auth Register
 import Register from "./Auth/Register";
 
+// Auth ForgotPassword
+import ForgotPassword from "./Auth/ForgotPassword";
+
+// Auth Verify OTP
+import VerifyOTP from "./Auth/VerifyOTP";
+
 // FreeZone
 import FreeZone from "./FreeZone";
 
@@ -33,6 +39,9 @@ import FreeZoneUpdate from "./FreeZone/Update";
 
 // Account
 import Account from "./Account";
+
+// ChangePassword
+import ChangePassword from "./Account/ChangePassword";
 
 // Account Cart
 import AccountCart from "./Account/Cart";
@@ -67,8 +76,11 @@ export {
   Login,
   Logout,
   Register,
+  ForgotPassword,
+  VerifyOTP,
   // Account
   Account,
+  ChangePassword,
   AccountCart,
   AccountFreezone,
   AccountFavorites,

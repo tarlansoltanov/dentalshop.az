@@ -40,3 +40,11 @@ export const getRefreshToken = () => {
   const token = Cookies.get(REFRESH_TOKEN);
   return token ? token : "";
 };
+
+export const setCookie = (name: string, value: string, expires: number) => {
+  Cookies.set(name, value, { path: "/", expires });
+};
+
+export const removeCookie = (name: string) => {
+  Cookies.remove(name);
+};
