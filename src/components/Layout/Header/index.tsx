@@ -137,6 +137,10 @@ const Header = () => {
                             </li>
 
                             <li>
+                              <Link to="/account/change-password">Şifrəni Dəyiş</Link>
+                            </li>
+
+                            <li>
                               <Link to="/account/favorites">Favorilərim</Link>
                             </li>
 

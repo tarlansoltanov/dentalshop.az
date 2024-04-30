@@ -30,6 +30,18 @@ export const updateAccount = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk(
+  "account/changePassword",
+  async (data: FormData, thunkAPI) => {
+    try {
+      const response = await API.changePassword(data);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 /* Cart */
 export const getCart = createAsyncThunk("account/cart/get", async (_, thunkAPI) => {
   try {

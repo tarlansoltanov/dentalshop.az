@@ -28,6 +28,9 @@ const publicRoutes = [
   // Account
   { path: "/account", component: <Pages.Account /> },
 
+  // ChangePassword
+  { path: "/account/change-password", component: <Pages.ChangePassword /> },
+
   // Account Free Zone
   { path: "/account/free-zone", component: <Pages.AccountFreezone /> },
 

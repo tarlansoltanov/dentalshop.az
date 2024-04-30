@@ -54,7 +54,7 @@ const VerifyOTP = () => {
 
   useEffect(() => {
     if (status.success && status.lastAction === verifyOTPCode.typePrefix) {
-      navigate("/");
+      navigate("/account/change-password");
     }
   }, [status, navigate]);
 

@@ -1,5 +1,6 @@
 // ACCOUNT
 export const ACCOUNT_URL = "/account/";
+export const CHANGE_PASSWORD_URL = "/account/change-password/";
 
 // CART
 export const CART_LIST_URL = "/account/cart/";

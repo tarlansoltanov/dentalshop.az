@@ -20,6 +20,7 @@ import {
   getOrder,
   getFavorites,
   getAccountFreezone,
+  changePassword,
 } from "./actions";
 
 interface StateProps {
@@ -96,6 +97,18 @@ export const accountSlice = createSlice({
       })
       .addCase(updateAccount.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: updateAccount.typePrefix };
+        state.errors = payload;
+      });
+    builder
+      .addCase(changePassword.pending, (state) => {
+        state.status = { ...LOADING, lastAction: changePassword.typePrefix };
+        state.errors = null;
+      })
+      .addCase(changePassword.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: changePassword.typePrefix };
+      })
+      .addCase(changePassword.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: changePassword.typePrefix };
         state.errors = payload;
       });
     /* Cart */

@@ -40,6 +40,9 @@ import FreeZoneUpdate from "./FreeZone/Update";
 // Account
 import Account from "./Account";
 
+// ChangePassword
+import ChangePassword from "./Account/ChangePassword";
+
 // Account Cart
 import AccountCart from "./Account/Cart";
 
@@ -77,6 +80,7 @@ export {
   VerifyOTP,
   // Account
   Account,
+  ChangePassword,
   AccountCart,
   AccountFreezone,
   AccountFavorites,
