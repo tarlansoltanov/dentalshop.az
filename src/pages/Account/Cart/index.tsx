@@ -52,8 +52,12 @@ const AccountCart = () => {
                 <tr>
                   <th>Məhsul</th>
                   <th className="small-hide">Qiymət</th>
-                  <th style={{ width: '22%' }} className="small-hide">Say</th>
-                  <th style={{ width: '15%' }} className="small-hide">Toplam</th>
+                  <th style={{ width: "22%" }} className="small-hide">
+                    Say
+                  </th>
+                  <th style={{ width: "15%" }} className="small-hide">
+                    Toplam
+                  </th>
                   <th className="small-hide"></th>
                 </tr>
               </thead>
@@ -99,8 +103,7 @@ const AccountCart = () => {
                               })
                             );
                           }}
-                          disabled={item.quantity <= 1}
-                        >
+                          disabled={item.quantity <= 1}>
                           <img src={MinusSVG} alt="Minus Icon" />
                         </button>
                         <input type="text" name="quantity" value={item.quantity} disabled />
@@ -116,8 +119,7 @@ const AccountCart = () => {
                               })
                             );
                           }}
-                          disabled={item.quantity >= item.product.quantity}
-                        >
+                          disabled={item.quantity >= item.product.quantity}>
                           <img src={PlusSVG} alt="Plus Icon" />
                         </button>
                       </div>
@@ -135,8 +137,7 @@ const AccountCart = () => {
                         className="btn-remove"
                         onClick={() => {
                           dispatch(removeFromCart(item.product.slug));
-                        }}
-                      >
+                        }}>
                         <i className="fas fa-times"></i>
                       </button>
                     </td>
@@ -178,6 +179,20 @@ const AccountCart = () => {
                         </select>
                       </td>
                     </tr>
+
+                    <tr>
+                      <td>
+                        <span>Qeyd: </span>
+                      </td>
+
+                      <td>
+                        <textarea
+                          name="note"
+                          className="form-control"
+                          placeholder="Qeyd"
+                          style={{ height: "100px" }}></textarea>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <div className="cart-discount">
@@ -193,14 +208,18 @@ const AccountCart = () => {
                           status.lastAction === checkDiscount.typePrefix && status.failure
                             ? "red"
                             : status.success && discount
-                              ? "green"
-                              : "initial",
+                            ? "green"
+                            : "initial",
                       }}
                     />
 
                     <button
                       className="btn btn-outline-primary-2"
-                      disabled={cartItems?.length === 0 || !discountCode || status?.loading && status?.lastAction === checkDiscount.typePrefix}
+                      disabled={
+                        cartItems?.length === 0 ||
+                        !discountCode ||
+                        (status?.loading && status?.lastAction === checkDiscount.typePrefix)
+                      }
                       onClick={(e) => {
                         e.preventDefault();
                         dispatch(checkDiscount(discountCode));
@@ -212,8 +231,8 @@ const AccountCart = () => {
                     {status.lastAction === checkDiscount.typePrefix && status.failure
                       ? "Kupon kodu tapılmadı"
                       : status.success && discount
-                        ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`
-                        : ""}
+                      ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`
+                      : ""}
                   </span>
                 </div>
               </div>

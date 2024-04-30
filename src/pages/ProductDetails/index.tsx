@@ -279,78 +279,70 @@ const ProductDetails = () => {
                         </div>
                       </div>
                     </div>
+
+                    {/* Buttons end of the box */}
+                    {isAuth && (
+                      <div className="product-list-group product-list-buttons">
+                        <div id="product-user-buttons">
+                          <div className="product-favorite">
+                            {product.is_favorite ? (
+                              <a
+                                role="button"
+                                onClick={() => {
+                                  dispatch(unfavoriteProduct(product.slug));
+                                }}>
+                                <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
+                                <span>Favorilərdən Sil</span>
+                              </a>
+                            ) : (
+                              <a
+                                role="button"
+                                onClick={() => {
+                                  dispatch(favoriteProduct(product.slug));
+                                }}>
+                                <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
+                                <span>Favorilərə əlavə et</span>
+                              </a>
+                            )}
+                          </div>
+
+                          {product.quantity !== 0 && (
+                            <div className="product-favorite">
+                              {inCart ? (
+                                <a
+                                  role="button"
+                                  onClick={() => {
+                                    dispatch(removeFromCart(product.slug));
+                                    setInCart(false);
+                                  }}>
+                                  <i
+                                    className="fas fa-cart-arrow-down"
+                                    style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                                  <span>Səbətdən Sil</span>
+                                </a>
+                              ) : (
+                                <a
+                                  role="button"
+                                  className="add-cart"
+                                  onClick={() => {
+                                    dispatch(addToCart({ product: product.slug }));
+                                    setInCart(true);
+                                  }}>
+                                  <i
+                                    className="fas fa-cart-plus"
+                                    style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                                  <span>Səbətə əlavə et</span>
+                                </a>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-
-            {isAuth && (
-              <div className="user-bottom">
-                <div id="product-user-buttons">
-                  <div className="product-favorite">
-                    {product.is_favorite ? (
-                      <a
-                        role="button"
-                        onClick={() => {
-                          dispatch(unfavoriteProduct(product.slug));
-                        }}>
-                        <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
-                        <span>Favorilərdən Sil</span>
-                      </a>
-                    ) : (
-                      <a
-                        role="button"
-                        onClick={() => {
-                          dispatch(favoriteProduct(product.slug));
-                        }}>
-                        <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
-                        <span>Favorilərə əlavə et</span>
-                      </a>
-                    )}
-                  </div>
-
-                  {product.quantity !== 0 && (
-                    <div className="product-favorite">
-                      {inCart ? (
-                        <a
-                          role="button"
-                          onClick={() => {
-                            dispatch(removeFromCart(product.slug));
-                            setInCart(false);
-                          }}>
-                          <i
-                            className="fas fa-cart-arrow-down"
-                            style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                          <span>Səbətdən Sil</span>
-                        </a>
-                      ) : (
-                        <a
-                          role="button"
-                          className="add-cart"
-                          onClick={() => {
-                            dispatch(addToCart({ product: product.slug }));
-                            setInCart(true);
-                          }}>
-                          <i
-                            className="fas fa-cart-plus"
-                            style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
-                          <span>Səbətə əlavə et</span>
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* New Arrivals */}
-                <div className="entry-outlet-bottom1">
-                  <span>
-                    <Link to="/products?is_new=true">
-                      <div className="entry-outlet-bottom">Yeni Məhsullar</div>
-                    </Link>
-                  </span>
-                </div>
-              </div>
-            )}
 
             <div className="product-area-bottom">
               <div className="product-detail-tab">

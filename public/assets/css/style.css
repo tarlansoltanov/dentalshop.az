@@ -807,3 +807,19 @@ span.badge.info {
 .newsletter .newsletter-title>div {
   color: white;
 }
+
+/* Product Detail */
+
+.product-list-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.favorite-label {
+  top: 0px;
+}
+
+.showcase-label-group {
+  top: 0px !important;
+}
