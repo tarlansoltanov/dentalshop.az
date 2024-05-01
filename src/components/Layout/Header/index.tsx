@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Redux
@@ -13,6 +13,7 @@ import { getURLWithFilterParams, toggleMobileNavigation } from "@/helpers";
 
 // Actions
 import { getAccount, getBrands, getCategories } from "@/store/actions";
+import { getCart } from "@/api/account";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -27,6 +28,16 @@ const Header = () => {
   useEffect(() => {
     if (isAuth && user == null) dispatch(getAccount());
   }, [dispatch, isAuth, user]);
+
+  // Items count in cart
+  const [itemsCountInCart, setItemsCountInCart] = useState(0)
+
+  useEffect(() => {
+    getCart()
+      .then((response: any) => {
+        setItemsCountInCart(response.length)
+      })
+  })
 
   // Categories
   const { items: categories } = useSelector((state: RootState) => state.categories);
@@ -158,10 +169,16 @@ const Header = () => {
                           </ul>
                         </div>
 
-                        <Link to="/account/cart">
-                          <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;
-                          <span>Səbət</span>
+                        <Link to="/account/cart" className="cart-link">
+                          <div className="cart-icon-container">
+                            {itemsCountInCart !== 0 &&
+                              <p className="items-count">{itemsCountInCart}</p>
+                            }
+                            <i className="fas fa-cart-shopping" aria-hidden="true"></i>
+                          </div>
+                          <span className="cart-text" style={{ marginLeft: '15px' }}>Səbət</span>
                         </Link>
+
                       </div>
                     )}
                   </div>

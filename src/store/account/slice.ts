@@ -21,6 +21,7 @@ import {
   getFavorites,
   getAccountFreezone,
   changePassword,
+  addToCart,
 } from "./actions";
 
 interface StateProps {
@@ -169,6 +170,19 @@ export const accountSlice = createSlice({
         state.status = { ...FAILURE, lastAction: incrementCart.typePrefix };
         state.errors = payload;
       });
+    builder
+      .addCase(addToCart.pending, (state) => {
+        state.status = { ...LOADING, lastAction: addToCart.typePrefix };
+        state.errors = null;
+      })
+      .addCase(addToCart.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: addToCart.typePrefix };
+      })
+      .addCase(addToCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: addToCart.typePrefix };
+        state.errors = payload;
+      });
+
     builder
       .addCase(removeFromCart.pending, (state, payload) => {
         state.status = { ...LOADING, lastAction: removeFromCart.typePrefix };
