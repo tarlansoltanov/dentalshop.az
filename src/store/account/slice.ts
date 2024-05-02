@@ -21,6 +21,7 @@ import {
   getFavorites,
   getAccountFreezone,
   changePassword,
+  addToCart,
 } from "./actions";
 
 interface StateProps {
@@ -33,6 +34,7 @@ interface StateProps {
   errors: any;
   user: User | null;
   cartItems: CartItem[] | null;
+  cartCount: number;
   discount: number;
   orders: Order[] | null;
   order: Order | null;
@@ -52,6 +54,7 @@ const initialState: StateProps = {
   errors: null,
   user: null,
   cartItems: null,
+  cartCount: 0,
   discount: 0,
   orders: null,
   order: null,
@@ -120,6 +123,7 @@ export const accountSlice = createSlice({
       .addCase(getCart.fulfilled, (state, { payload }) => {
         state.status = { ...SUCCESS, lastAction: getCart.typePrefix };
         state.cartItems = payload;
+        state.cartCount = payload.length;
       })
       .addCase(getCart.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getCart.typePrefix };
@@ -142,6 +146,7 @@ export const accountSlice = createSlice({
               return item;
             }) || null;
         }
+        state.cartCount = state.cartItems?.length || 0;
       })
       .addCase(decrementCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: decrementCart.typePrefix };
@@ -161,6 +166,7 @@ export const accountSlice = createSlice({
             }
             return item;
           }) || null;
+        state.cartCount = state.cartItems?.length || 0;
       })
       .addCase(incrementCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: incrementCart.typePrefix };
@@ -175,12 +181,29 @@ export const accountSlice = createSlice({
         state.errors = null;
         state.cartItems =
           state.cartItems?.filter((item) => item.product.slug !== payload.meta.arg) || null;
+        state.cartCount = state.cartItems?.length || 0;
       })
       .addCase(removeFromCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: removeFromCart.typePrefix };
       })
       .addCase(removeFromCart.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: removeFromCart.typePrefix };
+        state.errors = payload;
+      });
+
+    builder
+      .addCase(addToCart.pending, (state, payload) => {
+        state.status = { ...LOADING, lastAction: addToCart.typePrefix };
+        state.errors = null;
+        state.cartCount =
+          state.cartCount +
+          (state.cartItems?.find((item) => item.product.slug === payload.meta.arg.product) ? 0 : 1);
+      })
+      .addCase(addToCart.fulfilled, (state) => {
+        state.status = { ...SUCCESS, lastAction: addToCart.typePrefix };
+      })
+      .addCase(addToCart.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: addToCart.typePrefix };
         state.errors = payload;
       });
     builder

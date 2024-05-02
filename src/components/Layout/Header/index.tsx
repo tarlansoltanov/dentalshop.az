@@ -12,7 +12,7 @@ import { LogoPNG, MenuIconSVG, SearchIconSVG } from "@/assets/images";
 import { getURLWithFilterParams, toggleMobileNavigation } from "@/helpers";
 
 // Actions
-import { getAccount, getBrands, getCategories } from "@/store/actions";
+import { getAccount, getBrands, getCategories, getCart } from "@/store/actions";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,7 +22,11 @@ const Header = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
 
   // Account
-  const { user } = useSelector((state: RootState) => state.account);
+  const { user, cartCount, cartItems } = useSelector((state: RootState) => state.account);
+
+  useEffect(() => {
+    if (cartItems == null) dispatch(getCart());
+  }, [cartItems]);
 
   useEffect(() => {
     if (isAuth && user == null) dispatch(getAccount());
@@ -158,9 +162,15 @@ const Header = () => {
                           </ul>
                         </div>
 
-                        <Link to="/account/cart">
-                          <i className="fas fa-cart-shopping" aria-hidden="true"></i>&nbsp;
-                          <span>Səbət</span>
+                        <Link to="/account/cart" className="cart-link">
+                          <div className="cart-icon-container">
+                            <p className="items-count">{cartCount}</p>
+
+                            <i className="fas fa-cart-shopping" aria-hidden="true"></i>
+                          </div>
+                          <span className="cart-text" style={{ marginLeft: "15px" }}>
+                            Səbət
+                          </span>
                         </Link>
                       </div>
                     )}
