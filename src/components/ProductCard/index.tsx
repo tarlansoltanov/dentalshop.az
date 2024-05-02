@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux
@@ -21,12 +21,20 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { cartItems } = useSelector((state: RootState) => state.account);
 
   const getDiscountedPrice = (price: number, discount: number) => {
     return price - (price * discount) / 100;
   };
 
   const [inCart, setInCart] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (cartItems) {
+      const item = cartItems.find((item) => item.product.slug === product.slug);
+      if (item) setInCart(true);
+    }
+  }, [cartItems]);
 
   return (
     <div className="showcase">

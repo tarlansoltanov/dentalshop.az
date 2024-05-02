@@ -88,13 +88,24 @@ const ProductDetails = () => {
   // Selected Image
   const [selectedImage, setSelectedImage] = useState<number>(0);
 
-  // Add to Cart
+  // Cart
+  const { cartItems } = useSelector((state: RootState) => state.account);
+
   const [inCart, setInCart] = useState<boolean>(false);
 
-  if (product === null) {
-    if (status.loading) {
-      return <Loader />;
+  useEffect(() => {
+    if (cartItems) {
+      const item = cartItems.find((item) => item.product.slug === product?.slug);
+      if (item) setInCart(true);
+      else setInCart(false);
     }
+  }, [cartItems, product]);
+
+  if (status.loading && status.lastAction === getProduct.typePrefix) {
+    return <Loader />;
+  }
+
+  if (product === null || status.failure) {
     return <NotFound />;
   }
 
