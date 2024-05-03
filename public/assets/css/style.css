@@ -12,7 +12,7 @@
 }
 
 #navigation .category-level-2>div>ul>li>a {
-  color: #afafaf;
+  color: #FFF;
 }
 
 #navigation .category-level-2>div>ul>li>a:hover {
@@ -227,7 +227,7 @@ section.featured-section {
 
   50% {
     transform: scale(1.2);
-    background-color: #0f697c;
+    background-color: #1a5461;
     box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
   }
 
@@ -747,13 +747,13 @@ span.badge.info {
 }
 
 .header-top .fas {
-  color: #0f697c !important;
+  color: #1a5461 !important;
 }
 
 /* Footer */
 
 #footer {
-  background-color: #052830;
+  background-color: #1a5461;
 }
 
 .footer-row-2 {
