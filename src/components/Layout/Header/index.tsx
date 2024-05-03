@@ -49,6 +49,31 @@ const Header = () => {
   return (
     <React.Fragment>
       <header id="header">
+        {/* Header Top */}
+        <div className="header-top-contact">
+          <div className="container">
+            <div className="inner-container">
+              <div className="left-column">
+                <ul className="contact-info">
+                  <li>
+                    <i className="fa fa-phone"></i>
+                    +994 50 511 51 41
+                  </li>
+
+                  <li>
+                    <a href={`mailto:info@dentalshop.az`}>
+                      <i className="fa fa-envelope"></i>
+                      info@dentalshop.az
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="right-column"></div>
+            </div>
+          </div>
+        </div>
+
         <div className="header-top">
           <div className="container">
             <div className="row align-items-center">
