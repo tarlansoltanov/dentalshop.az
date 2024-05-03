@@ -13,6 +13,11 @@ import { Authmiddleware, ScrollToTop } from "./route/middlewares";
 // Routes
 import { publicRoutes, authRoutes } from "@/route";
 
+// Style
+import "@/assets/css/global.min.css";
+import "@/assets/css/theme.min.css";
+import "@/assets/css/style.css";
+
 const App = () => {
   return (
     <React.Fragment>
