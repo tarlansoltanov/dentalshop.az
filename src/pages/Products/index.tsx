@@ -42,7 +42,7 @@ const ProductsPage = () => {
   const { items, count, status } = useSelector((state: RootState) => state.products);
 
   // Filters
-  const [showFilter, setShowFilter] = useState<boolean>(searchParams.toString() !== "");
+  const [showFilter, setShowFilter] = useState<boolean>(false);
 
   const [filter, setFilter] = useState<ProductFilter>({
     name: searchParams.get("name") || null,
