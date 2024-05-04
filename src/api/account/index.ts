@@ -47,7 +47,7 @@ export const checkDiscount = async (code: string) => {
 };
 
 export const checkout = async (formData: FormData) => {
-  const { data } = await axios.post(URL.ORDER_LIST_URL, formData);
+  const { data } = await axios.post(URL.CHECKOUT_URL, formData);
   return data;
 };
 

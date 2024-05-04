@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// Components
+import Loader from "@/components/Loader";
+
 // Constants
 import { ORDER_PAYMENT_METHOD_LABEL, ORDER_STATUS_LABEL } from "@/constants";
 
@@ -13,7 +16,7 @@ import { getOrders } from "@/store/actions";
 
 const Orders = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { orders } = useSelector((state: RootState) => state.account);
+  const { orders, status } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
     dispatch(getOrders());
@@ -23,6 +26,8 @@ const Orders = () => {
     if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
     return price - (price * discount) / 100;
   };
+
+  if (status.loading && status.lastAction === getOrders.typePrefix) return <Loader />;
 
   return (
     <main id="main">

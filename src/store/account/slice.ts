@@ -190,7 +190,6 @@ export const accountSlice = createSlice({
         state.status = { ...FAILURE, lastAction: removeFromCart.typePrefix };
         state.errors = payload;
       });
-
     builder
       .addCase(addToCart.pending, (state, payload) => {
         state.status = { ...LOADING, lastAction: addToCart.typePrefix };
@@ -224,9 +223,9 @@ export const accountSlice = createSlice({
         state.status = { ...LOADING, lastAction: checkout.typePrefix };
         state.errors = null;
       })
-      .addCase(checkout.fulfilled, (state, { payload }) => {
+      .addCase(checkout.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: checkout.typePrefix };
-        state.orders = [payload, ...(state.orders || [])];
+        state.cartItems = [];
       })
       .addCase(checkout.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: checkout.typePrefix };

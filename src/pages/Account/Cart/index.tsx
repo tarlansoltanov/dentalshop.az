@@ -8,6 +8,9 @@ import { AppDispatch, RootState } from "@/store";
 // Assets
 import { MinusSVG, PlusSVG } from "@/assets/images";
 
+// Constants
+import { ORDER_PAYMENT_METHOD, ORDER_PAYMENT_METHOD_LABEL } from "@/constants";
+
 // Helpers
 import { getFormData } from "@/helpers";
 
@@ -38,7 +41,12 @@ const AccountCart = () => {
     return price - (price * discount) / 100;
   };
 
-  const [note, setNote] = useState("");
+  const [data, setData] = useState({
+    payment_method: ORDER_PAYMENT_METHOD.CASH,
+    installment: 1,
+    address: "",
+    note: "",
+  });
 
   useEffect(() => {
     if (status.success && status.lastAction === checkout.typePrefix) navigate("/account/orders");
@@ -176,9 +184,58 @@ const AccountCart = () => {
                       </td>
 
                       <td>
-                        <select className="form-select">
-                          <option value="1">Qapıda ödəmə</option>
+                        <select
+                          className="form-select"
+                          value={data.payment_method}
+                          onChange={(e) =>
+                            setData({ ...data, payment_method: Number(e.target.value) })
+                          }>
+                          {Object.values(ORDER_PAYMENT_METHOD).map((method, index) => (
+                            <option key={index} value={method}>
+                              {ORDER_PAYMENT_METHOD_LABEL[method].label}
+                            </option>
+                          ))}
                         </select>
+                      </td>
+                    </tr>
+
+                    {data.payment_method === ORDER_PAYMENT_METHOD.CARD && (
+                      <tr>
+                        <td>
+                          <span>Taksit: </span>
+                        </td>
+
+                        <td>
+                          <select
+                            name="installment"
+                            className="form-select"
+                            value={data.installment}
+                            onChange={(e) =>
+                              setData({ ...data, installment: Number(e.target.value) })
+                            }>
+                            {[1, 2, 3, 4, 5, 6].map((installment, index) => (
+                              <option key={index} value={installment}>
+                                {installment}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+                      </tr>
+                    )}
+
+                    <tr>
+                      <td>
+                        <span>Ünvan: </span>
+                      </td>
+
+                      <td>
+                        <textarea
+                          name="address"
+                          className="form-control"
+                          placeholder="Ünvan"
+                          value={data.address}
+                          onChange={(e) => setData({ ...data, address: e.target.value })}
+                          style={{ height: "100px" }}></textarea>
                       </td>
                     </tr>
 
@@ -192,8 +249,8 @@ const AccountCart = () => {
                           name="note"
                           className="form-control"
                           placeholder="Qeyd"
-                          value={note}
-                          onChange={(e) => setNote(e.target.value)}
+                          value={data.note}
+                          onChange={(e) => setData({ ...data, note: e.target.value })}
                           style={{ height: "100px" }}></textarea>
                       </td>
                     </tr>
@@ -246,7 +303,7 @@ const AccountCart = () => {
                   className="btn btn-outline-dark-2"
                   disabled={cartItems?.length === 0}
                   onClick={() => {
-                    dispatch(checkout(getFormData({ code: discountCode, note: note })));
+                    dispatch(checkout(getFormData({ ...data, code: discountCode })));
                   }}>
                   Sifariş et
                 </button>
