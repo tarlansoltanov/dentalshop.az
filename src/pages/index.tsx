@@ -5,7 +5,7 @@ import Home from "./Home";
 import Products from "./Products";
 
 // Product Details
-import ProductDetails from "./ProductDetails";
+import ProductDetails from "./Products/Details";
 
 // About
 import About from "./About";
@@ -56,7 +56,7 @@ import AccountFavorites from "./Account/Favorites";
 import Orders from "./Orders";
 
 // Account Order Details
-import OrderDetails from "./OrderDetails";
+import OrderDetails from "./Orders/Details";
 
 // Not Found
 import NotFound from "./NotFound";

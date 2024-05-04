@@ -4,7 +4,7 @@ import axios from "@/api";
 import { getURLWithFilterParams } from "@/helpers";
 
 // Types
-import { Banner } from "@/types";
+import { Banner } from "@/types/models";
 import { BannerFilter } from "@/types/filters";
 
 // URLs

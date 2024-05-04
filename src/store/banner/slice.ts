@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { Banner } from "@/types";
+import { Banner } from "@/types/models";
 
 // Actions
 import { getBanners } from "./actions";

@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { CartItem, FreezoneItem, Order, Product, User } from "@/types";
+import { CartItem, FreezoneItem, Order, Product, User } from "@/types/models";
 
 // Actions
 import {

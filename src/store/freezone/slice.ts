@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { FreezoneItem } from "@/types";
+import { FreezoneItem } from "@/types/models";
 
 // Actions
 import {

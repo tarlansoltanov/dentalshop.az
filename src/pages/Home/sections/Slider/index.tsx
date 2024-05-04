@@ -2,7 +2,7 @@
 import Slider, { Settings } from "react-slick";
 
 // Types
-import { Banner } from "@/types";
+import { Banner } from "@/types/models";
 
 interface Props {
   items: Banner[];

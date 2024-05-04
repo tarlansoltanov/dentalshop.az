@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { Brand } from "@/types";
+import { Brand } from "@/types/models";
 
 // Actions
 import { getBrands, getMainBrands } from "./actions";

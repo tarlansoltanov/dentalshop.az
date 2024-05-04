@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { Category } from "@/types";
+import { Category } from "@/types/models";
 
 // Actions
 import { getCategories } from "./actions";

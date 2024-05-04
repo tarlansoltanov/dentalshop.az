@@ -4,7 +4,7 @@ import axios from "@/api";
 import { getURLWithFilterParams } from "@/helpers";
 
 // Types
-import { Product } from "@/types";
+import { Product } from "@/types/models";
 import { ProductFilter } from "@/types/filters";
 
 // URLs

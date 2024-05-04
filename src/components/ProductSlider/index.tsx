@@ -5,7 +5,7 @@ import Slider, { Settings } from "react-slick";
 import ProductCard from "@/components/ProductCard";
 
 // Types
-import { Product } from "@/types";
+import { Product } from "@/types/models";
 
 interface Props {
   items: Product[];

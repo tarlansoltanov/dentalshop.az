@@ -4,7 +4,7 @@ import axios from "@/api";
 import { getURLWithFilterParams } from "@/helpers";
 
 // Types
-import { FreezoneItem } from "@/types";
+import { FreezoneItem } from "@/types/models";
 import { FreezoneFilter } from "@/types/filters";
 
 // URLs

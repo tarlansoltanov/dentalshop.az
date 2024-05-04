@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { Product } from "@/types";
+import { Product } from "@/types/models";
 
 // Actions
 import {
@@ -16,7 +16,7 @@ import {
   unfavoriteProduct,
   getNotes,
 } from "./actions";
-import { ProductNote } from "@/types/product";
+import { ProductNote } from "@/types/models/product";
 
 interface StateProps {
   status: {

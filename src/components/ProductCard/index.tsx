@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "@/store";
 import { FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
 
 // Types
-import { Product } from "@/types";
+import { Product } from "@/types/models";
 
 // Actions
 import { addToCart, removeFromCart, favoriteProduct, unfavoriteProduct } from "@/store/actions";

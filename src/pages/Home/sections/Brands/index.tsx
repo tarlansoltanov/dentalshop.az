@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 // Types
-import { Brand } from "@/types";
+import { Brand } from "@/types/models";
 
 interface Props {
   items: Brand[];
