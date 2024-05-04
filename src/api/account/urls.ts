@@ -9,8 +9,8 @@ export const CART_LIST_URL = "/account/cart/";
 export const DISCOUNT_LIST_URL = "/account/discount/";
 
 // ORDER
-export const ORDER_LIST_URL = "/account/orders/";
-export const ORDER_DETAIL_URL = (id: number) => `/account/orders/${id}`;
+export const ORDER_LIST_URL = "/orders/";
+export const ORDER_DETAIL_URL = (id: number) => `/orders/${id}`;
 
 // FAVORITE
 export const FAVORITE_LIST_URL = "/account/favorites/";

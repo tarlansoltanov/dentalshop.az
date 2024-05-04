@@ -2,11 +2,12 @@ import { Product } from "./product";
 
 export type Order = {
   id: number;
-  products: OrderItem[];
+  items: OrderItem[];
   discount: number;
-  status: string;
-  payment_type: string;
+  payment_method: number;
   address: string;
+  note: string;
+  status: number;
   date: string;
 };
 

@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// Constants
+import { ORDER_PAYMENT_METHOD_LABEL, ORDER_STATUS_LABEL } from "@/constants";
+
 // Actions
 import { getOrders } from "@/store/actions";
 
@@ -43,18 +46,18 @@ const Orders = () => {
               </thead>
 
               <tbody>
-                {orders?.map((item, index) => (
+                {orders?.map((order, index) => (
                   <tr key={index}>
                     <td className="code-col">
-                      <Link to={`/account/orders/${item.id}`}>Sifariş nömrə: #{item.id}</Link>
+                      <Link to={`/account/orders/${order.id}`}>Sifariş nömrə: #{order.id}</Link>
                     </td>
 
                     <td className="price-col small-hide">
                       <span className="current-price">
-                        {item.products?.reduce(
+                        {order.items?.reduce(
                           (acc, product) =>
                             acc +
-                            getPrice(product.price, product.discount, item.discount) *
+                            getPrice(product.price, product.discount, order.discount) *
                               product.quantity,
                           0
                         )}{" "}
@@ -62,19 +65,25 @@ const Orders = () => {
                       </span>
                     </td>
 
-                    <td className="type-col small-hide">{item.payment_type}</td>
-
-                    <td className="status-col">
+                    <td className="type-col small-hide">
                       <span
-                        className={`badge ${item.status === "Hazırlanır" ? "info" : "success"}`}>
-                        {item.status}
+                        className={`badge ${
+                          ORDER_PAYMENT_METHOD_LABEL[order.payment_method].color
+                        }`}>
+                        {ORDER_PAYMENT_METHOD_LABEL[order.payment_method].label}
                       </span>
                     </td>
 
-                    <td className="date-col">{item.date}</td>
+                    <td className="status-col">
+                      <span className={`badge ${ORDER_STATUS_LABEL[order.status].color}`}>
+                        {ORDER_STATUS_LABEL[order.status].label}
+                      </span>
+                    </td>
+
+                    <td className="date-col">{order.date}</td>
 
                     <td className="action-col small-hide">
-                      <Link to={`/account/orders/${item.id}`} className="btn btn-primary">
+                      <Link to={`/account/orders/${order.id}`} className="btn btn-primary">
                         Ətraflı
                       </Link>
                     </td>

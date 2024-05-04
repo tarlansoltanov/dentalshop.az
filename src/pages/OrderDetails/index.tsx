@@ -5,6 +5,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// Components
+import NotFound from "@/pages/NotFound";
+import Loader from "@/components/Loader";
+
+// Constants
+import { ORDER_PAYMENT_METHOD_LABEL, ORDER_STATUS_LABEL } from "@/constants";
+
 // Actions
 import { getOrder } from "@/store/actions";
 
@@ -13,7 +20,7 @@ const OrderDetails = () => {
   const id = Number(location.pathname.split("/").pop());
 
   const dispatch = useDispatch<AppDispatch>();
-  const { order } = useSelector((state: RootState) => state.account);
+  const { order, status } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
     dispatch(getOrder(id));
@@ -23,6 +30,10 @@ const OrderDetails = () => {
     if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
     return price - (price * discount) / 100;
   };
+
+  if (status.loading && status.lastAction === getOrder.typePrefix) return <Loader />;
+
+  if (!order) return <NotFound />;
 
   return (
     <main id="main">
@@ -36,11 +47,11 @@ const OrderDetails = () => {
                   <th className="small-hide">Qiymət</th>
                   <th className="small-hide">Say</th>
                   <th className="small-hide">Toplam</th>
-                  <th className="small-hide"></th>
                 </tr>
               </thead>
+
               <tbody>
-                {order?.products.map((item, index) => (
+                {order.items.map((item, index) => (
                   <tr key={index}>
                     <td className="product-col">
                       <div className="product">
@@ -92,7 +103,7 @@ const OrderDetails = () => {
                     </td>
                     <td>
                       <span>
-                        {order?.products.reduce(
+                        {order?.items.reduce(
                           (acc, item) =>
                             acc +
                             getPrice(item.price, item.discount, order.discount) * item.quantity,
@@ -105,21 +116,55 @@ const OrderDetails = () => {
 
                   <tr>
                     <td>
-                      <span>Status: </span>
+                      <span>Ödəmə metodu: </span>
                     </td>
 
                     <td>
-                      <span>{order?.status}</span>
+                      <span
+                        className={`badge ${
+                          ORDER_PAYMENT_METHOD_LABEL[order.payment_method].color
+                        }`}>
+                        {ORDER_PAYMENT_METHOD_LABEL[order.payment_method].label}
+                      </span>
                     </td>
                   </tr>
 
                   <tr>
                     <td>
-                      <span>Ödəmə: </span>
+                      <span>Status: </span>
                     </td>
 
                     <td>
-                      <span>{order?.payment_type}</span>
+                      <span className={`badge ${ORDER_STATUS_LABEL[order.status].color}`}>
+                        {ORDER_STATUS_LABEL[order.status].label}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span>Ünvan: </span>
+                    </td>
+                    <td>
+                      <span>{order.address}</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span>Qeyd: </span>
+                    </td>
+                    <td>
+                      <span>{order.note}</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span>Sifariş tarixi: </span>
+                    </td>
+                    <td>
+                      <span>{order.date}</span>
                     </td>
                   </tr>
                 </tbody>
