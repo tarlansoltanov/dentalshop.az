@@ -47,6 +47,7 @@ const HomeSlider = ({ items }: Props) => {
     dots: true,
     adaptiveHeight: true,
   };
+
   return (
     <section className="container">
       <div id="entry-slider">

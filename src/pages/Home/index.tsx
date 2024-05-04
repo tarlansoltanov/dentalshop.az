@@ -47,11 +47,11 @@ const Home = () => {
   } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    dispatch(getBanners({ limit: "all" }));
-    dispatch(getMainBrands({ limit: 6 }));
+    if (banners === null) dispatch(getBanners({ limit: "all" }));
+    if (brands === null) dispatch(getMainBrands({ limit: 6 }));
+    if (newItems === null) dispatch(getNewProducts({ limit: 8 }));
+    if (discountedItems === null) dispatch(getDiscountedProducts({ limit: 8 }));
     dispatch(getProducts({ limit: 8 }));
-    dispatch(getNewProducts({ limit: 8 }));
-    dispatch(getDiscountedProducts({ limit: 8 }));
   }, []);
 
   if (

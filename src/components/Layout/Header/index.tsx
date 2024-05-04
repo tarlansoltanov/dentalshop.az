@@ -25,8 +25,8 @@ const Header = () => {
   const { user, cartCount, cartItems } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
-    if (cartItems == null) dispatch(getCart());
-  }, [cartItems]);
+    if (user != null && cartItems == null) dispatch(getCart());
+  }, [cartItems, user]);
 
   useEffect(() => {
     if (isAuth && user == null) dispatch(getAccount());
