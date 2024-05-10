@@ -148,6 +148,18 @@ export const getOrder = createAsyncThunk(
   }
 );
 
+export const payOrder = createAsyncThunk(
+  "account/orders/pay",
+  async ({ id, data }: { id: number; data: FormData }, thunkAPI) => {
+    try {
+      const response = await API.payOrder(id, data);
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const checkout = createAsyncThunk(
   "account/orders/checkout",
   async (data: FormData, thunkAPI) => {

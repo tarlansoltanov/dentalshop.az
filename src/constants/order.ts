@@ -1,4 +1,5 @@
 export const ORDER_STATUS = {
+  NOT_PAID: 0,
   PENDING: 1,
   ON_DELIVERY: 2,
   COMPLETED: 3,
@@ -6,6 +7,10 @@ export const ORDER_STATUS = {
 };
 
 export const ORDER_STATUS_LABEL = {
+  [ORDER_STATUS.NOT_PAID]: {
+    label: "Ödənilməyib",
+    color: "danger",
+  },
   [ORDER_STATUS.PENDING]: {
     label: "Hazırlanır",
     color: "info",

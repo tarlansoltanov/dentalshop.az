@@ -226,6 +226,7 @@ export const accountSlice = createSlice({
       .addCase(checkout.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: checkout.typePrefix };
         state.cartItems = [];
+        state.cartCount = 0;
       })
       .addCase(checkout.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: checkout.typePrefix };

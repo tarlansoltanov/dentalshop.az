@@ -25,10 +25,9 @@ import {
 } from "@/store/actions";
 
 const AccountCart = () => {
-  const [discountCode, setDiscountCode] = useState("");
-
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
   const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
 
   useEffect(() => {
@@ -41,16 +40,26 @@ const AccountCart = () => {
     return price - (price * discount) / 100;
   };
 
+  const [discountCode, setDiscountCode] = useState("");
+
   const [data, setData] = useState({
     payment_method: ORDER_PAYMENT_METHOD.CASH,
-    installment: 1,
+    installments: 0,
     address: "",
     note: "",
   });
 
-  useEffect(() => {
-    if (status.success && status.lastAction === checkout.typePrefix) navigate("/account/orders");
-  }, [status]);
+  const handleCheckout = () => () => {
+    dispatch(checkout(getFormData({ ...data, code: discountCode }))).then(({ payload }) => {
+      if (data.payment_method === ORDER_PAYMENT_METHOD.CARD) {
+        window.location.href = payload;
+      } else {
+        navigate("/account/orders");
+      }
+    });
+  };
+
+  if (!isAuth) navigate("/");
 
   return (
     <main id="main">
@@ -103,8 +112,6 @@ const AccountCart = () => {
                       <div className="quantity">
                         <button
                           className="minus-btn"
-                          type="button"
-                          name="button"
                           onClick={() => {
                             dispatch(
                               decrementCart({
@@ -116,11 +123,11 @@ const AccountCart = () => {
                           disabled={item.quantity <= 1}>
                           <img src={MinusSVG} alt="Minus Icon" />
                         </button>
+
                         <input type="text" name="quantity" value={item.quantity} disabled />
+
                         <button
                           className="plus-btn"
-                          type="button"
-                          name="button"
                           onClick={() => {
                             dispatch(
                               incrementCart({
@@ -207,15 +214,16 @@ const AccountCart = () => {
 
                         <td>
                           <select
-                            name="installment"
+                            name="installments"
                             className="form-select"
-                            value={data.installment}
+                            value={data.installments}
                             onChange={(e) =>
-                              setData({ ...data, installment: Number(e.target.value) })
+                              setData({ ...data, installments: Number(e.target.value) })
                             }>
-                            {[1, 2, 3, 4, 5, 6].map((installment, index) => (
-                              <option key={index} value={installment}>
-                                {installment}
+                            <option value="0">Taksitsiz</option>
+                            {[1, 2, 3, 4, 5, 6].map((item) => (
+                              <option key={item} value={item}>
+                                {item} ay
                               </option>
                             ))}
                           </select>
@@ -301,10 +309,8 @@ const AccountCart = () => {
               <div className="cart-bottom">
                 <button
                   className="btn btn-outline-dark-2"
-                  disabled={cartItems?.length === 0}
-                  onClick={() => {
-                    dispatch(checkout(getFormData({ ...data, code: discountCode })));
-                  }}>
+                  disabled={cartItems?.length === 0 || status.loading}
+                  onClick={handleCheckout()}>
                   Sifariş et
                 </button>
               </div>
