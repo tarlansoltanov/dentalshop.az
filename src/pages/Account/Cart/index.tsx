@@ -16,9 +16,9 @@ import { getFormData } from "@/helpers";
 
 // Actions
 import {
-  checkDiscount,
-  checkout,
   getCart,
+  checkout,
+  validatePromo,
   incrementCart,
   decrementCart,
   removeFromCart,
@@ -28,7 +28,9 @@ const AccountCart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { isAuth } = useSelector((state: RootState) => state.auth);
-  const { cartItems, discount, status } = useSelector((state: RootState) => state.account);
+  const { cartItems, discount, status, errors } = useSelector(
+    (state: RootState) => state.account
+  );
 
   useEffect(() => {
     dispatch(getCart());
@@ -40,7 +42,7 @@ const AccountCart = () => {
     return price - (price * discount) / 100;
   };
 
-  const [discountCode, setDiscountCode] = useState("");
+  const [promoCode, setDiscountCode] = useState("");
 
   const [data, setData] = useState({
     payment_method: ORDER_PAYMENT_METHOD.CASH,
@@ -50,13 +52,15 @@ const AccountCart = () => {
   });
 
   const handleCheckout = () => () => {
-    dispatch(checkout(getFormData({ ...data, code: discountCode }))).then(({ payload }) => {
-      if (data.payment_method === ORDER_PAYMENT_METHOD.CARD) {
-        window.location.href = payload;
-      } else {
-        navigate("/account/orders");
+    dispatch(checkout(getFormData({ ...data, code: promoCode }))).then(
+      ({ payload, meta }) => {
+        if (data.payment_method === ORDER_PAYMENT_METHOD.CARD) {
+          window.location.href = payload;
+        } else if (meta.requestStatus === "fulfilled") {
+          navigate(`/account/orders`);
+        }
       }
-    });
+    );
   };
 
   if (!isAuth) navigate("/");
@@ -66,6 +70,11 @@ const AccountCart = () => {
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
+            {errors && (
+              <div className="alert alert-danger" role="alert">
+                {errors.non_field_errors}
+              </div>
+            )}
             <table className="table table-cart table-mobile">
               <thead>
                 <tr>
@@ -82,28 +91,39 @@ const AccountCart = () => {
               </thead>
               <tbody>
                 {cartItems?.map((item, index) => (
-                  <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "even-row" : "odd-row"}>
                     <td className="product-col">
                       <div className="product">
                         <figure className="product-media">
                           <Link to={`/products/${item.product.slug}`}>
-                            <img src={item.product.images[0].image} alt={item.product.name} />
+                            <img
+                              src={item.product.images[0].image}
+                              alt={item.product.name}
+                            />
                           </Link>
                         </figure>
                         <h3 className="product-title">
-                          <Link to={`/products/${item.product.slug}`}>{item.product.name}</Link>
+                          <Link to={`/products/${item.product.slug}`}>
+                            {item.product.name}
+                          </Link>
                         </h3>
                       </div>
                     </td>
 
                     <td className="price-col">
                       <span className="current-price">
-                        {getPrice(item.product.price, item.product.discount).toFixed(2)}{" "}
+                        {getPrice(
+                          item.product.price,
+                          item.product.discount
+                        ).toFixed(2)}{" "}
                         <span>AZN</span>
                       </span>
                       {(item.product.discount > 0 || discount > 0) && (
                         <del className="old-price">
-                          {Number(item.product.price).toFixed(2)} <span>AZN</span>
+                          {Number(item.product.price).toFixed(2)}{" "}
+                          <span>AZN</span>
                         </del>
                       )}
                     </td>
@@ -124,7 +144,12 @@ const AccountCart = () => {
                           <img src={MinusSVG} alt="Minus Icon" />
                         </button>
 
-                        <input type="text" name="quantity" value={item.quantity} disabled />
+                        <input
+                          type="text"
+                          name="quantity"
+                          value={item.quantity}
+                          disabled
+                        />
 
                         <button
                           className="plus-btn"
@@ -144,7 +169,8 @@ const AccountCart = () => {
 
                     <td className="total-col">
                       {(
-                        getPrice(item.product.price, item.product.discount) * item.quantity
+                        getPrice(item.product.price, item.product.discount) *
+                        item.quantity
                       ).toFixed(2)}{" "}
                       AZN
                     </td>
@@ -177,7 +203,11 @@ const AccountCart = () => {
                             ?.reduce(
                               (acc, item) =>
                                 acc +
-                                getPrice(item.product.price, item.product.discount) * item.quantity,
+                                getPrice(
+                                  item.product.price,
+                                  item.product.discount
+                                ) *
+                                  item.quantity,
                               0
                             )
                             .toFixed(2)}{" "}
@@ -195,13 +225,18 @@ const AccountCart = () => {
                           className="form-select"
                           value={data.payment_method}
                           onChange={(e) =>
-                            setData({ ...data, payment_method: Number(e.target.value) })
+                            setData({
+                              ...data,
+                              payment_method: Number(e.target.value),
+                            })
                           }>
-                          {Object.values(ORDER_PAYMENT_METHOD).map((method, index) => (
-                            <option key={index} value={method}>
-                              {ORDER_PAYMENT_METHOD_LABEL[method].label}
-                            </option>
-                          ))}
+                          {Object.values(ORDER_PAYMENT_METHOD).map(
+                            (method, index) => (
+                              <option key={index} value={method}>
+                                {ORDER_PAYMENT_METHOD_LABEL[method].label}
+                              </option>
+                            )
+                          )}
                         </select>
                       </td>
                     </tr>
@@ -218,7 +253,10 @@ const AccountCart = () => {
                             className="form-select"
                             value={data.installments}
                             onChange={(e) =>
-                              setData({ ...data, installments: Number(e.target.value) })
+                              setData({
+                                ...data,
+                                installments: Number(e.target.value),
+                              })
                             }>
                             <option value="0">Taksitsiz</option>
                             {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -242,7 +280,9 @@ const AccountCart = () => {
                           className="form-control"
                           placeholder="Ünvan"
                           value={data.address}
-                          onChange={(e) => setData({ ...data, address: e.target.value })}
+                          onChange={(e) =>
+                            setData({ ...data, address: e.target.value })
+                          }
                           style={{ height: "100px" }}></textarea>
                       </td>
                     </tr>
@@ -258,7 +298,9 @@ const AccountCart = () => {
                           className="form-control"
                           placeholder="Qeyd"
                           value={data.note}
-                          onChange={(e) => setData({ ...data, note: e.target.value })}
+                          onChange={(e) =>
+                            setData({ ...data, note: e.target.value })
+                          }
                           style={{ height: "100px" }}></textarea>
                       </td>
                     </tr>
@@ -270,11 +312,12 @@ const AccountCart = () => {
                       type="text"
                       className="form-control"
                       placeholder="Kupon kodu"
-                      value={discountCode}
+                      value={promoCode}
                       onChange={(e) => setDiscountCode(e.target.value)}
                       style={{
                         borderColor:
-                          status.lastAction === checkDiscount.typePrefix && status.failure
+                          status.lastAction === validatePromo.typePrefix &&
+                          status.failure
                             ? "red"
                             : status.success && discount
                             ? "green"
@@ -286,18 +329,20 @@ const AccountCart = () => {
                       className="btn btn-outline-primary-2"
                       disabled={
                         cartItems?.length === 0 ||
-                        !discountCode ||
-                        (status?.loading && status?.lastAction === checkDiscount.typePrefix)
+                        !promoCode ||
+                        (status?.loading &&
+                          status?.lastAction === validatePromo.typePrefix)
                       }
                       onClick={(e) => {
                         e.preventDefault();
-                        dispatch(checkDiscount(discountCode));
+                        dispatch(validatePromo(promoCode));
                       }}>
                       <i className="fas fa-check"></i>
                     </button>
                   </div>
                   <span>
-                    {status.lastAction === checkDiscount.typePrefix && status.failure
+                    {status.lastAction === validatePromo.typePrefix &&
+                    status.failure
                       ? "Kupon kodu tapılmadı"
                       : status.success && discount
                       ? `Kupon kodu uğurla təsdiqləndi. Endirim: ${discount}%`

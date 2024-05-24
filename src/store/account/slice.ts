@@ -14,7 +14,7 @@ import {
   getCart,
   updateAccount,
   removeFromCart,
-  checkDiscount,
+  validatePromo,
   getOrders,
   checkout,
   getOrder,
@@ -135,8 +135,9 @@ export const accountSlice = createSlice({
         state.errors = null;
         if (payload.meta.arg.quantity === 1) {
           state.cartItems =
-            state.cartItems?.filter((item) => item.product.slug !== payload.meta.arg.product) ||
-            null;
+            state.cartItems?.filter(
+              (item) => item.product.slug !== payload.meta.arg.product
+            ) || null;
         } else {
           state.cartItems =
             state.cartItems?.map((item) => {
@@ -180,7 +181,9 @@ export const accountSlice = createSlice({
         state.status = { ...LOADING, lastAction: removeFromCart.typePrefix };
         state.errors = null;
         state.cartItems =
-          state.cartItems?.filter((item) => item.product.slug !== payload.meta.arg) || null;
+          state.cartItems?.filter(
+            (item) => item.product.slug !== payload.meta.arg
+          ) || null;
         state.cartCount = state.cartItems?.length || 0;
       })
       .addCase(removeFromCart.fulfilled, (state) => {
@@ -196,7 +199,11 @@ export const accountSlice = createSlice({
         state.errors = null;
         state.cartCount =
           state.cartCount +
-          (state.cartItems?.find((item) => item.product.slug === payload.meta.arg.product) ? 0 : 1);
+          (state.cartItems?.find(
+            (item) => item.product.slug === payload.meta.arg.product
+          )
+            ? 0
+            : 1);
       })
       .addCase(addToCart.fulfilled, (state) => {
         state.status = { ...SUCCESS, lastAction: addToCart.typePrefix };
@@ -206,16 +213,16 @@ export const accountSlice = createSlice({
         state.errors = payload;
       });
     builder
-      .addCase(checkDiscount.pending, (state) => {
-        state.status = { ...LOADING, lastAction: checkDiscount.typePrefix };
+      .addCase(validatePromo.pending, (state) => {
+        state.status = { ...LOADING, lastAction: validatePromo.typePrefix };
         state.errors = null;
       })
-      .addCase(checkDiscount.fulfilled, (state, { payload }) => {
-        state.status = { ...SUCCESS, lastAction: checkDiscount.typePrefix };
+      .addCase(validatePromo.fulfilled, (state, { payload }) => {
+        state.status = { ...SUCCESS, lastAction: validatePromo.typePrefix };
         state.discount = payload;
       })
-      .addCase(checkDiscount.rejected, (state, { payload }) => {
-        state.status = { ...FAILURE, lastAction: checkDiscount.typePrefix };
+      .addCase(validatePromo.rejected, (state, { payload }) => {
+        state.status = { ...FAILURE, lastAction: validatePromo.typePrefix };
         state.errors = payload;
       });
     builder
@@ -279,16 +286,25 @@ export const accountSlice = createSlice({
     /* Freezone */
     builder
       .addCase(getAccountFreezone.pending, (state) => {
-        state.status = { ...LOADING, lastAction: getAccountFreezone.typePrefix };
+        state.status = {
+          ...LOADING,
+          lastAction: getAccountFreezone.typePrefix,
+        };
         state.errors = null;
       })
       .addCase(getAccountFreezone.fulfilled, (state, { payload }) => {
-        state.status = { ...SUCCESS, lastAction: getAccountFreezone.typePrefix };
+        state.status = {
+          ...SUCCESS,
+          lastAction: getAccountFreezone.typePrefix,
+        };
         state.freezoneItems = payload.data;
         state.freezoneCount = payload.count;
       })
       .addCase(getAccountFreezone.rejected, (state, { payload }) => {
-        state.status = { ...FAILURE, lastAction: getAccountFreezone.typePrefix };
+        state.status = {
+          ...FAILURE,
+          lastAction: getAccountFreezone.typePrefix,
+        };
         state.errors = payload;
       });
   },

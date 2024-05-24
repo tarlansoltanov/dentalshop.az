@@ -5,8 +5,8 @@ export const CHANGE_PASSWORD_URL = "/account/change-password/";
 // CART
 export const CART_LIST_URL = "/account/cart/";
 
-// DISCOUNT
-export const DISCOUNT_LIST_URL = "/account/discount/";
+// PROMO
+export const PROMO_VALIDATE_URL = "/promos/validate/";
 
 // CHECKOUT
 export const CHECKOUT_URL = "/orders/checkout/";

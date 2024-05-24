@@ -41,8 +41,8 @@ export const removeFromCart = async (slug: string) => {
   return data;
 };
 
-export const checkDiscount = async (code: string) => {
-  const { data } = await axios.get(`${URL.DISCOUNT_LIST_URL}?code=${code}`);
+export const validatePromo = async (code: string) => {
+  const { data } = await axios.get(`${URL.PROMO_VALIDATE_URL}?code=${code}`);
   return data;
 };
 
@@ -53,7 +53,9 @@ export const checkout = async (formData: FormData) => {
 
 /* Favorites */
 export const getFavorites = async (filters: Pagination) => {
-  const { data } = await axios.get(getURLWithFilterParams(URL.FAVORITE_LIST_URL, filters));
+  const { data } = await axios.get(
+    getURLWithFilterParams(URL.FAVORITE_LIST_URL, filters)
+  );
   return { data: data.results, count: data.count };
 };
 
@@ -63,7 +65,9 @@ export const addFavorite = async (formData: FormData) => {
 };
 
 export const removeFavorite = async (slug: string) => {
-  const { data } = await axios.delete(`${URL.FAVORITE_LIST_URL}?product=${slug}`);
+  const { data } = await axios.delete(
+    `${URL.FAVORITE_LIST_URL}?product=${slug}`
+  );
   return data;
 };
 
@@ -85,6 +89,8 @@ export const payOrder = async (id: number, formData: FormData) => {
 
 /* Free Zone */
 export const getFreeZone = async (filters: Pagination) => {
-  const { data } = await axios.get(getURLWithFilterParams(URL.FREEZONE_LIST_URL, filters));
+  const { data } = await axios.get(
+    getURLWithFilterParams(URL.FREEZONE_LIST_URL, filters)
+  );
   return { data: data.results, count: data.count };
 };

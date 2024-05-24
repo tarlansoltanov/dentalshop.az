@@ -9,14 +9,17 @@ import { Pagination } from "@/types/filters";
 // API
 import * as API from "@/api/account";
 
-export const getAccount = createAsyncThunk("account/get", async (_, thunkAPI) => {
-  try {
-    const response = await API.getAccount();
-    return response;
-  } catch (error: any) {
-    throw thunkAPI.rejectWithValue(error.response.data);
+export const getAccount = createAsyncThunk(
+  "account/get",
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.getAccount();
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const updateAccount = createAsyncThunk(
   "account/update",
@@ -43,18 +46,24 @@ export const changePassword = createAsyncThunk(
 );
 
 /* Cart */
-export const getCart = createAsyncThunk("account/cart/get", async (_, thunkAPI) => {
-  try {
-    const response = await API.getCart();
-    return response;
-  } catch (error: any) {
-    throw thunkAPI.rejectWithValue(error.response.data);
+export const getCart = createAsyncThunk(
+  "account/cart/get",
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.getCart();
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const addToCart = createAsyncThunk(
   "account/cart/add",
-  async ({ product, quantity = 1 }: { product: string; quantity?: number }, thunkAPI) => {
+  async (
+    { product, quantity = 1 }: { product: string; quantity?: number },
+    thunkAPI
+  ) => {
     try {
       const response = await API.addToCart(getFormData({ product, quantity }));
       return response;
@@ -66,9 +75,14 @@ export const addToCart = createAsyncThunk(
 
 export const decrementCart = createAsyncThunk(
   "account/cart/decrement",
-  async ({ product, quantity }: { product: string; quantity: number }, thunkAPI) => {
+  async (
+    { product, quantity }: { product: string; quantity: number },
+    thunkAPI
+  ) => {
     try {
-      const response = await API.addToCart(getFormData({ product, quantity: quantity - 1 }));
+      const response = await API.addToCart(
+        getFormData({ product, quantity: quantity - 1 })
+      );
       return response;
     } catch (error: any) {
       throw thunkAPI.rejectWithValue(error.response.data);
@@ -78,9 +92,14 @@ export const decrementCart = createAsyncThunk(
 
 export const incrementCart = createAsyncThunk(
   "account/cart/increment",
-  async ({ product, quantity }: { product: string; quantity: number }, thunkAPI) => {
+  async (
+    { product, quantity }: { product: string; quantity: number },
+    thunkAPI
+  ) => {
     try {
-      const response = await API.addToCart(getFormData({ product, quantity: quantity + 1 }));
+      const response = await API.addToCart(
+        getFormData({ product, quantity: quantity + 1 })
+      );
       return response;
     } catch (error: any) {
       throw thunkAPI.rejectWithValue(error.response.data);
@@ -114,11 +133,11 @@ export const getFavorites = createAsyncThunk(
 );
 
 /* Discount */
-export const checkDiscount = createAsyncThunk(
-  "account/discount/check",
+export const validatePromo = createAsyncThunk(
+  "account/promo/validate",
   async (code: string, thunkAPI) => {
     try {
-      const response = await API.checkDiscount(code);
+      const response = await API.validatePromo(code);
       return response;
     } catch (error: any) {
       throw thunkAPI.rejectWithValue(error.response.data);
@@ -127,14 +146,17 @@ export const checkDiscount = createAsyncThunk(
 );
 
 /* Orders */
-export const getOrders = createAsyncThunk("account/orders/get", async (_, thunkAPI) => {
-  try {
-    const response = await API.getOrders();
-    return response;
-  } catch (error: any) {
-    throw thunkAPI.rejectWithValue(error.response.data);
+export const getOrders = createAsyncThunk(
+  "account/orders/get",
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.getOrders();
+      return response;
+    } catch (error: any) {
+      throw thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const getOrder = createAsyncThunk(
   "account/orders/getOrder",
