@@ -18,6 +18,3 @@ export const ORDER_DETAIL_PAY_URL = (id: number) => `/orders/${id}/pay/`;
 
 // FAVORITE
 export const FAVORITE_LIST_URL = "/account/favorites/";
-
-// FREEZONE
-export const FREEZONE_LIST_URL = "/account/freezone/";

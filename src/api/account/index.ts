@@ -86,11 +86,3 @@ export const payOrder = async (id: number, formData: FormData) => {
   const { data } = await axios.post(URL.ORDER_DETAIL_PAY_URL(id), formData);
   return data;
 };
-
-/* Free Zone */
-export const getFreeZone = async (filters: Pagination) => {
-  const { data } = await axios.get(
-    getURLWithFilterParams(URL.FREEZONE_LIST_URL, filters)
-  );
-  return { data: data.results, count: data.count };
-};

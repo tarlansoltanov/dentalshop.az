@@ -4,24 +4,28 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOADING, SUCCESS, FAILURE } from "@/constants";
 
 // Types
-import { CartItem, FreezoneItem, Order, Product, User } from "@/types/models";
+import { CartItem, Order, Product, User } from "@/types/models";
 
 // Actions
 import {
+  // Account
+  getAccount,
+  updateAccount,
+  changePassword,
+  // Favorites
+  getFavorites,
+  // Promo
+  validatePromo,
+  // Cart
+  getCart,
+  addToCart,
   incrementCart,
   decrementCart,
-  getAccount,
-  getCart,
-  updateAccount,
   removeFromCart,
-  validatePromo,
-  getOrders,
+  // Orders
   checkout,
+  getOrders,
   getOrder,
-  getFavorites,
-  getAccountFreezone,
-  changePassword,
-  addToCart,
 } from "./actions";
 
 interface StateProps {
@@ -40,8 +44,6 @@ interface StateProps {
   order: Order | null;
   favorites: Product[] | null;
   favoritesCount: number;
-  freezoneItems: FreezoneItem[] | null;
-  freezoneCount: number;
 }
 
 const initialState: StateProps = {
@@ -60,8 +62,6 @@ const initialState: StateProps = {
   order: null,
   favorites: null,
   favoritesCount: 0,
-  freezoneItems: null,
-  freezoneCount: 0,
 };
 
 export const accountSlice = createSlice({
@@ -280,31 +280,6 @@ export const accountSlice = createSlice({
       })
       .addCase(getFavorites.rejected, (state, { payload }) => {
         state.status = { ...FAILURE, lastAction: getFavorites.typePrefix };
-        state.errors = payload;
-      });
-
-    /* Freezone */
-    builder
-      .addCase(getAccountFreezone.pending, (state) => {
-        state.status = {
-          ...LOADING,
-          lastAction: getAccountFreezone.typePrefix,
-        };
-        state.errors = null;
-      })
-      .addCase(getAccountFreezone.fulfilled, (state, { payload }) => {
-        state.status = {
-          ...SUCCESS,
-          lastAction: getAccountFreezone.typePrefix,
-        };
-        state.freezoneItems = payload.data;
-        state.freezoneCount = payload.count;
-      })
-      .addCase(getAccountFreezone.rejected, (state, { payload }) => {
-        state.status = {
-          ...FAILURE,
-          lastAction: getAccountFreezone.typePrefix,
-        };
         state.errors = payload;
       });
   },

@@ -15,7 +15,7 @@ import { convertToSearchParams } from "@/helpers";
 import { FreezoneFilter } from "@/types/filters";
 
 // Actions
-import { getAccountFreezone } from "@/store/actions";
+import { getFreezoneItems } from "@/store/actions";
 
 const FreeZoneProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +23,10 @@ const FreeZoneProducts = () => {
 
   // Items
   const {
-    freezoneItems: products,
-    freezoneCount: itemCount,
+    items: products,
+    count: itemCount,
     status,
-  } = useSelector((state: RootState) => state.account);
+  } = useSelector((state: RootState) => state.freezone);
 
   // MaxPage
   const [maxPage, setMaxPage] = useState<number>(1);
@@ -38,7 +38,7 @@ const FreeZoneProducts = () => {
   });
 
   useEffect(() => {
-    dispatch(getAccountFreezone({ ...filter }));
+    dispatch(getFreezoneItems({ ...filter, by_user: true }));
     setSearchParams(convertToSearchParams(filter));
   }, [filter]);
 
@@ -56,12 +56,17 @@ const FreeZoneProducts = () => {
             <div id="product-list-container">
               <div id="filter-wrapper" className="has-sorting-option">
                 <div className="filter-wrapper-content">
-                  <div id="sorting-options" className="sorting-options-content openbox-content">
+                  <div
+                    id="sorting-options"
+                    className="sorting-options-content openbox-content">
                     <form className="form-horizontal">
                       <div className="row">
                         <div className="col-6 col-lg-auto">
-                          <Link to="/free-zone/create" className="btn btn-primary">
-                            <i className="fas fa-plus" aria-hidden="true"></i> Elan yerləşdir
+                          <Link
+                            to="/free-zone/create"
+                            className="btn btn-primary">
+                            <i className="fas fa-plus" aria-hidden="true"></i>{" "}
+                            Elan yerləşdir
                           </Link>
                         </div>
 
@@ -83,15 +88,23 @@ const FreeZoneProducts = () => {
                       <div className="showcase">
                         <div className="showcase-image-container">
                           <div className="showcase-image">
-                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
-                              <img className="lazyload" src={item.image} alt={item.title} />
+                            <Link
+                              to={`/free-zone/${item.slug}`}
+                              title={item.title}>
+                              <img
+                                className="lazyload"
+                                src={item.image}
+                                alt={item.title}
+                              />
                             </Link>
                           </div>
                         </div>
 
                         <div className="showcase-content">
                           <div className="showcase-title">
-                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
+                            <Link
+                              to={`/free-zone/${item.slug}`}
+                              title={item.title}>
                               {item.title}
                             </Link>
                           </div>
@@ -115,9 +128,14 @@ const FreeZoneProducts = () => {
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page - 1 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page && prev.page - 1,
+                          }))
                         }>
-                        <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-left"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
@@ -128,24 +146,33 @@ const FreeZoneProducts = () => {
                         role="button"
                         key={index}
                         className={
-                          filter.page === index + 1 || (!filter.page && index === 0)
+                          filter.page === index + 1 ||
+                          (!filter.page && index === 0)
                             ? "paginate-element-active"
                             : ""
                         }
-                        onClick={() => setFilter((prev) => ({ ...prev, page: index + 1 }))}>
+                        onClick={() =>
+                          setFilter((prev) => ({ ...prev, page: index + 1 }))
+                        }>
                         {index + 1}
                       </a>
                     ))}
                   </div>
 
-                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
+                  {((filter.page && filter.page !== maxPage) ||
+                    (!filter.page && maxPage > 1)) && (
                     <div className="paginate-right paginate-active">
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page + 1 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page && prev.page + 1,
+                          }))
                         }>
-                        <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-right"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
