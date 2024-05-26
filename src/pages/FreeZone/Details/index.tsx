@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import NotFound from "@/pages/NotFound";
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 
 // Actions
@@ -46,7 +47,7 @@ const FreeZoneDetails = () => {
   }
 
   return (
-    <main id="main">
+    <Layout>
       <section>
         <div id="product-detail-container">
           <div className="container">
@@ -113,13 +114,17 @@ const FreeZoneDetails = () => {
                         {/* Contact */}
                         <div className="product-list-row product-brands">
                           <div className="product-list-title">Əlaqə</div>
-                          <div className="product-list-content">{item.user?.phone}</div>
+                          <div className="product-list-content">
+                            {item.user?.phone}
+                          </div>
                         </div>
 
                         {/* Address */}
                         <div className="product-list-row product-brands">
                           <div className="product-list-title">Ünvan</div>
-                          <div className="product-list-content">{item.address}</div>
+                          <div className="product-list-content">
+                            {item.address}
+                          </div>
                         </div>
 
                         {/* Address */}
@@ -193,7 +198,7 @@ const FreeZoneDetails = () => {
           </div>
         </div>
       </section>
-    </main>
+    </Layout>
   );
 };
 

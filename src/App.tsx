@@ -3,10 +3,6 @@ import React from "react";
 // React Router
 import { Routes, Route } from "react-router-dom";
 
-// Components
-import AuthLayout from "@/components/AuthLayout";
-import Layout from "@/components/Layout";
-
 // Middlewares
 import { Authmiddleware, ScrollToTop } from "./route/middlewares";
 
@@ -27,20 +23,12 @@ const App = () => {
             <Route
               key={index}
               path={route.path}
-              element={
-                <Authmiddleware>
-                  <Layout>{route.component}</Layout>
-                </Authmiddleware>
-              }
+              element={<Authmiddleware>{route.component}</Authmiddleware>}
             />
           ))}
 
           {authRoutes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              element={<AuthLayout>{route.component}</AuthLayout>}
-            />
+            <Route key={index} path={route.path} element={route.component} />
           ))}
         </Routes>
       </ScrollToTop>

@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// Components
+import Layout from "@/components/Layout";
+
 // Assets
 import { MinusSVG, PlusSVG } from "@/assets/images";
 
@@ -57,7 +60,7 @@ const AccountCart = () => {
         if (data.payment_method === ORDER_PAYMENT_METHOD.CARD) {
           window.location.href = payload;
         } else if (meta.requestStatus === "fulfilled") {
-          navigate(`/account/orders`);
+          navigate(`/account/orders/${payload}`);
         }
       }
     );
@@ -66,7 +69,7 @@ const AccountCart = () => {
   if (!isAuth) navigate("/");
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
@@ -363,7 +366,7 @@ const AccountCart = () => {
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

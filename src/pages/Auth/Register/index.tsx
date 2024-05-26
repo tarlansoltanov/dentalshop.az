@@ -11,6 +11,9 @@ import { PatternFormat } from "react-number-format";
 // Libphonenumber-js
 import { parsePhoneNumber } from "libphonenumber-js";
 
+// Components
+import AuthLayout from "@/components/AuthLayout";
+
 // Assets
 import { LogoPNG } from "@/assets/images";
 
@@ -22,7 +25,9 @@ const Register = () => {
 
   // Redux
   const dispatch = useDispatch<AppDispatch>();
-  const { errors, status, isAuth } = useSelector((state: RootState) => state.auth);
+  const { errors, status, isAuth } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   // Data
   const [data, setData] = useState({
@@ -45,7 +50,12 @@ const Register = () => {
   // Submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(register({ ...data, phone: parsePhoneNumber(data.phone, "AZ").number.slice(4) }));
+    dispatch(
+      register({
+        ...data,
+        phone: parsePhoneNumber(data.phone, "AZ").number.slice(4),
+      })
+    );
   };
 
   useEffect(() => {
@@ -53,7 +63,7 @@ const Register = () => {
   }, [isAuth, navigate]);
 
   return (
-    <React.Fragment>
+    <AuthLayout>
       <div className="signup-page-logo">
         <Link to="/">
           <img src={LogoPNG} alt="Logo" />
@@ -70,7 +80,9 @@ const Register = () => {
             <form className="form-horizontal" onSubmit={handleSubmit}>
               {/* First Name */}
               <div className="form-group row">
-                <label htmlFor="first_name" className="col-12 col-lg-4 control-label">
+                <label
+                  htmlFor="first_name"
+                  className="col-12 col-lg-4 control-label">
                   Ad
                 </label>
 
@@ -81,7 +93,9 @@ const Register = () => {
                       name="first_name"
                       value={data.first_name}
                       onChange={handleChange}
-                      className={`form-control ${errors?.first_name ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.first_name ? "invalid" : ""
+                      }`}
                       required
                     />
                     <span className="required">*</span>
@@ -97,7 +111,9 @@ const Register = () => {
 
               {/* Last Name */}
               <div className="form-group row">
-                <label htmlFor="last_name" className="col-12 col-lg-4 control-label">
+                <label
+                  htmlFor="last_name"
+                  className="col-12 col-lg-4 control-label">
                   Soyad
                 </label>
 
@@ -108,7 +124,9 @@ const Register = () => {
                       name="last_name"
                       value={data.last_name}
                       onChange={handleChange}
-                      className={`form-control ${errors?.last_name ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.last_name ? "invalid" : ""
+                      }`}
                       required
                     />
                     <span className="required">*</span>
@@ -124,7 +142,9 @@ const Register = () => {
 
               {/* Birth Date */}
               <div className="form-group row">
-                <label className="col-12 col-lg-4 control-label">Doğum Tarixi</label>
+                <label className="col-12 col-lg-4 control-label">
+                  Doğum Tarixi
+                </label>
 
                 <div className="col-12 col-lg-5">
                   <div>
@@ -133,7 +153,9 @@ const Register = () => {
                       name="birth_date"
                       value={data.birth_date}
                       onChange={handleChange}
-                      className={`form-control ${errors?.birth_date ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.birth_date ? "invalid" : ""
+                      }`}
                       required
                     />
 
@@ -150,7 +172,9 @@ const Register = () => {
 
               {/* Phone */}
               <div className="form-group row">
-                <label htmlFor="phone" className="col-12 col-lg-4 control-label">
+                <label
+                  htmlFor="phone"
+                  className="col-12 col-lg-4 control-label">
                   Telefon nömrəsi
                 </label>
 
@@ -162,7 +186,9 @@ const Register = () => {
                       format="+994 (##) ###-##-##"
                       allowEmptyFormatting
                       mask="_"
-                      className={`form-control ${errors?.phone ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.phone ? "invalid" : ""
+                      }`}
                       placeholder="Telefon nömrəsi daxil edin"
                       value={data.phone}
                       onChange={handleChange}
@@ -181,7 +207,9 @@ const Register = () => {
 
               {/* Password */}
               <div className="form-group row">
-                <label htmlFor="password" className="col-12 col-lg-4 control-label">
+                <label
+                  htmlFor="password"
+                  className="col-12 col-lg-4 control-label">
                   Şifrə
                 </label>
 
@@ -196,7 +224,9 @@ const Register = () => {
                       name="password"
                       value={data.password}
                       onChange={handleChange}
-                      className={`form-control ${errors?.password ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.password ? "invalid" : ""
+                      }`}
                       required
                     />
 
@@ -213,7 +243,9 @@ const Register = () => {
 
               {/* Password Confirm */}
               <div className="form-group row">
-                <label htmlFor="password_confirm" className="col-12 col-lg-4 control-label">
+                <label
+                  htmlFor="password_confirm"
+                  className="col-12 col-lg-4 control-label">
                   Şifrə Təkrarı
                 </label>
 
@@ -228,7 +260,9 @@ const Register = () => {
                       name="password_confirm"
                       value={data.password_confirm}
                       onChange={handleChange}
-                      className={`form-control ${errors?.password_confirm ? "invalid" : ""}`}
+                      className={`form-control ${
+                        errors?.password_confirm ? "invalid" : ""
+                      }`}
                       required
                     />
 
@@ -237,7 +271,9 @@ const Register = () => {
 
                   {errors?.password_confirm && (
                     <div>
-                      <span className="text-danger">{errors.password_confirm}</span>
+                      <span className="text-danger">
+                        {errors.password_confirm}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -259,7 +295,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </AuthLayout>
   );
 };
 

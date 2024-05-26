@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 
 // Helpers
@@ -52,20 +53,25 @@ const FreeZoneProducts = () => {
   if (status.loading) return <Loader />;
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
             <div id="product-list-container">
               <div id="filter-wrapper" className="has-sorting-option">
                 <div className="filter-wrapper-content">
-                  <div id="sorting-options" className="sorting-options-content openbox-content">
+                  <div
+                    id="sorting-options"
+                    className="sorting-options-content openbox-content">
                     <form className="form-horizontal">
                       <div className="row">
                         {isAuth && (
                           <div className="col-6 col-lg-auto">
-                            <Link to="/free-zone/create" className="btn btn-primary">
-                              <i className="fas fa-plus" aria-hidden="true"></i> Elan yerləşdir
+                            <Link
+                              to="/free-zone/create"
+                              className="btn btn-primary">
+                              <i className="fas fa-plus" aria-hidden="true"></i>{" "}
+                              Elan yerləşdir
                             </Link>
                           </div>
                         )}
@@ -77,16 +83,24 @@ const FreeZoneProducts = () => {
                         </div>
 
                         <div className="col-6 col-lg-auto">
-                          <label htmlFor="sortingOption" className="mb-0 d-block">
+                          <label
+                            htmlFor="sortingOption"
+                            className="mb-0 d-block">
                             <select
                               className="form-control"
                               onChange={(e) =>
-                                setFilter((prev) => ({ ...prev, ordering: e.target.value }))
+                                setFilter((prev) => ({
+                                  ...prev,
+                                  ordering: e.target.value,
+                                }))
                               }>
                               <option>Standart</option>
                               <option value="price"> Ən Aşağı Qiymət </option>
                               <option value="-price"> Ən Yuxarı Qiymət </option>
-                              <option value="-discount"> Endirim miqdarı </option>
+                              <option value="-discount">
+                                {" "}
+                                Endirim miqdarı{" "}
+                              </option>
                               <option value="name"> A'dan Z'yə </option>
                               <option value="-name"> Z'dən A'ya </option>
                             </select>
@@ -105,15 +119,23 @@ const FreeZoneProducts = () => {
                       <div className="showcase">
                         <div className="showcase-image-container">
                           <div className="showcase-image">
-                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
-                              <img className="lazyload" src={item.image} alt={item.title} />
+                            <Link
+                              to={`/free-zone/${item.slug}`}
+                              title={item.title}>
+                              <img
+                                className="lazyload"
+                                src={item.image}
+                                alt={item.title}
+                              />
                             </Link>
                           </div>
                         </div>
 
                         <div className="showcase-content">
                           <div className="showcase-title">
-                            <Link to={`/free-zone/${item.slug}`} title={item.title}>
+                            <Link
+                              to={`/free-zone/${item.slug}`}
+                              title={item.title}>
                               {item.title}
                             </Link>
                           </div>
@@ -137,9 +159,14 @@ const FreeZoneProducts = () => {
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page - 1 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page && prev.page - 1,
+                          }))
                         }>
-                        <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-left"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
@@ -150,24 +177,33 @@ const FreeZoneProducts = () => {
                         role="button"
                         key={index}
                         className={
-                          filter.page === index + 1 || (!filter.page && index === 0)
+                          filter.page === index + 1 ||
+                          (!filter.page && index === 0)
                             ? "paginate-element-active"
                             : ""
                         }
-                        onClick={() => setFilter((prev) => ({ ...prev, page: index + 1 }))}>
+                        onClick={() =>
+                          setFilter((prev) => ({ ...prev, page: index + 1 }))
+                        }>
                         {index + 1}
                       </a>
                     ))}
                   </div>
 
-                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
+                  {((filter.page && filter.page !== maxPage) ||
+                    (!filter.page && maxPage > 1)) && (
                     <div className="paginate-right paginate-active">
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page + 1 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page && prev.page + 1,
+                          }))
                         }>
-                        <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-right"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
@@ -177,7 +213,7 @@ const FreeZoneProducts = () => {
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

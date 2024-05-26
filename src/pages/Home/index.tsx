@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
 // Components
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 import ProductCard from "@/components/ProductCard";
 import ProductsSection from "@/components/ProductsSection";
@@ -26,7 +27,9 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // Categories
-  const { status: statusCategories } = useSelector((state: RootState) => state.categories);
+  const { status: statusCategories } = useSelector(
+    (state: RootState) => state.categories
+  );
 
   // Brands
   const { mainItems: brands, status: statusBrands } = useSelector(
@@ -57,16 +60,19 @@ const Home = () => {
   if (
     statusBanners.loading ||
     statusBrands.loading ||
-    (statusProducts.loading && statusProducts.lastAction === getProducts.typePrefix) ||
-    (statusProducts.loading && statusProducts.lastAction === getNewProducts.typePrefix) ||
-    (statusProducts.loading && statusProducts.lastAction === getDiscountedProducts.typePrefix) ||
+    (statusProducts.loading &&
+      statusProducts.lastAction === getProducts.typePrefix) ||
+    (statusProducts.loading &&
+      statusProducts.lastAction === getNewProducts.typePrefix) ||
+    (statusProducts.loading &&
+      statusProducts.lastAction === getDiscountedProducts.typePrefix) ||
     statusCategories.loading
   ) {
     return <Loader />;
   }
 
   return (
-    <main id="main">
+    <Layout>
       {banners && banners.length > 0 && <HomeSlider items={banners} />}
 
       <Brands items={brands || []} />
@@ -89,7 +95,10 @@ const Home = () => {
       {discountedItems && discountedItems.length > 0 && (
         <ProductsSection
           title="Endirimli Məhsullar"
-          showAll={{ title: "Bütün Endirimli Məhsullar", link: "/products?discount=true" }}
+          showAll={{
+            title: "Bütün Endirimli Məhsullar",
+            link: "/products?discount=true",
+          }}
           className="featured-section">
           <div className="row">
             {discountedItems.map((item, index) => (
@@ -104,7 +113,10 @@ const Home = () => {
       {newItems && newItems.length > 0 && (
         <ProductsSection
           title="Yeni Məhsullar"
-          showAll={{ title: "Bütün Yeni Məhsullar", link: "/products?is_new=true" }}
+          showAll={{
+            title: "Bütün Yeni Məhsullar",
+            link: "/products?is_new=true",
+          }}
           className="new-arrivals-section">
           <div className="row">
             {newItems.map((item, index) => (
@@ -115,7 +127,7 @@ const Home = () => {
           </div>
         </ProductsSection>
       )}
-    </main>
+    </Layout>
   );
 };
 

@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
+
+// Assets
+import { LogoPNG } from "@/assets/images";
+
+// Components
+import AuthLayout from "@/components/AuthLayout";
 
 // Helpers
 import { getFormData } from "@/helpers";
@@ -43,85 +49,118 @@ const ChangePassword = () => {
   }, [status, navigate]);
 
   return (
-    <div className="signup-container account-box">
-      <div className="contentbox-header">
-        <h2>Şifrəni Yenilə</h2>
+    <AuthLayout>
+      <div className="signup-page-logo">
+        <Link to="/">
+          <img src={LogoPNG} alt="Logo" />
+        </Link>
       </div>
 
-      {status.success && status.lastAction === changePassword.typePrefix && (
-        <div className="alert alert-success">Şifrəniz yeniləndi! Yönləndirilirsiniz...</div>
-      )}
+      <div className="container">
+        <div className="signup-container">
+          <div className="contentbox-header">
+            <h2>Şifrəni Yenilə</h2>
+          </div>
 
-      <div className="contentbox-body">
-        <form className="form-horizontal" onSubmit={handleSubmit}>
-          {/* New Password */}
-          <div className="form-group row">
-            <label htmlFor="new_password" className="col-12 col-lg-4 control-label">
-              Yeni Şifrə
-            </label>
+          {status.success &&
+            status.lastAction === changePassword.typePrefix && (
+              <div className="alert alert-success">
+                Şifrəniz yeniləndi! Yönləndirilirsiniz...
+              </div>
+            )}
 
-            <div className="col-12 col-lg-5">
-              <div>
-                <input
-                  type="password"
-                  name="new_password"
-                  value={data.new_password}
-                  onChange={(e) => setData({ ...data, new_password: e.target.value })}
-                  className={`form-control ${errors?.new_password ? "invalid" : ""}`}
-                  required
-                />
-                <span className="required">*</span>
+          <div className="contentbox-body">
+            <form className="form-horizontal" onSubmit={handleSubmit}>
+              {/* New Password */}
+              <div className="form-group row">
+                <label
+                  htmlFor="new_password"
+                  className="col-12 col-lg-4 control-label">
+                  Yeni Şifrə
+                </label>
+
+                <div className="col-12 col-lg-5">
+                  <div>
+                    <input
+                      type="password"
+                      name="new_password"
+                      value={data.new_password}
+                      onChange={(e) =>
+                        setData({ ...data, new_password: e.target.value })
+                      }
+                      className={`form-control ${
+                        errors?.new_password ? "invalid" : ""
+                      }`}
+                      required
+                    />
+                    <span className="required">*</span>
+                  </div>
+
+                  {errors?.new_password && (
+                    <div>
+                      <span className="text-danger">{errors.new_password}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {errors?.new_password && (
-                <div>
-                  <span className="text-danger">{errors.new_password}</span>
+              {/* New Password Confirm */}
+              <div className="form-group row">
+                <label
+                  htmlFor="new_password_confirm"
+                  className="col-12 col-lg-4 control-label">
+                  Yeni Şifrə Təsdiq
+                </label>
+
+                <div className="col-12 col-lg-5">
+                  <div>
+                    <input
+                      type="password"
+                      name="new_password_confirm"
+                      value={data.new_password_confirm}
+                      onChange={(e) =>
+                        setData({
+                          ...data,
+                          new_password_confirm: e.target.value,
+                        })
+                      }
+                      className={`form-control ${
+                        errors?.new_password_confirm ? "invalid" : ""
+                      }`}
+                      required
+                    />
+                    <span className="required">*</span>
+                  </div>
+
+                  {errors?.new_password_confirm && (
+                    <div>
+                      <span className="text-danger">
+                        {errors.new_password_confirm}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* New Password Confirm */}
-          <div className="form-group row">
-            <label htmlFor="new_password_confirm" className="col-12 col-lg-4 control-label">
-              Yeni Şifrə Təsdiq
-            </label>
-
-            <div className="col-12 col-lg-5">
-              <div>
-                <input
-                  type="password"
-                  name="new_password_confirm"
-                  value={data.new_password_confirm}
-                  onChange={(e) => setData({ ...data, new_password_confirm: e.target.value })}
-                  className={`form-control ${errors?.new_password_confirm ? "invalid" : ""}`}
-                  required
-                />
-                <span className="required">*</span>
               </div>
 
-              {errors?.new_password_confirm && (
-                <div>
-                  <span className="text-danger">{errors.new_password_confirm}</span>
+              <div className="form-group row">
+                <div className="col-12 col-lg-9 text-right">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block"
+                    style={{ backgroundColor: "#0b8ccd" }}
+                    disabled={
+                      status.loading &&
+                      status.lastAction == changePassword.typePrefix
+                    }>
+                    Yenilə
+                  </button>
                 </div>
-              )}
-            </div>
+              </div>
+            </form>
           </div>
-
-          <div className="form-group row">
-            <div className="col-12 col-lg-9 text-right">
-              <button
-                type="submit"
-                className="btn btn-primary btn-block"
-                style={{ backgroundColor: "#0b8ccd" }}
-                disabled={status.loading && status.lastAction == changePassword.typePrefix}>
-                Yenilə
-              </button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </AuthLayout>
   );
 };
 

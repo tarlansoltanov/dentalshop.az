@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Components
+import AuthLayout from "@/components/AuthLayout";
+
 const About = () => {
   useEffect(() => {
     document.body.classList.add("current-page-page-detail");
@@ -11,7 +14,7 @@ const About = () => {
   }, []);
 
   return (
-    <main id="main">
+    <AuthLayout>
       <div className="container">
         <div className="row">
           <section className="col-12">
@@ -40,15 +43,19 @@ const About = () => {
 
                   <p>
                     <span style={{ fontSize: "medium" }}>
-                      Azərbaycanda ilk dəfə olaraq Dentalshop.az internet mağaza saytı vasitəsi ilə
-                      hər növ stomatoloji material və avadanlıqların satışını Sizin xidmətinizə
-                      təqdim edirik. İnternet mağazada stomatoloji materialları və avadanlıqları
-                      sifariş etməklə, Siz öz dəyərli vaxtınıza və büdcənizə qənaət etmiş
-                      olacaqsınız. Həmçinin saytımızdan yararlanaraq Siz stomatoloji yeniliklər
-                      barəsində məlumatlar əldə edə bilərsiniz. Hər gün 24 saat ərzində istənilən
-                      sifarişinizi edə bilərsiniz. Sizin sifarişiniz, sifariş etdiyiniz gün ərzində
-                      və ya Sizin üçün müvafiq istənilən gündə ünvanınıza çatdırılacaq. Bu barədə
-                      Sizinlə telefon əlaqəsi saxlayan operatorla razılığa gələ bilərsiniz.
+                      Azərbaycanda ilk dəfə olaraq Dentalshop.az internet mağaza
+                      saytı vasitəsi ilə hər növ stomatoloji material və
+                      avadanlıqların satışını Sizin xidmətinizə təqdim edirik.
+                      İnternet mağazada stomatoloji materialları və
+                      avadanlıqları sifariş etməklə, Siz öz dəyərli vaxtınıza və
+                      büdcənizə qənaət etmiş olacaqsınız. Həmçinin saytımızdan
+                      yararlanaraq Siz stomatoloji yeniliklər barəsində
+                      məlumatlar əldə edə bilərsiniz. Hər gün 24 saat ərzində
+                      istənilən sifarişinizi edə bilərsiniz. Sizin sifarişiniz,
+                      sifariş etdiyiniz gün ərzində və ya Sizin üçün müvafiq
+                      istənilən gündə ünvanınıza çatdırılacaq. Bu barədə Sizinlə
+                      telefon əlaqəsi saxlayan operatorla razılığa gələ
+                      bilərsiniz.
                     </span>
                   </p>
                 </div>
@@ -57,7 +64,7 @@ const About = () => {
           </section>
         </div>
       </div>
-    </main>
+    </AuthLayout>
   );
 };
 

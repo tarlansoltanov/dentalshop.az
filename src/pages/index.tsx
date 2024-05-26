@@ -1,92 +1,21 @@
-// Home
-import Home from "./Home";
-
-// Products
-import Products from "./Products";
-
-// Product Details
-import ProductDetails from "./Products/Details";
-
-// About
-import About from "./About";
-
-// Auth Login
-import Login from "./Auth/Login";
-
-// Auth Logout
-import Logout from "./Auth/Logout";
-
-// Auth Register
-import Register from "./Auth/Register";
-
-// Auth ForgotPassword
-import ForgotPassword from "./Auth/ForgotPassword";
-
-// Auth Verify OTP
-import VerifyOTP from "./Auth/VerifyOTP";
-
-// FreeZone
-import FreeZone from "./FreeZone";
-
-// FreeZone Details
-import FreeZoneDetails from "./FreeZone/Details";
-
-// FreeZone Create
-import FreeZoneCreate from "./FreeZone/Create";
-
-// FreeZone Update
-import FreeZoneUpdate from "./FreeZone/Update";
-
-// Account
-import Account from "./Account";
-
-// ChangePassword
-import ChangePassword from "./Account/ChangePassword";
-
-// Account Cart
-import AccountCart from "./Account/Cart";
-
-// Account Freezone
-import AccountFreezone from "./Account/FreeZone";
-
-// Account Favorites
-import AccountFavorites from "./Account/Favorites";
-
-// Account Orders
-import Orders from "./Orders";
-
-// Account Order Details
-import OrderDetails from "./Orders/Details";
-
-// Not Found
-import NotFound from "./NotFound";
-
-export {
-  Home,
-  About,
-  // Products
-  Products,
-  ProductDetails,
-  // FreeZone
-  FreeZone,
-  FreeZoneDetails,
-  FreeZoneCreate,
-  FreeZoneUpdate,
-  // Auth
-  Login,
-  Logout,
-  Register,
-  ForgotPassword,
-  VerifyOTP,
-  // Account
-  Account,
-  ChangePassword,
-  AccountCart,
-  AccountFreezone,
-  AccountFavorites,
-  // Orders
-  Orders,
-  OrderDetails,
-  // NotFound
-  NotFound,
-};
+export { default as Home } from "./Home";
+export { default as About } from "./About";
+export { default as Orders } from "./Orders";
+export { default as Account } from "./Account";
+export { default as Login } from "./Auth/Login";
+export { default as Products } from "./Products";
+export { default as FreeZone } from "./FreeZone";
+export { default as NotFound } from "./NotFound";
+export { default as Logout } from "./Auth/Logout";
+export { default as Register } from "./Auth/Register";
+export { default as AccountCart } from "./Account/Cart";
+export { default as VerifyOTP } from "./Auth/VerifyOTP";
+export { default as OrderDetails } from "./Orders/Details";
+export { default as FreeZoneCreate } from "./FreeZone/Create";
+export { default as FreeZoneUpdate } from "./FreeZone/Update";
+export { default as ProductDetails } from "./Products/Details";
+export { default as FreeZoneDetails } from "./FreeZone/Details";
+export { default as ForgotPassword } from "./Auth/ForgotPassword";
+export { default as ChangePassword } from "./Account/ChangePassword";
+export { default as AccountFreezone } from "./Account/FreeZone";
+export { default as AccountFavorites } from "./Account/Favorites";

@@ -9,25 +9,30 @@ import { useDispatch, useSelector } from "react-redux";
 import Slider, { Settings } from "react-slick";
 
 // Components
+import Timer from "@/components/Timer";
 import NotFound from "@/pages/NotFound";
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 import ProductSlider from "@/components/ProductSlider";
 import ProductsSection from "@/components/ProductsSection";
 
 // Assets
-import { DistributorPNG, FavoriteEmptySVG, FavoriteFilledSVG } from "@/assets/images";
+import {
+  DistributorPNG,
+  FavoriteEmptySVG,
+  FavoriteFilledSVG,
+} from "@/assets/images";
 
 // Actions
 import {
+  getNotes,
   addToCart,
   getProduct,
   getProducts,
+  removeFromCart,
   favoriteProduct,
   unfavoriteProduct,
-  removeFromCart,
-  getNotes,
 } from "@/store/actions";
-import Timer from "@/components/Timer";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -72,15 +77,30 @@ const ProductDetails = () => {
     responsive: [
       {
         breakpoint: 767,
-        settings: { slidesToShow: 4, slidesToScroll: 4, vertical: !1, verticalSwiping: !1 },
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
       },
       {
         breakpoint: 991,
-        settings: { slidesToShow: 5, slidesToScroll: 5, vertical: !1, verticalSwiping: !1 },
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
       },
       {
         breakpoint: 1199,
-        settings: { slidesToShow: 6, slidesToScroll: 6, vertical: !1, verticalSwiping: !1 },
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 6,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
       },
     ],
   };
@@ -95,9 +115,10 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (cartItems) {
-      const item = cartItems.find((item) => item.product.slug === product?.slug);
-      if (item) setInCart(true);
-      else setInCart(false);
+      const item = cartItems.find(
+        (item) => item.product.slug === product?.slug
+      );
+      setInCart(() => (item ? true : false));
     }
   }, [cartItems, product]);
 
@@ -110,7 +131,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <main id="main">
+    <Layout>
       <section>
         <div id="product-detail-container">
           <div className="container">
@@ -127,7 +148,8 @@ const ProductDetails = () => {
 
                 {product.category.parent?.parent && (
                   <li>
-                    <Link to={`/products?category=${product.category.parent.parent.slug}`}>
+                    <Link
+                      to={`/products?category=${product.category.parent.parent.slug}`}>
                       <span>
                         <i></i>
                         <span>{product.category.parent.parent.name}</span>
@@ -138,7 +160,8 @@ const ProductDetails = () => {
 
                 {product.category.parent && (
                   <li>
-                    <Link to={`/products?category=${product.category.parent.slug}`}>
+                    <Link
+                      to={`/products?category=${product.category.parent.slug}`}>
                       <span>
                         <i></i>
                         <span>{product.category.parent.name}</span>
@@ -179,10 +202,15 @@ const ProductDetails = () => {
 
                     <div className="product-image">
                       <div id="product-primary-image">
-                        <img id="primary-image" src={product.images[selectedImage].image} />
+                        <img
+                          id="primary-image"
+                          src={product.images[selectedImage].image}
+                        />
                       </div>
 
-                      {product.is_distributer && <img src={DistributorPNG} className="tick-icon" />}
+                      {product.is_distributer && (
+                        <img src={DistributorPNG} className="tick-icon" />
+                      )}
                     </div>
 
                     <Slider {...sliderSettings} className="product-thumb-image">
@@ -194,7 +222,9 @@ const ProductDetails = () => {
                               e.preventDefault();
                               setSelectedImage(index);
                             }}
-                            className={selectedImage === index ? "zoomGalleryActive" : ""}>
+                            className={
+                              selectedImage === index ? "zoomGalleryActive" : ""
+                            }>
                             <img src={image.image} alt={product.name} />
                           </a>
                         </div>
@@ -218,10 +248,14 @@ const ProductDetails = () => {
                         {product.main_note && (
                           <div className="product-extra-row">
                             <span className="product-extra-title">
-                              <i className="fas fa-bullhorn" aria-hidden="true"></i>
+                              <i
+                                className="fas fa-bullhorn"
+                                aria-hidden="true"></i>
                             </span>
 
-                            <div className="product-extra-content">{product.main_note}</div>
+                            <div className="product-extra-content">
+                              {product.main_note}
+                            </div>
                             <hr />
                           </div>
                         )}
@@ -242,13 +276,17 @@ const ProductDetails = () => {
                         {/* Code */}
                         <div className="product-list-row">
                           <div className="product-list-title">Stok Kodu</div>
-                          <div className="product-list-content">{product.code}</div>
+                          <div className="product-list-content">
+                            {product.code}
+                          </div>
                         </div>
 
                         {/* Code */}
                         <div className="product-list-row">
                           <div className="product-list-title">Stok sayı</div>
-                          <div className="product-list-content">{product.quantity}</div>
+                          <div className="product-list-content">
+                            {product.quantity}
+                          </div>
                         </div>
 
                         {/* Price */}
@@ -274,9 +312,14 @@ const ProductDetails = () => {
 
                         {product.discount > 0 && product.discount_end_date && (
                           <div className="product-list-row">
-                            <div className="product-list-title">Endirim keçərlidir</div>
+                            <div className="product-list-title">
+                              Endirim keçərlidir
+                            </div>
                             <div className="product-list-content">
-                              <Timer end_date={product.discount_end_date} className="timer" />
+                              <Timer
+                                end_date={product.discount_end_date}
+                                className="timer"
+                              />
                             </div>
                           </div>
                         )}
@@ -302,7 +345,10 @@ const ProductDetails = () => {
                                 onClick={() => {
                                   dispatch(unfavoriteProduct(product.slug));
                                 }}>
-                                <img src={FavoriteFilledSVG} alt="Favorilərdən Sil" />
+                                <img
+                                  src={FavoriteFilledSVG}
+                                  alt="Favorilərdən Sil"
+                                />
                                 <span>Favorilərdən Sil</span>
                               </a>
                             ) : (
@@ -311,7 +357,10 @@ const ProductDetails = () => {
                                 onClick={() => {
                                   dispatch(favoriteProduct(product.slug));
                                 }}>
-                                <img src={FavoriteEmptySVG} alt="Favorilərə Əlavə Et" />
+                                <img
+                                  src={FavoriteEmptySVG}
+                                  alt="Favorilərə Əlavə Et"
+                                />
                                 <span>Favorilərə əlavə et</span>
                               </a>
                             )}
@@ -328,7 +377,10 @@ const ProductDetails = () => {
                                   }}>
                                   <i
                                     className="fas fa-cart-arrow-down"
-                                    style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                                    style={{
+                                      color: "#2b9b2f",
+                                      fontSize: "20px",
+                                    }}></i>
                                   <span>Səbətdən Sil</span>
                                 </a>
                               ) : (
@@ -336,12 +388,17 @@ const ProductDetails = () => {
                                   role="button"
                                   className="add-cart"
                                   onClick={() => {
-                                    dispatch(addToCart({ product: product.slug }));
+                                    dispatch(
+                                      addToCart({ product: product.slug })
+                                    );
                                     setInCart(true);
                                   }}>
                                   <i
                                     className="fas fa-cart-plus"
-                                    style={{ color: "#2b9b2f", fontSize: "20px" }}></i>
+                                    style={{
+                                      color: "#2b9b2f",
+                                      fontSize: "20px",
+                                    }}></i>
                                   <span>Səbətə əlavə et</span>
                                 </a>
                               )}
@@ -378,13 +435,15 @@ const ProductDetails = () => {
           </div>
 
           {recommendedItems && recommendedItems.length > 0 && (
-            <ProductsSection title="Oxşar məhsullar" className="recommended-section">
+            <ProductsSection
+              title="Oxşar məhsullar"
+              className="recommended-section">
               <ProductSlider items={recommendedItems || []} />
             </ProductsSection>
           )}
         </div>
       </section>
-    </main>
+    </Layout>
   );
 };
 

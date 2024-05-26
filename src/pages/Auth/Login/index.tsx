@@ -11,6 +11,9 @@ import { PatternFormat } from "react-number-format";
 // Libphonenumber-js
 import { parsePhoneNumber } from "libphonenumber-js";
 
+// Components
+import AuthLayout from "@/components/AuthLayout";
+
 // Assets
 import { LogoPNG } from "@/assets/images";
 
@@ -35,7 +38,13 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const phoneNumber = parsePhoneNumber(data.phone, "AZ").number.slice(4);
-    dispatch(login({ phone: phoneNumber, password: data.password, remember: data.remember }));
+    dispatch(
+      login({
+        phone: phoneNumber,
+        password: data.password,
+        remember: data.remember,
+      })
+    );
   };
 
   useEffect(() => {
@@ -43,7 +52,7 @@ const Login = () => {
   }, [isAuth, navigate]);
 
   return (
-    <React.Fragment>
+    <AuthLayout>
       <div className="user-login-page-wrapper">
         <div className="user-login-page-container">
           <div className="user-login-page-logo">
@@ -89,7 +98,9 @@ const Login = () => {
                   value={data.password}
                   className="form-control"
                   placeholder="Şifrə"
-                  onChange={(e) => setData({ ...data, password: e.target.value })}
+                  onChange={(e) =>
+                    setData({ ...data, password: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -101,11 +112,15 @@ const Login = () => {
                     type="checkbox"
                     name="remember"
                     checked={data.remember}
-                    onChange={() => setData((prev) => ({ ...prev, remember: !prev.remember }))}
+                    onChange={() =>
+                      setData((prev) => ({ ...prev, remember: !prev.remember }))
+                    }
                   />
                   <label
                     htmlFor="remember"
-                    onClick={() => setData((prev) => ({ ...prev, remember: !prev.remember }))}>
+                    onClick={() =>
+                      setData((prev) => ({ ...prev, remember: !prev.remember }))
+                    }>
                     Məni xatırla
                   </label>
                 </div>
@@ -139,7 +154,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </AuthLayout>
   );
 };
 

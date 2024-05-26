@@ -11,6 +11,9 @@ import { PatternFormat } from "react-number-format";
 // Libphonenumber-js
 import { parsePhoneNumber } from "libphonenumber-js";
 
+// Components
+import AuthLayout from "@/components/AuthLayout";
+
 // Assets
 import { LogoPNG } from "@/assets/images";
 
@@ -47,7 +50,7 @@ const ForgotPassword = () => {
   }, [status, navigate]);
 
   return (
-    <React.Fragment>
+    <AuthLayout>
       <div className="user-login-page-wrapper">
         <div className="user-login-page-container">
           <div className="user-login-page-logo">
@@ -98,7 +101,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </AuthLayout>
   );
 };
 

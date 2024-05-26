@@ -6,8 +6,9 @@ import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
-import ProductCard from "@/components/ProductCard";
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
+import ProductCard from "@/components/ProductCard";
 
 // Types
 import { Pagination } from "@/types/filters";
@@ -48,7 +49,7 @@ const AccountFavorites = () => {
   }, [filter]);
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
@@ -80,9 +81,14 @@ const AccountFavorites = () => {
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page && prev.page - 1 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page && prev.page - 1,
+                          }))
                         }>
-                        <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-left"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
@@ -93,24 +99,33 @@ const AccountFavorites = () => {
                         key={index}
                         role="button"
                         className={
-                          filter.page === index + 1 || (!filter.page && index === 0)
+                          filter.page === index + 1 ||
+                          (!filter.page && index === 0)
                             ? "paginate-element-active"
                             : ""
                         }
-                        onClick={() => setFilter((prev) => ({ ...prev, page: index + 1 }))}>
+                        onClick={() =>
+                          setFilter((prev) => ({ ...prev, page: index + 1 }))
+                        }>
                         {index + 1}
                       </a>
                     ))}
                   </div>
 
-                  {((filter.page && filter.page !== maxPage) || (!filter.page && maxPage > 1)) && (
+                  {((filter.page && filter.page !== maxPage) ||
+                    (!filter.page && maxPage > 1)) && (
                     <div className="paginate-right paginate-active">
                       <a
                         role="button"
                         onClick={() =>
-                          setFilter((prev) => ({ ...prev, page: prev.page ? prev.page + 1 : 2 }))
+                          setFilter((prev) => ({
+                            ...prev,
+                            page: prev.page ? prev.page + 1 : 2,
+                          }))
                         }>
-                        <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-right"
+                          aria-hidden="true"></i>
                       </a>
                     </div>
                   )}
@@ -120,7 +135,7 @@ const AccountFavorites = () => {
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

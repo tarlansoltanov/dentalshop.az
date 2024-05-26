@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
 // Components
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
+import Pagination from "@/components/Pagination";
 import ProductCard from "@/components/ProductCard";
 
 // Helpers
@@ -17,7 +19,6 @@ import { ProductFilter } from "@/types/filters";
 
 // Actions
 import { getBrands, getCategories, getProducts } from "@/store/actions";
-import Pagination from "@/components/Pagination";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +26,9 @@ const ProductsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // Categories
-  const { items: categories } = useSelector((state: RootState) => state.categories);
+  const { items: categories } = useSelector(
+    (state: RootState) => state.categories
+  );
 
   useEffect(() => {
     if (categories === null) dispatch(getCategories({ limit: "all" }));
@@ -39,7 +42,9 @@ const ProductsPage = () => {
   }, [brands]);
 
   // Products
-  const { items, count, status } = useSelector((state: RootState) => state.products);
+  const { items, count, status } = useSelector(
+    (state: RootState) => state.products
+  );
 
   // Filters
   const [showFilter, setShowFilter] = useState<boolean>(false);
@@ -84,7 +89,7 @@ const ProductsPage = () => {
   const maxPage = Math.ceil(count / (Number(filter.limit) || 12));
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
@@ -93,14 +98,21 @@ const ProductsPage = () => {
             </div>
 
             {/* Filter Box */}
-            <div className={`contentbox-body filterbox ${showFilter ? "active" : ""}`}>
+            <div
+              className={`contentbox-body filterbox ${
+                showFilter ? "active" : ""
+              }`}>
               <div className="row">
                 <div className="col-12">
-                  <form className="form-horizontal" onSubmit={(e) => e.preventDefault()}>
+                  <form
+                    className="form-horizontal"
+                    onSubmit={(e) => e.preventDefault()}>
                     <div className="contentbox-block">
                       <div className="form-group row">
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Axtarış sözü</label>
+                          <label className="col-12 col-lg-4 control-label">
+                            Axtarış sözü
+                          </label>
 
                           <div className="col-12 col-lg-8">
                             <input
@@ -109,14 +121,19 @@ const ProductsPage = () => {
                               name="name"
                               value={filter.name || ""}
                               onChange={(e) =>
-                                setFilter((prev) => ({ ...prev, name: e.target.value }))
+                                setFilter((prev) => ({
+                                  ...prev,
+                                  name: e.target.value,
+                                }))
                               }
                             />
                           </div>
                         </div>
 
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Stok Kodu</label>
+                          <label className="col-12 col-lg-4 control-label">
+                            Stok Kodu
+                          </label>
 
                           <div className="col-12 col-lg-8">
                             <input
@@ -125,7 +142,10 @@ const ProductsPage = () => {
                               name="code"
                               value={filter.code || ""}
                               onChange={(e) =>
-                                setFilter((prev) => ({ ...prev, code: e.target.value }))
+                                setFilter((prev) => ({
+                                  ...prev,
+                                  code: e.target.value,
+                                }))
                               }
                             />
                           </div>
@@ -134,7 +154,9 @@ const ProductsPage = () => {
 
                       <div className="form-group row">
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Kateqoriya</label>
+                          <label className="col-12 col-lg-4 control-label">
+                            Kateqoriya
+                          </label>
 
                           <div className="col-12 col-lg-8">
                             <select
@@ -142,23 +164,34 @@ const ProductsPage = () => {
                               name="category"
                               value={filter.category || ""}
                               onChange={(e) =>
-                                setFilter((prev) => ({ ...prev, category: e.target.value }))
+                                setFilter((prev) => ({
+                                  ...prev,
+                                  category: e.target.value,
+                                }))
                               }>
                               <option value="">Hamısı</option>
 
                               {categories?.map((item, index) => (
                                 <React.Fragment key={index}>
-                                  <option value={item.slug}>-- {item.name}</option>
+                                  <option value={item.slug}>
+                                    -- {item.name}
+                                  </option>
 
                                   {item.children?.map((child, index) => (
                                     <React.Fragment key={index}>
-                                      <option value={child.slug}>---- {child.name}</option>
+                                      <option value={child.slug}>
+                                        ---- {child.name}
+                                      </option>
 
-                                      {child.children?.map((subChild, index) => (
-                                        <option key={index} value={subChild.slug}>
-                                          ------ {subChild.name}
-                                        </option>
-                                      ))}
+                                      {child.children?.map(
+                                        (subChild, index) => (
+                                          <option
+                                            key={index}
+                                            value={subChild.slug}>
+                                            ------ {subChild.name}
+                                          </option>
+                                        )
+                                      )}
                                     </React.Fragment>
                                   ))}
                                 </React.Fragment>
@@ -168,7 +201,9 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Brendlər</label>
+                          <label className="col-12 col-lg-4 control-label">
+                            Brendlər
+                          </label>
 
                           <div className="col-12 col-lg-8">
                             <div className="selectbox">
@@ -177,7 +212,10 @@ const ProductsPage = () => {
                                 name="brand"
                                 value={filter.brand || ""}
                                 onChange={(e) =>
-                                  setFilter((prev) => ({ ...prev, brand: e.target.value }))
+                                  setFilter((prev) => ({
+                                    ...prev,
+                                    brand: e.target.value,
+                                  }))
                                 }>
                                 <option value="">Hamısı</option>
 
@@ -194,7 +232,9 @@ const ProductsPage = () => {
 
                       <div className="form-group row">
                         <div className="row col-12 col-lg-6">
-                          <label className="col-12 col-lg-4 control-label">Qiymət aralığı</label>
+                          <label className="col-12 col-lg-4 control-label">
+                            Qiymət aralığı
+                          </label>
 
                           <div className="col-4 col-lg-3">
                             <input
@@ -226,7 +266,9 @@ const ProductsPage = () => {
                             />
                           </div>
 
-                          <label className="col-4 col-lg-2 control-label">AZN Arası</label>
+                          <label className="col-4 col-lg-2 control-label">
+                            AZN Arası
+                          </label>
                         </div>
 
                         <div className="row col-12 col-lg-6">
@@ -309,7 +351,9 @@ const ProductsPage = () => {
             <div id="results-page">
               {/* Filter */}
               <div id="responsive-mobile-filter">
-                <div id="sorting-options" className="sorting-options-content openbox-content">
+                <div
+                  id="sorting-options"
+                  className="sorting-options-content openbox-content">
                   <form
                     className="form-horizontal"
                     onSubmit={(e) => {
@@ -321,7 +365,8 @@ const ProductsPage = () => {
                         <button
                           className="btn btn-primary mt-3 mb-3"
                           onClick={() => setShowFilter(!showFilter)}>
-                          <i className="fas fa-filter" aria-hidden="true"></i> Filtrlə
+                          <i className="fas fa-filter" aria-hidden="true"></i>{" "}
+                          Filtrlə
                         </button>
                       </div>
 
@@ -361,7 +406,10 @@ const ProductsPage = () => {
                             className="form-control"
                             value={filter.ordering || ""}
                             onChange={(e) =>
-                              setFilter((prev) => ({ ...prev, ordering: e.target.value }))
+                              setFilter((prev) => ({
+                                ...prev,
+                                ordering: e.target.value,
+                              }))
                             }>
                             <option>Standart</option>
                             <option value="price"> Ən Aşağı Qiymət </option>
@@ -377,7 +425,8 @@ const ProductsPage = () => {
               </div>
 
               {/* Loader */}
-              {status.loading && status.lastAction === getProducts.typePrefix && <Loader />}
+              {status.loading &&
+                status.lastAction === getProducts.typePrefix && <Loader />}
 
               {/* Products */}
               <div className="showcase-container">
@@ -394,13 +443,15 @@ const ProductsPage = () => {
               <Pagination
                 currentPage={filter.page}
                 pageCount={maxPage}
-                changePage={(num: number) => setFilter((prev) => ({ ...prev, page: num }))}
+                changePage={(num: number) =>
+                  setFilter((prev) => ({ ...prev, page: num }))
+                }
               />
             </div>
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

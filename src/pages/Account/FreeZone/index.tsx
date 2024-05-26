@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 
 // Helpers
@@ -49,7 +50,7 @@ const FreeZoneProducts = () => {
   if (status.loading) return <Loader />;
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
@@ -182,7 +183,7 @@ const FreeZoneProducts = () => {
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

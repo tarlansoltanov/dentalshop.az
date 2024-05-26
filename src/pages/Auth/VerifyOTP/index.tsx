@@ -5,7 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
+// JS Cookie
 import Cookies from "js-cookie";
+
+// Components
+import AuthLayout from "@/components/AuthLayout";
 
 // Assets
 import { LogoPNG } from "@/assets/images";
@@ -65,7 +69,7 @@ const VerifyOTP = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <AuthLayout>
       <div className="user-login-page-wrapper">
         <div className="user-login-page-container">
           <div className="user-login-page-logo">
@@ -80,11 +84,12 @@ const VerifyOTP = () => {
             </div>
 
             {/* Error */}
-            {status.failure && status.lastAction === verifyOTPCode.typePrefix && (
-              <div className="alert alert-danger" role="alert">
-                OTP kodu yanlışdır.
-              </div>
-            )}
+            {status.failure &&
+              status.lastAction === verifyOTPCode.typePrefix && (
+                <div className="alert alert-danger" role="alert">
+                  OTP kodu yanlışdır.
+                </div>
+              )}
 
             {/* Form */}
             <form name="login-form" onSubmit={handleSubmit}>
@@ -96,7 +101,9 @@ const VerifyOTP = () => {
                   value={data.otp_code}
                   className="form-control"
                   placeholder="OTP Kodu"
-                  onChange={(e) => setData({ ...data, otp_code: e.target.value })}
+                  onChange={(e) =>
+                    setData({ ...data, otp_code: e.target.value })
+                  }
                 />
               </div>
 
@@ -105,7 +112,9 @@ const VerifyOTP = () => {
                 <div className="user-login-forgot-pass d-flex align-items-center">
                   <a
                     role="button"
-                    className={`mr-3 ${timer > 0 ? "text-muted" : "text-primary"}`}
+                    className={`mr-3 ${
+                      timer > 0 ? "text-muted" : "text-primary"
+                    }`}
                     aria-disabled={timer > 0}
                     onClick={timer > 0 ? undefined : handleResendOTP}>
                     OTP Kodunu yenidən göndər
@@ -113,7 +122,9 @@ const VerifyOTP = () => {
 
                   {/* Timer for resend */}
                   {timer > 0 && (
-                    <span className="text-danger">00:{timer < 10 ? `0${timer}` : timer}</span>
+                    <span className="text-danger">
+                      00:{timer < 10 ? `0${timer}` : timer}
+                    </span>
                   )}
                 </div>
               </div>
@@ -131,7 +142,7 @@ const VerifyOTP = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </AuthLayout>
   );
 };
 

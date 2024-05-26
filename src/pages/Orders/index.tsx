@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 
 // Components
+import Layout from "@/components/Layout";
 import Loader from "@/components/Loader";
 
 // Constants
@@ -30,7 +31,7 @@ const Orders = () => {
   if (status.loading && status.lastAction === getOrders.typePrefix) return <Loader />;
 
   return (
-    <main id="main">
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-lg-54">
@@ -99,7 +100,7 @@ const Orders = () => {
           </section>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 
