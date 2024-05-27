@@ -20,6 +20,9 @@ import {
 // Helpers
 import { getFormData } from "@/helpers";
 
+// Types
+import { OrderItem } from "@/types/models";
+
 // Actions
 import { getOrder, payOrder } from "@/store/actions";
 
@@ -34,9 +37,10 @@ const OrderDetails = () => {
     dispatch(getOrder(id));
   }, []);
 
-  const getPrice = (price: number, itemDiscount: number, discount: number) => {
-    if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
-    return price - (price * discount) / 100;
+  const getPrice = (item: OrderItem) => {
+    const price = Number(item.price);
+    if (item.discount > 0) return price * (1 - item.discount / 100);
+    return price;
   };
 
   const [installments, setInstallments] = useState(0);
@@ -92,11 +96,10 @@ const OrderDetails = () => {
 
                     <td className="price-col">
                       <span className="current-price">
-                        {getPrice(item.price, item.discount, order.discount)}{" "}
-                        <span>AZN</span>
+                        {getPrice(item)} <span>AZN</span>
                       </span>
 
-                      {(item.discount > 0 || order.discount > 0) && (
+                      {item.discount > 0 && (
                         <del className="old-price">
                           {item.price} <span>AZN</span>
                         </del>
@@ -115,9 +118,7 @@ const OrderDetails = () => {
                     </td>
 
                     <td className="total-col">
-                      {getPrice(item.price, item.discount, order.discount) *
-                        item.quantity}{" "}
-                      AZN
+                      {getPrice(item) * item.quantity} AZN
                     </td>
                   </tr>
                 ))}
@@ -137,14 +138,7 @@ const OrderDetails = () => {
                       <td>
                         <span>
                           {order?.items.reduce(
-                            (acc, item) =>
-                              acc +
-                              getPrice(
-                                item.price,
-                                item.discount,
-                                order.discount
-                              ) *
-                                item.quantity,
+                            (acc, item) => acc + getPrice(item) * item.quantity,
                             0
                           )}{" "}
                           AZN

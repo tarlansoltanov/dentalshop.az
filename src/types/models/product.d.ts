@@ -11,6 +11,7 @@ export type Product = {
   discount: number;
   discount_end_date?: string;
   quantity: number;
+  is_promo: boolean;
   is_new: boolean;
   is_favorite?: boolean;
   is_distributer: boolean;

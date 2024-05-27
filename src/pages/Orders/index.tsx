@@ -12,6 +12,9 @@ import Loader from "@/components/Loader";
 // Constants
 import { ORDER_PAYMENT_METHOD_LABEL, ORDER_STATUS_LABEL } from "@/constants";
 
+// Types
+import { OrderItem } from "@/types/models";
+
 // Actions
 import { getOrders } from "@/store/actions";
 
@@ -23,12 +26,14 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
 
-  const getPrice = (price: number, itemDiscount: number, discount: number) => {
-    if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
-    return price - (price * discount) / 100;
+  const getPrice = (item: OrderItem) => {
+    const price = Number(item.price);
+    if (item.discount > 0) return price * (1 - item.discount / 100);
+    return price;
   };
 
-  if (status.loading && status.lastAction === getOrders.typePrefix) return <Loader />;
+  if (status.loading && status.lastAction === getOrders.typePrefix)
+    return <Loader />;
 
   return (
     <Layout>
@@ -55,16 +60,15 @@ const Orders = () => {
                 {orders?.map((order, index) => (
                   <tr key={index}>
                     <td className="code-col">
-                      <Link to={`/account/orders/${order.id}`}>Sifariş nömrə: #{order.id}</Link>
+                      <Link to={`/account/orders/${order.id}`}>
+                        Sifariş nömrə: #{order.id}
+                      </Link>
                     </td>
 
                     <td className="price-col small-hide">
                       <span className="current-price">
                         {order.items?.reduce(
-                          (acc, product) =>
-                            acc +
-                            getPrice(product.price, product.discount, order.discount) *
-                              product.quantity,
+                          (acc, item) => acc + getPrice(item) * item.quantity,
                           0
                         )}{" "}
                         AZN
@@ -81,7 +85,10 @@ const Orders = () => {
                     </td>
 
                     <td className="status-col">
-                      <span className={`badge ${ORDER_STATUS_LABEL[order.status].color}`}>
+                      <span
+                        className={`badge ${
+                          ORDER_STATUS_LABEL[order.status].color
+                        }`}>
                         {ORDER_STATUS_LABEL[order.status].label}
                       </span>
                     </td>
@@ -89,7 +96,9 @@ const Orders = () => {
                     <td className="date-col">{order.date}</td>
 
                     <td className="action-col small-hide">
-                      <Link to={`/account/orders/${order.id}`} className="btn btn-primary">
+                      <Link
+                        to={`/account/orders/${order.id}`}
+                        className="btn btn-primary">
                         Ətraflı
                       </Link>
                     </td>

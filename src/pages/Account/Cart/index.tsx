@@ -14,6 +14,9 @@ import { MinusSVG, PlusSVG } from "@/assets/images";
 // Constants
 import { ORDER_PAYMENT_METHOD, ORDER_PAYMENT_METHOD_LABEL } from "@/constants";
 
+// Types
+import { Product } from "@/types/models";
+
 // Helpers
 import { getFormData } from "@/helpers";
 
@@ -29,8 +32,13 @@ import {
 
 const AccountCart = () => {
   const navigate = useNavigate();
+
   const dispatch = useDispatch<AppDispatch>();
+
+  // Auth
   const { isAuth } = useSelector((state: RootState) => state.auth);
+
+  // Account
   const { cartItems, discount, status, errors } = useSelector(
     (state: RootState) => state.account
   );
@@ -39,10 +47,11 @@ const AccountCart = () => {
     dispatch(getCart());
   }, []);
 
-  const getPrice = (price: number | string, itemDiscount: number) => {
-    price = Number(price);
-    if (itemDiscount > 0) return price - (price * itemDiscount) / 100;
-    return price - (price * discount) / 100;
+  const getPrice = (item: Product) => {
+    const price = Number(item.price);
+    if (item.discount > 0 || !item.is_promo)
+      return price * (1 - item.discount / 100);
+    return price * (1 - discount / 100);
   };
 
   const [promoCode, setDiscountCode] = useState("");
@@ -117,13 +126,10 @@ const AccountCart = () => {
 
                     <td className="price-col">
                       <span className="current-price">
-                        {getPrice(
-                          item.product.price,
-                          item.product.discount
-                        ).toFixed(2)}{" "}
-                        <span>AZN</span>
+                        {getPrice(item.product).toFixed(2)} <span>AZN</span>
                       </span>
-                      {(item.product.discount > 0 || discount > 0) && (
+                      {(item.product.discount > 0 ||
+                        (item.product.is_promo && discount > 0)) && (
                         <del className="old-price">
                           {Number(item.product.price).toFixed(2)}{" "}
                           <span>AZN</span>
@@ -171,11 +177,7 @@ const AccountCart = () => {
                     </td>
 
                     <td className="total-col">
-                      {(
-                        getPrice(item.product.price, item.product.discount) *
-                        item.quantity
-                      ).toFixed(2)}{" "}
-                      AZN
+                      {(getPrice(item.product) * item.quantity).toFixed(2)} AZN
                     </td>
 
                     <td className="remove-col">
@@ -205,12 +207,7 @@ const AccountCart = () => {
                           {cartItems
                             ?.reduce(
                               (acc, item) =>
-                                acc +
-                                getPrice(
-                                  item.product.price,
-                                  item.product.discount
-                                ) *
-                                  item.quantity,
+                                acc + getPrice(item.product) * item.quantity,
                               0
                             )
                             .toFixed(2)}{" "}
