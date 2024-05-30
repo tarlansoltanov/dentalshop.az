@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Redux
@@ -60,10 +60,16 @@ const AccountCart = () => {
     payment_method: ORDER_PAYMENT_METHOD.CASH,
     installments: 0,
     address: "",
+    first_payment: "",
+    next_payment: "",
     note: "",
   });
 
   const handleCheckout = () => () => {
+    const fromData = data;
+    if (fromData.payment_method === ORDER_PAYMENT_METHOD.DEBT) {
+      fromData.note = `İlkin ödəniş: ${fromData.first_payment} \nNövbəti ödəniş tarixi: ${fromData.next_payment} \n${fromData.note}`;
+    }
     dispatch(checkout(getFormData({ ...data, code: promoCode }))).then(
       ({ payload, meta }) => {
         if (data.payment_method === ORDER_PAYMENT_METHOD.CARD) {
@@ -267,6 +273,54 @@ const AccountCart = () => {
                           </select>
                         </td>
                       </tr>
+                    )}
+
+                    {data.payment_method === ORDER_PAYMENT_METHOD.DEBT && (
+                      <React.Fragment>
+                        <tr>
+                          <td>
+                            <span>İlkin ödəniş: </span>
+                          </td>
+
+                          <td>
+                            <input
+                              type="text"
+                              name="first_payment"
+                              className="form-control"
+                              placeholder="İlkin ödəniş"
+                              value={data.first_payment}
+                              onChange={(e) =>
+                                setData({
+                                  ...data,
+                                  first_payment: e.target.value,
+                                })
+                              }
+                            />
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <span>Növbəti ödəniş tarixi: </span>
+                          </td>
+
+                          <td>
+                            <input
+                              type="text"
+                              name="next_payment"
+                              className="form-control"
+                              placeholder="Növbəti ödəniş tarixi"
+                              value={data.next_payment}
+                              onChange={(e) =>
+                                setData({
+                                  ...data,
+                                  next_payment: e.target.value,
+                                })
+                              }
+                            />
+                          </td>
+                        </tr>
+                      </React.Fragment>
                     )}
 
                     <tr>

@@ -32,6 +32,7 @@ export const ORDER_STATUS_LABEL = {
 export const ORDER_PAYMENT_METHOD = {
   CASH: 1,
   CARD: 2,
+  DEBT: 3,
 };
 
 export const ORDER_PAYMENT_METHOD_LABEL = {
@@ -42,5 +43,9 @@ export const ORDER_PAYMENT_METHOD_LABEL = {
   [ORDER_PAYMENT_METHOD.CARD]: {
     label: "Kartla ödəniş",
     color: "info",
+  },
+  [ORDER_PAYMENT_METHOD.DEBT]: {
+    label: "Nisyə ödəniş",
+    color: "warning",
   },
 };
