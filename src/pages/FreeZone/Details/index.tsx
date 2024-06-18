@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
+
+// React Slick
+import Slider, { Settings } from "react-slick";
 
 // Components
 import NotFound from "@/pages/NotFound";
@@ -38,6 +41,50 @@ const FreeZoneDetails = () => {
     if (status.success && status.lastAction === deleteFreezoneItem.typePrefix)
       navigate("/account/free-zone");
   }, [status]);
+
+  // Slider Settings
+  const sliderSettings: Settings = {
+    vertical: !0,
+    verticalSwiping: !0,
+    autoplay: !1,
+    arrows: !1,
+    infinite: !1,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
+      },
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
+      },
+      {
+        breakpoint: 1199,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 6,
+          vertical: !1,
+          verticalSwiping: !1,
+        },
+      },
+    ],
+  };
+
+  // Selected Image
+  const [selectedImage, setSelectedImage] = useState<number>(0);
 
   if (item === null) {
     if (status.loading) {
@@ -86,9 +133,30 @@ const FreeZoneDetails = () => {
                   <div className="product-left position-relative">
                     <div className="product-image">
                       <div id="product-primary-image">
-                        <img id="primary-image" src={item.image} />
+                        <img
+                          id="primary-image"
+                          src={item.images[selectedImage].image}
+                        />
                       </div>
                     </div>
+
+                    <Slider {...sliderSettings} className="product-thumb-image">
+                      {item?.images.map((image, index) => (
+                        <div className="thumb-item" key={index}>
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setSelectedImage(index);
+                            }}
+                            className={
+                              selectedImage === index ? "zoomGalleryActive" : ""
+                            }>
+                            <img src={image.image} alt={item.title} />
+                          </a>
+                        </div>
+                      ))}
+                    </Slider>
                   </div>
                 </div>
 

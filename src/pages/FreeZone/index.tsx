@@ -124,7 +124,7 @@ const FreeZoneProducts = () => {
                               title={item.title}>
                               <img
                                 className="lazyload"
-                                src={item.image}
+                                src={item.images[0].image}
                                 alt={item.title}
                               />
                             </Link>

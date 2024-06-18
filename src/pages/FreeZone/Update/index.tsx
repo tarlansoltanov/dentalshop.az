@@ -139,7 +139,7 @@ const FreeZoneUpdate = () => {
               <div className="col-12 col-lg-2">
                 <div>
                   <img
-                    src={item?.image}
+                    src={item?.images[0].image}
                     alt={data.title}
                     style={{ width: "100px" }}
                   />

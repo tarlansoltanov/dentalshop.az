@@ -4,7 +4,7 @@ export type FreezoneItem = {
   slug: string;
   title: string;
   user: User;
-  image: string;
+  images: { id: number; image: string }[];
   price: string;
   address: string;
   status: string;
