@@ -41,8 +41,11 @@ const FreeZoneUpdate = () => {
     description: "",
   });
 
+  const [images, setImages] = useState<FileList | null>(null);
+
   useEffect(() => {
     if (item === null) return;
+
     setData({
       title: item.title || "",
       price: item.price || "",
@@ -62,8 +65,11 @@ const FreeZoneUpdate = () => {
 
     const formData = getFormData(data);
 
-    if (e.currentTarget.image.files[0])
-      formData.append("image", e.currentTarget.image.files[0]);
+    if (images) {
+      Array.from(images).forEach((image) => {
+        formData.append("images", image);
+      });
+    }
 
     // Dispatch
     dispatch(updateFreezoneItem({ slug, formData }));
@@ -113,36 +119,57 @@ const FreeZoneUpdate = () => {
 
             {/* Image */}
             <div className="form-group row">
-              <label htmlFor="image" className="col-12 col-lg-4 control-label">
-                Şəkil
+              <label htmlFor="images" className="col-12 col-lg-4 control-label">
+                Şəkillər
               </label>
 
               <div className="col-12 col-lg-5">
-                <div>
-                  <input
-                    type="file"
-                    name="image"
-                    className={`form-control ${
-                      errors?.data.image ? "invalid" : ""
-                    }`}
-                  />
-                  <span className="required">*</span>
+                <div className="col-12 row">
+                  {images
+                    ? Array.from(images).map((image) => (
+                        <div className="col-3">
+                          <div>
+                            <img
+                              src={URL.createObjectURL(image)}
+                              alt={data.title}
+                              style={{ width: "100px" }}
+                            />
+                          </div>
+                        </div>
+                      ))
+                    : item?.images.map((image, index) => (
+                        <div className="col-3" key={index}>
+                          <div>
+                            <img
+                              src={image.image}
+                              alt={data.title}
+                              style={{ width: "100px" }}
+                            />
+                          </div>
+                        </div>
+                      ))}
                 </div>
 
-                {errors?.data.image && (
+                <div className="col-12">
                   <div>
-                    <span className="text-danger">{errors.data.image}</span>
+                    <input
+                      type="file"
+                      name="images"
+                      multiple={true}
+                      className={`form-control ${
+                        errors?.data.images ? "invalid" : ""
+                      }`}
+                      required
+                      onChange={(e) => setImages(e.target.files)}
+                    />
+                    <span className="required">*</span>
                   </div>
-                )}
-              </div>
 
-              <div className="col-12 col-lg-2">
-                <div>
-                  <img
-                    src={item?.images[0].image}
-                    alt={data.title}
-                    style={{ width: "100px" }}
-                  />
+                  {errors?.data.images && (
+                    <div>
+                      <span className="text-danger">{errors.data.images}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

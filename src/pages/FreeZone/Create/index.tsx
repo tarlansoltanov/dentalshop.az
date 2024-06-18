@@ -27,11 +27,12 @@ const FreeZoneCreate = () => {
   // Data
   const [data, setData] = useState({
     title: "",
-    image: "",
     price: "",
     address: "",
     description: "",
   });
+
+  const [images, setImages] = useState<FileList | null>(null);
 
   useEffect(() => {
     if (status.success && status.lastAction == createFreezoneItem.typePrefix) {
@@ -43,8 +44,12 @@ const FreeZoneCreate = () => {
     e.preventDefault();
 
     const formData = getFormData(data);
-    formData.append("image", e.currentTarget.image.files[0]);
-    console.log(e.currentTarget.image.files[0]);
+
+    if (!images) return;
+
+    Array.from(images).forEach((image) => {
+      formData.append("images", image);
+    });
 
     // Dispatch
     dispatch(createFreezoneItem(formData));
@@ -94,28 +99,48 @@ const FreeZoneCreate = () => {
 
             {/* Image */}
             <div className="form-group row">
-              <label htmlFor="image" className="col-12 col-lg-4 control-label">
-                Şəkil
+              <label htmlFor="images" className="col-12 col-lg-4 control-label">
+                Şəkillər
               </label>
 
               <div className="col-12 col-lg-5">
-                <div>
-                  <input
-                    type="file"
-                    name="image"
-                    className={`form-control ${
-                      errors?.data.image ? "invalid" : ""
-                    }`}
-                    required
-                  />
-                  <span className="required">*</span>
+                <div className="col-12 row">
+                  {images &&
+                    images.length > 0 &&
+                    Array.from(images).map((image) => (
+                      <div className="col-3">
+                        <div>
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt={data.title}
+                            style={{ width: "100px" }}
+                          />
+                        </div>
+                      </div>
+                    ))}
                 </div>
 
-                {errors?.data.image && (
+                <div className="col-12">
                   <div>
-                    <span className="text-danger">{errors.data.image}</span>
+                    <input
+                      type="file"
+                      name="images"
+                      multiple={true}
+                      className={`form-control ${
+                        errors?.data.images ? "invalid" : ""
+                      }`}
+                      required
+                      onChange={(e) => setImages(e.target.files)}
+                    />
+                    <span className="required">*</span>
                   </div>
-                )}
+
+                  {errors?.data.images && (
+                    <div>
+                      <span className="text-danger">{errors.data.images}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
