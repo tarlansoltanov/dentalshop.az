@@ -81,31 +81,6 @@ const FreeZoneProducts = () => {
                             Ümumi {itemCount} məhsul
                           </div>
                         </div>
-
-                        <div className="col-6 col-lg-auto">
-                          <label
-                            htmlFor="sortingOption"
-                            className="mb-0 d-block">
-                            <select
-                              className="form-control"
-                              onChange={(e) =>
-                                setFilter((prev) => ({
-                                  ...prev,
-                                  ordering: e.target.value,
-                                }))
-                              }>
-                              <option>Standart</option>
-                              <option value="price"> Ən Aşağı Qiymət </option>
-                              <option value="-price"> Ən Yuxarı Qiymət </option>
-                              <option value="-discount">
-                                {" "}
-                                Endirim miqdarı{" "}
-                              </option>
-                              <option value="name"> A'dan Z'yə </option>
-                              <option value="-name"> Z'dən A'ya </option>
-                            </select>
-                          </label>
-                        </div>
                       </div>
                     </form>
                   </div>
