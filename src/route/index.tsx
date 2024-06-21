@@ -7,6 +7,15 @@ const publicRoutes = [
   // About
   { path: "/about", component: <Pages.About /> },
 
+  // Delivery
+  { path: "/delivery", component: <Pages.Delivery /> },
+
+  // Insurance
+  { path: "/insurance", component: <Pages.Insurance /> },
+
+  // Payment
+  { path: "/payment", component: <Pages.Payment /> },
+
   // Products
   { path: "/products", component: <Pages.Products /> },
 

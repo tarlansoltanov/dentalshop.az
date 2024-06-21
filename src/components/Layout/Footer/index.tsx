@@ -17,7 +17,7 @@ import {
   CashSVG,
   VisaSVG,
   MasterCardSVG,
-  SecureSVG
+  SecureSVG,
 } from "@/assets/images";
 
 // Components
@@ -43,7 +43,10 @@ const Footer = () => {
                 {/* Newsletter */}
                 <div className="newsletter">
                   <div className="newsletter-title">
-                    <div>Elektron bülletenimizə e-poçt ünvanınızla üzv ola bilərsiniz.</div>
+                    <div>
+                      Elektron bülletenimizə e-poçt ünvanınızla üzv ola
+                      bilərsiniz.
+                    </div>
                   </div>
 
                   <div className="newsletter-content">
@@ -64,7 +67,9 @@ const Footer = () => {
               </div>
 
               <div className="col-xl-6 offset-xl-1">
-                <div className="footer-menu-container" data-menu-type="accordion">
+                <div
+                  className="footer-menu-container"
+                  data-menu-type="accordion">
                   <div className="row">
                     {/* Company */}
                     <div className="col-md-4">
@@ -72,7 +77,9 @@ const Footer = () => {
                         <div
                           className="footer-menu-title"
                           onClick={(e) => {
-                            e.currentTarget.parentElement?.classList.toggle("active");
+                            e.currentTarget.parentElement?.classList.toggle(
+                              "active"
+                            );
                           }}>
                           Şirkət
                         </div>
@@ -80,6 +87,18 @@ const Footer = () => {
                           <ul>
                             <li>
                               <Link to="/about">Haqqımızda</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/insurance">Zəmanət</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/payment">Ödəniş və kredit</Link>
+                            </li>
+
+                            <li>
+                              <Link to="/delivery">Çatdırılma</Link>
                             </li>
 
                             <li>
@@ -96,7 +115,9 @@ const Footer = () => {
                         <div
                           className="footer-menu-title"
                           onClick={(e) => {
-                            e.currentTarget.parentElement?.classList.toggle("active");
+                            e.currentTarget.parentElement?.classList.toggle(
+                              "active"
+                            );
                           }}>
                           Alış-veriş
                         </div>
@@ -107,10 +128,14 @@ const Footer = () => {
                               <Link to="/free-zone">Azad Zona</Link>
                             </li>
                             <li>
-                              <Link to="/products?is_new=true">Yeni Gələnlər</Link>
+                              <Link to="/products?is_new=true">
+                                Yeni Gələnlər
+                              </Link>
                             </li>
                             <li>
-                              <Link to="/products?discount=true">Endirimli Məhsullar</Link>
+                              <Link to="/products?discount=true">
+                                Endirimli Məhsullar
+                              </Link>
                             </li>
                           </ul>
                         </div>
@@ -123,7 +148,9 @@ const Footer = () => {
                         <div
                           className="footer-menu-title"
                           onClick={(e) => {
-                            e.currentTarget.parentElement?.classList.toggle("active");
+                            e.currentTarget.parentElement?.classList.toggle(
+                              "active"
+                            );
                           }}>
                           Hesab
                         </div>
@@ -135,7 +162,9 @@ const Footer = () => {
                                   <Link to="/account">Mənim Hesabım</Link>
                                 </li>
                                 <li>
-                                  <Link to="/account/orders">Mənim Sifarişlərim</Link>
+                                  <Link to="/account/orders">
+                                    Mənim Sifarişlərim
+                                  </Link>
                                 </li>
                                 <li>
                                   <Link to="/auth/logout">Hesabdan çıxış</Link>
@@ -220,7 +249,8 @@ const Footer = () => {
               {/* Copyright */}
               <div className="col-lg-4">
                 <div className="copyright">
-                  {new Date().getFullYear()} Dentalshop - Bütün hüquqlar qorunur.
+                  {new Date().getFullYear()} Dentalshop - Bütün hüquqlar
+                  qorunur.
                 </div>
               </div>
 
