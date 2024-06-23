@@ -929,3 +929,15 @@ span.badge.info {
   top: 0;
   color: white;
 }
+
+#user-agreement-wrapper ul,
+#user-agreement-wrapper ol,
+#user-agreement-wrapper li {
+  margin: revert;
+  padding: revert;
+  list-style: revert;
+}
+
+#user-agreement-wrapper table td {
+  border: 1px solid #ddd;
+}
