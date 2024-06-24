@@ -22,7 +22,9 @@ const Header = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
 
   // Account
-  const { user, cartCount, cartItems } = useSelector((state: RootState) => state.account);
+  const { user, cartCount, cartItems } = useSelector(
+    (state: RootState) => state.account
+  );
 
   useEffect(() => {
     if (user != null && cartItems == null) dispatch(getCart());
@@ -33,7 +35,9 @@ const Header = () => {
   }, [dispatch, isAuth, user]);
 
   // Categories
-  const { items: categories } = useSelector((state: RootState) => state.categories);
+  const { items: categories } = useSelector(
+    (state: RootState) => state.categories
+  );
 
   useEffect(() => {
     if (categories == null) dispatch(getCategories({ limit: "all" }));
@@ -138,7 +142,10 @@ const Header = () => {
                       <React.Fragment>
                         <div className="member-login-market">
                           <Link to="/auth/login">
-                            <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
+                            <i
+                              className="fas fa-user-md"
+                              aria-hidden="true"></i>
+                            &nbsp;
                             <span>Daxil olun</span>
                           </Link>
                         </div>
@@ -147,7 +154,10 @@ const Header = () => {
 
                         <div className="member-uyeol">
                           <Link to="/auth/register">
-                            <i className="fas fa-user-plus" aria-hidden="true"></i>&nbsp;
+                            <i
+                              className="fas fa-user-plus"
+                              aria-hidden="true"></i>
+                            &nbsp;
                             <span>Qeydiyyat</span>
                           </Link>
                         </div>
@@ -156,17 +166,28 @@ const Header = () => {
                       <div className="member-login-market">
                         <div
                           role="button"
-                          onClick={(e) => e.currentTarget.children[2].classList.toggle("active")}
+                          onClick={(e) =>
+                            e.currentTarget.children[2].classList.toggle(
+                              "active"
+                            )
+                          }
                           className="dropdown-toggle">
-                          <i className="fas fa-user-md" aria-hidden="true"></i>&nbsp;
-                          <span>{user ? `${user.first_name} ${user.last_name}` : "Hesabım"}</span>
+                          <i className="fas fa-user-md" aria-hidden="true"></i>
+                          &nbsp;
+                          <span>
+                            {user
+                              ? `${user.first_name} ${user.last_name}`
+                              : "Hesabım"}
+                          </span>
                           <ul className="sub-menu">
                             <li>
                               <Link to="/account">Hesabım</Link>
                             </li>
 
                             <li>
-                              <Link to="/account/change-password">Şifrəni Dəyiş</Link>
+                              <Link to="/account/change-password">
+                                Şifrəni Dəyiş
+                              </Link>
                             </li>
 
                             <li>
@@ -191,9 +212,13 @@ const Header = () => {
                           <div className="cart-icon-container">
                             <p className="items-count">{cartCount}</p>
 
-                            <i className="fas fa-cart-shopping" aria-hidden="true"></i>
+                            <i
+                              className="fas fa-cart-shopping"
+                              aria-hidden="true"></i>
                           </div>
-                          <span className="cart-text" style={{ marginLeft: "15px" }}>
+                          <span
+                            className="cart-text"
+                            style={{ marginLeft: "15px" }}>
                             Səbət
                           </span>
                         </Link>
@@ -225,7 +250,9 @@ const Header = () => {
                               <ul>
                                 {brands?.map((item, index) => (
                                   <li key={index}>
-                                    <Link to={`/products?brand=${item.slug}`} title={item.name}>
+                                    <Link
+                                      to={`/products?brand=${item.slug}`}
+                                      title={item.name}>
                                       <span>{item.name}</span>
                                     </Link>
                                   </li>
@@ -244,7 +271,9 @@ const Header = () => {
 
                         {categories?.map((e1, i) => (
                           <li key={i} className="has-sub-category">
-                            <Link to={`/products?category=${e1.slug}`} title={e1.name}>
+                            <Link
+                              to={`/products?category=${e1.slug}`}
+                              title={e1.name}>
                               <span>{e1.name}</span>
                             </Link>
 
@@ -254,7 +283,9 @@ const Header = () => {
                                 <ul>
                                   {e1.children?.map((e2, i) => (
                                     <li key={i} className="has-sub-category">
-                                      <Link to={`/products?category=${e2.slug}`} title={e2.name}>
+                                      <Link
+                                        to={`/products?category=${e2.slug}`}
+                                        title={e2.name}>
                                         <span>{e2.name}</span>
                                       </Link>
 
@@ -279,6 +310,47 @@ const Header = () => {
                             </div>
                           </li>
                         ))}
+
+                        {/* About */}
+                        <li className="has-sub-category">
+                          <a role="button">
+                            <span>Haqqımızda</span>
+                          </a>
+
+                          <div className="sub-category category-level-2">
+                            <div className="container">
+                              <ul>
+                                <li>
+                                  <Link to={`/insurance`} title={"Zəmanət"}>
+                                    <span>Zəmanət</span>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
+                                    to={`/payment`}
+                                    title={"Ödəniş və kredit"}>
+                                    <span>Ödəniş və kredit</span>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={`/delivery`} title={"Çatdırılma"}>
+                                    <span>Çatdırılma</span>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={`/about`} title={"Məlumat"}>
+                                    <span>Məlumat</span>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={`/contact`} title={"Əlaqə"}>
+                                    <span>Əlaqə</span>
+                                  </Link>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </li>
                       </ul>
                     </div>
                   </div>
