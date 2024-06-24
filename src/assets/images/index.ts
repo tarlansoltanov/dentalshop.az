@@ -1,5 +1,8 @@
 import LogoPNG from "./logo.png";
 
+// Bank
+import BankLogo from "./bank.svg";
+
 // Distributor
 import DistributorPNG from "./distributor.png";
 
@@ -25,6 +28,7 @@ import SecureSVG from "./icons/secure.svg";
 
 export {
   LogoPNG,
+  BankLogo,
   DistributorPNG,
   FacebookIconSVG,
   InstagramIconSVG,
@@ -43,5 +47,5 @@ export {
   CashSVG,
   VisaSVG,
   MasterCardSVG,
-  SecureSVG
+  SecureSVG,
 };

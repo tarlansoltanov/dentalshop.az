@@ -16,6 +16,9 @@ const publicRoutes = [
   // Payment
   { path: "/payment", component: <Pages.Payment /> },
 
+  // Contact
+  { path: "/contact", component: <Pages.Contact /> },
+
   // Products
   { path: "/products", component: <Pages.Products /> },
 

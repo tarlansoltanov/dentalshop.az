@@ -1,8 +1,9 @@
-import AuthLayout from "@/components/AuthLayout";
+import { BankLogo } from "@/assets/images";
+import Layout from "@/components/Layout";
 
 const Contact = () => {
   return (
-    <AuthLayout>
+    <Layout>
       <div className="container">
         <div className="row">
           <section className="col-12">
@@ -15,22 +16,20 @@ const Contact = () => {
                 <div className="list-group-item">
                   <div className="row">
                     <div className="col-12 col-lg-3">Firma Adı</div>
-                    <div className="col-12 col-lg-4">Stomfarm MMC</div>
+                    <div className="col-12 col-lg-4">Dental Shop</div>
                   </div>
                 </div>
 
                 <div className="list-group-item">
                   <div className="row">
                     <div className="col-12 col-lg-3">Firma Resmi Adı</div>
-                    <div className="col-12 col-lg-4">
-                      Anka Tıbbi Mal. Araç ve Ger. Ltd. Şti
-                    </div>
+                    <div className="col-12 col-lg-4">Stomfarm MMC</div>
                   </div>
                 </div>
 
                 <div className="list-group-item">
                   <div className="row">
-                    <div className="col-12 col-lg-3"></div>
+                    <div className="col-12 col-lg-3">Səlahiyyətli şəxs</div>
                     <div className="col-12 col-lg-4">Elnur Məmmədov</div>
                   </div>
                 </div>
@@ -39,7 +38,7 @@ const Contact = () => {
                   <div className="row">
                     <div className="col-12 col-lg-3">Telefon 1</div>
                     <div className="col-12 col-lg-4">
-                      <a href="tel:+90216 3280101">0216 3280101</a>
+                      <a href="tel:+994505115141">+994 (50) 511 51 41</a>
                     </div>
                   </div>
                 </div>
@@ -48,15 +47,26 @@ const Contact = () => {
                   <div className="row">
                     <div className="col-12 col-lg-3">Telefon 2</div>
                     <div className="col-12 col-lg-4">
-                      <a href="tel:+90216 3168211">0216 3168211</a>
+                      <a href="tel:+994705115141">+994 (70) 511 51 41</a>
                     </div>
                   </div>
                 </div>
 
                 <div className="list-group-item">
                   <div className="row">
-                    <div className="col-12 col-lg-3">Fax</div>
-                    <div className="col-12 col-lg-4">0850 3026013</div>
+                    <div className="col-12 col-lg-3">Telefon 3</div>
+                    <div className="col-12 col-lg-4">
+                      <a href="tel:+994775115141">+994 (77) 511 51 41</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="list-group-item">
+                  <div className="row">
+                    <div className="col-12 col-lg-3">Telefon 4</div>
+                    <div className="col-12 col-lg-4">
+                      <a href="tel:+994105115141">+994 (10) 511 51 41</a>
+                    </div>
                   </div>
                 </div>
 
@@ -73,7 +83,8 @@ const Contact = () => {
                   <div className="row">
                     <div className="col-12 col-lg-3">Adres</div>
                     <div className="col-12 col-lg-4">
-                      Saray Mah. Akgül Sok. No: En Plaza Kat:1 Ofis:20/21
+                      Nərimanov Rayonu, Oruc Əliyev küçəsi 30/6 Blok 78, Mənzil
+                      26A
                     </div>
                   </div>
                 </div>
@@ -94,45 +105,31 @@ const Contact = () => {
 
                 <div className="list-group-item">
                   <div className="row">
-                    <div className="col-12 col-lg-3">Semt</div>
-                    <div className="col-12 col-lg-4">Ümraniye</div>
-                  </div>
-                </div>
-
-                <div className="list-group-item">
-                  <div className="row">
-                    <div className="col-12 col-lg-3">Sicil Numarası</div>
-                    <div className="col-12 col-lg-4">611374</div>
-                  </div>
-                </div>
-
-                <div className="list-group-item">
-                  <div className="row">
-                    <div className="col-12 col-lg-3">Vergi No</div>
-                    <div className="col-12 col-lg-4">0690420680</div>
+                    <div className="col-12 col-lg-3">Vergi №</div>
+                    <div className="col-12 col-lg-4">2101026041</div>
                   </div>
                 </div>
               </div>
 
               <div id="contact-custom-field">
                 <ul>
-                  <li>Genel iletişim: info@dentrealmarket.com</li>
+                  <li>Əlaqə: info@dentalshop.az</li>
 
                   <li>
                     <a
-                      href="https://wa.me/905413203368"
+                      href="https://api.whatsapp.com/send/?phone=994505115141&text=Salam&type=phone_number&app_absent=0"
                       target="_blank"
                       style={{ fontWeight: "bold", color: "rgb(0, 160, 0)" }}>
                       Whatsapp
                     </a>
-                    : +90 541 3203368 Direk Baglantı kurmak için{" "}
+                    : +9994 (50) 511 51 41 ilə əlaqə saxlamaq üçün{" "}
                     <a
-                      href="https://wa.me/905413203368"
+                      href="https://api.whatsapp.com/send/?phone=994505115141&text=Salam&type=phone_number&app_absent=0"
                       target="_blank"
                       style={{ fontWeight: "bold", color: "rgb(0, 160, 0)" }}>
                       buraya
                     </a>
-                    tıklayın.
+                    klik edin.
                   </li>
                 </ul>
 
@@ -140,94 +137,22 @@ const Contact = () => {
               </div>
 
               <div className="contact-us banks">
-                <div className="contentbox-sub-title mb-2">Banka Hesapları</div>
+                <div className="contentbox-sub-title mb-2">Bank Hesabı</div>
 
                 <div className="contact-us-bank-item">
                   <div className="row">
                     <div className="col-12 col-md-2">
                       <div className="bank-logo">
-                        <img
-                          src="./Dentrealmarket _ Aradığınız Tüm Dental Markalar Birarada_files/kuveyt_turk.png"
-                          alt="Kuveyt Türk"
-                        />
+                        <img src={BankLogo} alt="Kapital Bank" />
                       </div>
                     </div>
 
                     <div className="col-12 col-md-10">
                       <div className="bank-detail">
                         <strong>
-                          IBAN Numarası: TR49 0020 5000 0008 0537 3000 02
+                          IBAN: AZ11 AIIB 4006 0019 4408 2092 8108
                         </strong>
-                        Hesap Sahibi: Anka Tıbbi Malz Ltd Şti. Hesap Türü: TL
-                        Hesabı
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="contact-us-bank-item">
-                  <div className="row">
-                    <div className="col-12 col-md-2">
-                      <div className="bank-logo">
-                        <img
-                          src="./Dentrealmarket _ Aradığınız Tüm Dental Markalar Birarada_files/kuveyt_turk.png"
-                          alt="Kuveyt Türk"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-md-10">
-                      <div className="bank-detail">
-                        <strong>
-                          IBAN Numarası: TR92 0020 5000 0008 0537 3001 01
-                        </strong>
-                        Hesap Sahibi: Anka Tıbbi Malz Ltd Şti. Hesap Türü: USD
-                        Hesabı
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="contact-us-bank-item">
-                  <div className="row">
-                    <div className="col-12 col-md-2">
-                      <div className="bank-logo">
-                        <img
-                          src="./Dentrealmarket _ Aradığınız Tüm Dental Markalar Birarada_files/kuveyt_turk.png"
-                          alt="Kuveyt Türk"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-md-10">
-                      <div className="bank-detail">
-                        <strong>
-                          IBAN Numarası: TR65 0020 5000 0008 0537 3001 02
-                        </strong>
-                        Hesap Sahibi: Anka Tıbbi Malz Ltd Şti., Hesap Türü: EURO
-                        Hesabı
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="contact-us-bank-item">
-                  <div className="row">
-                    <div className="col-12 col-md-2">
-                      <div className="bank-logo">
-                        <img
-                          src="./Dentrealmarket _ Aradığınız Tüm Dental Markalar Birarada_files/kuveyt_turk.png"
-                          alt="Kuveyt Türk"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-10">
-                      <div className="bank-detail">
-                        <strong>
-                          IBAN Numarası: TR54 0020 5000 0008 0537 3001 06
-                        </strong>
-                        Hesap Sahibi: Anka Tıbbi Malz Ltd Şti., Hesap Türü: GBP
-                        Hesabı
+                        Hesab Sahibi: "STOMFARM" MMC. Hesap Növü: AZN Hesabı
                       </div>
                     </div>
                   </div>
@@ -237,7 +162,7 @@ const Contact = () => {
           </section>
         </div>
       </div>
-    </AuthLayout>
+    </Layout>
   );
 };
 
