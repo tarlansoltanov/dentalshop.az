@@ -30,7 +30,7 @@ const Contact = () => {
                 <div className="list-group-item">
                   <div className="row">
                     <div className="col-12 col-lg-3">Səlahiyyətli şəxs</div>
-                    <div className="col-12 col-lg-4">Elnur Məmmədov</div>
+                    <div className="col-12 col-lg-4">Elnur Abasov</div>
                   </div>
                 </div>
 
