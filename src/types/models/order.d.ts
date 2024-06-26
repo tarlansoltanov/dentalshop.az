@@ -8,7 +8,8 @@ export type Order = {
   address: string;
   note: string;
   status: number;
-  date: string;
+  updated_at: string;
+  created_at: string;
 };
 
 export type OrderItem = {
