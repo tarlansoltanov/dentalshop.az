@@ -18,7 +18,7 @@ import {
 } from "@/constants";
 
 // Helpers
-import { getFormData } from "@/helpers";
+import { formatDate, getFormData } from "@/helpers";
 
 // Types
 import { OrderItem } from "@/types/models";
@@ -227,7 +227,7 @@ const OrderDetails = () => {
                         <span>Sifariş tarixi: </span>
                       </td>
                       <td>
-                        <span>{order.date}</span>
+                        <span>{formatDate(order.created_at, true)}</span>
                       </td>
                     </tr>
                   </tbody>

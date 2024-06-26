@@ -22,7 +22,15 @@ export const getURLWithFilterParams = (url: string, filters: any) => {
 // Convert object to URLSearchParams
 export const convertToSearchParams = (filters: any) => {
   Object.keys(filters).forEach(
-    (key) => (filters[key] === null || filters[key] === "") && delete filters[key]
+    (key) =>
+      (filters[key] === null || filters[key] === "") && delete filters[key]
   );
   return new URLSearchParams(filters);
+};
+
+// Format Date
+export const formatDate = (date: string, withTime = false) => {
+  return withTime
+    ? new Date(date).toLocaleString()
+    : new Date(date).toLocaleDateString();
 };

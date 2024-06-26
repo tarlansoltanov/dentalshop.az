@@ -17,6 +17,7 @@ import { OrderItem } from "@/types/models";
 
 // Actions
 import { getOrders } from "@/store/actions";
+import { formatDate } from "@/helpers";
 
 const Orders = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -93,7 +94,7 @@ const Orders = () => {
                       </span>
                     </td>
 
-                    <td className="date-col">{order.date}</td>
+                    <td className="date-col">{formatDate(order.created_at)}</td>
 
                     <td className="action-col small-hide">
                       <Link
