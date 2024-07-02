@@ -3,6 +3,7 @@ export { default as About } from "./Legal/About";
 export { default as Delivery } from "./Legal/Delivery";
 export { default as Insurance } from "./Legal/Insurance";
 export { default as Payment } from "./Legal/Payment";
+export { default as ProductCatalog } from "./ProductCatalog";
 export { default as Contact } from "./Contact";
 export { default as Orders } from "./Orders";
 export { default as Account } from "./Account";
