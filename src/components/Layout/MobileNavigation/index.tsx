@@ -12,7 +12,9 @@ const MobileNavigation = () => {
   const location = useLocation();
 
   // Categories
-  const { items: categories } = useSelector((state: RootState) => state.categories);
+  const { items: categories } = useSelector(
+    (state: RootState) => state.categories
+  );
 
   // Brands
   const { items: brands } = useSelector((state: RootState) => state.brands);
@@ -34,7 +36,14 @@ const MobileNavigation = () => {
       if (newSelectedCategory[0] === -1) return "auto";
       else if (newSelectedCategory[0] === -10) {
         const children = brands?.length;
-        return children ? startHeight + children * elementHeight + "px" : startHeight + "px";
+        return children
+          ? startHeight + children * elementHeight + "px"
+          : startHeight + "px";
+      } else if (newSelectedCategory[0] === -20) {
+        const children = 5;
+        return children
+          ? startHeight + children * elementHeight + "px"
+          : startHeight + "px";
       } else if (newSelectedCategory[1] === -1) {
         const children = categories?.[newSelectedCategory[0]].children?.length;
         return children
@@ -42,7 +51,9 @@ const MobileNavigation = () => {
           : startHeight + elementHeight + "px";
       } else {
         const children =
-          categories?.[newSelectedCategory[0]].children?.[newSelectedCategory[1]].children?.length;
+          categories?.[newSelectedCategory[0]].children?.[
+            newSelectedCategory[1]
+          ].children?.length;
         return children
           ? startHeight + (children + 1) * elementHeight + "px"
           : startHeight + elementHeight + "px";
@@ -56,7 +67,9 @@ const MobileNavigation = () => {
 
   return (
     <React.Fragment>
-      <div className="navigation-menu-overlay" onClick={toggleMobileNavigation}></div>
+      <div
+        className="navigation-menu-overlay"
+        onClick={toggleMobileNavigation}></div>
 
       {/* Mobile Navigation */}
       <div id="mobile-navigation">
@@ -65,7 +78,10 @@ const MobileNavigation = () => {
           <div className="category-level-1">
             <ul>
               {/* Brands */}
-              <li className={`has-sub-category ${-10 == selectedCategory[0] && "active"}`}>
+              <li
+                className={`has-sub-category ${
+                  -10 == selectedCategory[0] && "active"
+                }`}>
                 <a role="button" onClick={() => handleCategory(-10, 0)}>
                   <div>
                     <span>Brendlər</span>
@@ -111,7 +127,11 @@ const MobileNavigation = () => {
               </li>
 
               {categories?.map((e1, i) => (
-                <li key={i} className={`has-sub-category ${i == selectedCategory[0] && "active"}`}>
+                <li
+                  key={i}
+                  className={`has-sub-category ${
+                    i == selectedCategory[0] && "active"
+                  }`}>
                   <a role="button" onClick={() => handleCategory(i, 0)}>
                     <div>
                       <span>{e1.name}</span>
@@ -124,7 +144,9 @@ const MobileNavigation = () => {
                   <div className="category-level-2">
                     <div className="mobile-navigation-back">
                       <a role="button" onClick={() => handleCategory(i, 0)}>
-                        <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                        <i
+                          className="fas fa-chevron-left"
+                          aria-hidden="true"></i>
                         <span>Geri Dön</span>
                       </a>
                     </div>
@@ -145,20 +167,30 @@ const MobileNavigation = () => {
                       {e1.children?.map((e2, i2) => (
                         <li
                           key={i2}
-                          className={`has-sub-category ${i2 == selectedCategory[1] && "active"}`}>
-                          <a role="button" onClick={() => handleCategory(i2, 1)}>
+                          className={`has-sub-category ${
+                            i2 == selectedCategory[1] && "active"
+                          }`}>
+                          <a
+                            role="button"
+                            onClick={() => handleCategory(i2, 1)}>
                             <div>
                               <span>{e2.name}</span>
                             </div>
 
-                            <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                            <i
+                              className="fas fa-chevron-right"
+                              aria-hidden="true"></i>
                           </a>
 
                           {/* Level 3 */}
                           <div className="category-level-3">
                             <div className="mobile-navigation-back">
-                              <a role="button" onClick={() => handleCategory(i2, 1)}>
-                                <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                              <a
+                                role="button"
+                                onClick={() => handleCategory(i2, 1)}>
+                                <i
+                                  className="fas fa-chevron-left"
+                                  aria-hidden="true"></i>
                                 <span>Geri Dön</span>
                               </a>
                             </div>
@@ -193,6 +225,64 @@ const MobileNavigation = () => {
                   </div>
                 </li>
               ))}
+
+              {/* About */}
+
+              {/* Brands */}
+              <li
+                className={`has-sub-category ${
+                  -20 == selectedCategory[0] && "active"
+                }`}>
+                <a role="button" onClick={() => handleCategory(-20, 0)}>
+                  <div>
+                    <span>Haqqımızda</span>
+                  </div>
+
+                  <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                </a>
+
+                {/* Level 2 */}
+                <div className="category-level-2">
+                  <div className="mobile-navigation-back">
+                    <a role="button" onClick={() => handleCategory(-1, 0)}>
+                      <i className="fas fa-chevron-left" aria-hidden="true"></i>
+                      <span>Geri Dön</span>
+                    </a>
+                  </div>
+
+                  <div className="mobile-navigation-parent">
+                    <a role="button">Haqqımızda</a>
+                  </div>
+
+                  <ul>
+                    <li>
+                      <Link to={`/insurance`} title={"Zəmanət"}>
+                        <span>Zəmanət</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/payment`} title={"Ödəniş və kredit"}>
+                        <span>Ödəniş və kredit</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/delivery`} title={"Çatdırılma"}>
+                        <span>Çatdırılma</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/about`} title={"Məlumat"}>
+                        <span>Məlumat</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/contact`} title={"Əlaqə"}>
+                        <span>Əlaqə</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
