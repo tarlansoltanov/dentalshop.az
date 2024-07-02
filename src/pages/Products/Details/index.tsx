@@ -122,11 +122,11 @@ const ProductDetails = () => {
     }
   }, [cartItems, product]);
 
-  if (status.loading && status.lastAction === getProduct.typePrefix) {
+  if (product === null) {
     return <Loader />;
   }
 
-  if (product === null || status.failure) {
+  if (status.lastAction == getProduct.typePrefix && status.failure) {
     return <NotFound />;
   }
 
