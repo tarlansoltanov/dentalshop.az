@@ -17,6 +17,24 @@ import { getAccount, getBrands, getCategories, getCart } from "@/store/actions";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  
+const [showSubCategory, setShowSubCategory] = React.useState(false);
+
+const handleMouseEnter = () => {
+  setShowSubCategory(true);
+};
+
+const handleMouseLeave = () => {
+  setShowSubCategory(false);
+};
+
+const handleClick = () => {
+  setShowSubCategory(false);
+};
+
+
+console.log(showSubCategory,"shooww");
+
 
   // Auth
   const { isAuth } = useSelector((state: RootState) => state.auth);
@@ -237,19 +255,20 @@ const Header = () => {
                 <div className="row">
                   <div className="col-lg-9 position-static">
                     {/* Level 1 */}
-                    <div className="category-level-1">
+                    <div className="category-level-1" >
                       <ul>
                         {/* Brands */}
-                        <li className="has-sub-category">
+                        <li className="has-sub-category"  onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
                           <a role="button">
                             <span>Brendlər</span>
                           </a>
 
-                          <div className="sub-category category-level-2">
+                      {showSubCategory &&    <div className="sub-category category-level-2">
                             <div className="container">
                               <ul>
                                 {brands?.map((item, index) => (
-                                  <li key={index}>
+                                  <li key={index}  onClick={handleClick}>
                                     <Link
                                       to={`/products?brand=${item.slug}`}
                                       title={item.name}>
@@ -259,7 +278,7 @@ const Header = () => {
                                 ))}
                               </ul>
                             </div>
-                          </div>
+                          </div>}
                         </li>
 
                         {/* FreeZone */}
@@ -270,7 +289,8 @@ const Header = () => {
                         </li>
 
                         {categories?.map((e1, i) => (
-                          <li key={i} className="has-sub-category">
+                          <li key={i} className="has-sub-category"  onMouseEnter={handleMouseEnter}
+                          onMouseLeave={handleMouseLeave} >
                             <Link
                               to={`/products?category=${e1.slug}`}
                               title={e1.name}>
@@ -278,11 +298,11 @@ const Header = () => {
                             </Link>
 
                             {/* Level 2 */}
-                            <div className="sub-category category-level-2">
+                          {showSubCategory &&  <div className="sub-category category-level-2">
                               <div className="container">
                                 <ul>
                                   {e1.children?.map((e2, i) => (
-                                    <li key={i} className="has-sub-category">
+                                    <li key={i} className="has-sub-category" onClick={handleClick}>
                                       <Link
                                         to={`/products?category=${e2.slug}`}
                                         title={e2.name}>
@@ -307,7 +327,7 @@ const Header = () => {
                                   ))}
                                 </ul>
                               </div>
-                            </div>
+                            </div>}
                           </li>
                         ))}
 
