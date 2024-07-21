@@ -18,6 +18,20 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
+  const [showSubMenu, setShowSubMenu] = React.useState(false);
+
+  const handleMenuMouseEnter = () => {
+    setShowSubMenu(true);
+  };
+
+  const handleMenuMouseLeave = () => {
+    setShowSubMenu(false);
+  };
+
+  const handleMenuClick = () => {
+    setShowSubMenu(false);
+  };
+
   // Auth
   const { isAuth } = useSelector((state: RootState) => state.auth);
 
@@ -240,16 +254,22 @@ const Header = () => {
                     <div className="category-level-1">
                       <ul>
                         {/* Brands */}
-                        <li className="has-sub-category">
+                        <li
+                          className="has-sub-category"
+                          onMouseEnter={handleMenuMouseEnter}
+                          onMouseLeave={handleMenuMouseLeave}>
                           <a role="button">
                             <span>Brendlər</span>
                           </a>
 
-                          <div className="sub-category category-level-2">
+                          <div
+                            className={`sub-category category-level-2 ${
+                              !showSubMenu && "hidden"
+                            }`}>
                             <div className="container">
                               <ul>
                                 {brands?.map((item, index) => (
-                                  <li key={index}>
+                                  <li key={index} onClick={handleMenuClick}>
                                     <Link
                                       to={`/products?brand=${item.slug}`}
                                       title={item.name}>
@@ -270,7 +290,12 @@ const Header = () => {
                         </li>
 
                         {categories?.map((e1, i) => (
-                          <li key={i} className="has-sub-category">
+                          <li
+                            key={i}
+                            className="has-sub-category"
+                            onClick={handleMenuClick}
+                            onMouseEnter={handleMenuMouseEnter}
+                            onMouseLeave={handleMenuMouseLeave}>
                             <Link
                               to={`/products?category=${e1.slug}`}
                               title={e1.name}>
@@ -278,11 +303,17 @@ const Header = () => {
                             </Link>
 
                             {/* Level 2 */}
-                            <div className="sub-category category-level-2">
+                            <div
+                              className={`sub-category category-level-2 ${
+                                !showSubMenu && "hidden"
+                              }`}>
                               <div className="container">
                                 <ul>
                                   {e1.children?.map((e2, i) => (
-                                    <li key={i} className="has-sub-category">
+                                    <li
+                                      key={i}
+                                      className="has-sub-category"
+                                      onClick={handleMenuClick}>
                                       <Link
                                         to={`/products?category=${e2.slug}`}
                                         title={e2.name}>
