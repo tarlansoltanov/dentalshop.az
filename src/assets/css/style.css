@@ -941,3 +941,7 @@ span.badge.info {
 #user-agreement-wrapper table td {
   border: 1px solid #ddd;
 }
+
+.hidden {
+  display: none !important;
+}

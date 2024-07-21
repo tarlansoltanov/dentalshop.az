@@ -17,24 +17,20 @@ import { getAccount, getBrands, getCategories, getCart } from "@/store/actions";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  
-const [showSubCategory, setShowSubCategory] = React.useState(false);
 
-const handleMouseEnter = () => {
-  setShowSubCategory(true);
-};
+  const [showSubMenu, setShowSubMenu] = React.useState(false);
 
-const handleMouseLeave = () => {
-  setShowSubCategory(false);
-};
+  const handleMenuMouseEnter = () => {
+    setShowSubMenu(true);
+  };
 
-const handleClick = () => {
-  setShowSubCategory(false);
-};
+  const handleMenuMouseLeave = () => {
+    setShowSubMenu(false);
+  };
 
-
-console.log(showSubCategory,"shooww");
-
+  const handleMenuClick = () => {
+    setShowSubMenu(false);
+  };
 
   // Auth
   const { isAuth } = useSelector((state: RootState) => state.auth);
@@ -255,20 +251,25 @@ console.log(showSubCategory,"shooww");
                 <div className="row">
                   <div className="col-lg-9 position-static">
                     {/* Level 1 */}
-                    <div className="category-level-1" >
+                    <div className="category-level-1">
                       <ul>
                         {/* Brands */}
-                        <li className="has-sub-category"  onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}>
+                        <li
+                          className="has-sub-category"
+                          onMouseEnter={handleMenuMouseEnter}
+                          onMouseLeave={handleMenuMouseLeave}>
                           <a role="button">
                             <span>Brendlər</span>
                           </a>
 
-                      {showSubCategory &&    <div className="sub-category category-level-2">
+                          <div
+                            className={`sub-category category-level-2 ${
+                              !showSubMenu && "hidden"
+                            }`}>
                             <div className="container">
                               <ul>
                                 {brands?.map((item, index) => (
-                                  <li key={index}  onClick={handleClick}>
+                                  <li key={index} onClick={handleMenuClick}>
                                     <Link
                                       to={`/products?brand=${item.slug}`}
                                       title={item.name}>
@@ -278,7 +279,7 @@ console.log(showSubCategory,"shooww");
                                 ))}
                               </ul>
                             </div>
-                          </div>}
+                          </div>
                         </li>
 
                         {/* FreeZone */}
@@ -289,8 +290,12 @@ console.log(showSubCategory,"shooww");
                         </li>
 
                         {categories?.map((e1, i) => (
-                          <li key={i} className="has-sub-category"  onMouseEnter={handleMouseEnter}
-                          onMouseLeave={handleMouseLeave} >
+                          <li
+                            key={i}
+                            className="has-sub-category"
+                            onClick={handleMenuClick}
+                            onMouseEnter={handleMenuMouseEnter}
+                            onMouseLeave={handleMenuMouseLeave}>
                             <Link
                               to={`/products?category=${e1.slug}`}
                               title={e1.name}>
@@ -298,11 +303,17 @@ console.log(showSubCategory,"shooww");
                             </Link>
 
                             {/* Level 2 */}
-                          {showSubCategory &&  <div className="sub-category category-level-2">
+                            <div
+                              className={`sub-category category-level-2 ${
+                                !showSubMenu && "hidden"
+                              }`}>
                               <div className="container">
                                 <ul>
                                   {e1.children?.map((e2, i) => (
-                                    <li key={i} className="has-sub-category" onClick={handleClick}>
+                                    <li
+                                      key={i}
+                                      className="has-sub-category"
+                                      onClick={handleMenuClick}>
                                       <Link
                                         to={`/products?category=${e2.slug}`}
                                         title={e2.name}>
@@ -327,7 +338,7 @@ console.log(showSubCategory,"shooww");
                                   ))}
                                 </ul>
                               </div>
-                            </div>}
+                            </div>
                           </li>
                         ))}
 
