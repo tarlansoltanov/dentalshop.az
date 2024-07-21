@@ -13,7 +13,10 @@ import * as URL from "./urls";
 export const getProducts = async (
   filters: ProductFilter
 ): Promise<{ data: Product[]; count: number }> => {
-  const { data } = await axios.get(getURLWithFilterParams(URL.PRODUCT_LIST_URL, filters));
+  const { data } = await axios.get(
+    getURLWithFilterParams(URL.PRODUCT_LIST_URL, filters)
+  );
+  if (filters.limit === "all") return { data: data, count: data.length };
   return { data: data.results, count: data.count };
 };
 

@@ -13,6 +13,9 @@ const publicRoutes = [
   // Insurance
   { path: "/insurance", component: <Pages.Insurance /> },
 
+  // Catalog
+  { path: "/catalog", component: <Pages.ProductCatalog /> },
+
   // Payment
   { path: "/payment", component: <Pages.Payment /> },
 

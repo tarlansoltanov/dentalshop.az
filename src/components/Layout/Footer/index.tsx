@@ -137,6 +137,9 @@ const Footer = () => {
                                 Endirimli Məhsullar
                               </Link>
                             </li>
+                            <li>
+                              <Link to="/catalog">Katalog</Link>
+                            </li>
                           </ul>
                         </div>
                       </div>
